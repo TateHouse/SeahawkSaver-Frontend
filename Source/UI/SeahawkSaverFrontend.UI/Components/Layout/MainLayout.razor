@@ -1,3 +1,14 @@
-﻿@inherits LayoutComponentBase
+﻿@using SeahawkSaverFrontend.UI.Utilities
+@inherits LayoutComponentBase
 
-@Body
+<MudThemeProvider Theme="new SeahawkTheme()"/>
+<MudPopoverProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudAppBar>
+    <h1>Seahawk Saver</h1>
+</MudAppBar>
+<MudMainContent>
+    @Body
+</MudMainContent>

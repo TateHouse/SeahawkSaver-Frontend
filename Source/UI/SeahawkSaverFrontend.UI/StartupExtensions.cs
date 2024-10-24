@@ -1,4 +1,5 @@
 ﻿namespace SeahawkSaverFrontend.UI;
+using MudBlazor.Services;
 using SeahawkSaverFrontend.Application.UnitTest;
 using SeahawkSaverFrontend.UI.Components;
 
@@ -36,6 +37,8 @@ public static class StartupExtensions
 		builder.Services
 			   .AddRazorComponents()
 			   .AddInteractiveServerComponents();
+
+		builder.Services.AddMudServices();
 
 		builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 		builder.Services.RegisterApplicationServices();
