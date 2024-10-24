@@ -1,5 +1,6 @@
 ﻿namespace SeahawkSaverFrontend.Application.UnitTest;
 using Microsoft.Extensions.DependencyInjection;
+using SeahawkSaverFrontend.Application.Abstractions.Application;
 
 /**
  * <summary>
@@ -16,6 +17,7 @@ public static class ServiceRegistration
 	public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
 	{
 		services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+		services.AddSingleton(typeof(DataCache<>), typeof(InMemoryDataCache<>));
 
 		return services;
 	}
