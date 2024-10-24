@@ -1,5 +1,23 @@
 ﻿@page "/"
+@using SeahawkSaverFrontend.Application.Abstractions.Application
+@using SeahawkSaverFrontend.Domain.Models
+@inject NavigationManager NavigationManager
+@inject IDataCache<User> UserDataCache
 
 <PageTitle>Seahawk Saver | Home</PageTitle>
 
-<h1>Seahawk Saver | Home</h1>
+@if (UserDataCache.Data == null)
+{
+    NavigationManager.NavigateTo("/login");
+}
+else
+{
+    <MudCard>
+        <MudCardContent>
+            <p>UserId: @UserDataCache?.Data?.UserId</p>
+            <p>Email: @UserDataCache?.Data?.Email</p>
+            <p>First Name: @UserDataCache?.Data?.FirstName</p>
+            <p>Last Name: @UserDataCache?.Data?.LastName</p>
+        </MudCardContent>
+    </MudCard>
+}
