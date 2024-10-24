@@ -17,7 +17,7 @@ public static class ServiceRegistration
 	public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
 	{
 		services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-		services.AddSingleton(typeof(DataCache<>), typeof(InMemoryDataCache<>));
+		services.AddSingleton(typeof(IDataCache<>), typeof(InMemoryDataCache<>));
 
 		return services;
 	}
