@@ -1,0 +1,35 @@
+﻿@page "/login"
+@using SeahawkSaverFrontend.UI.Components.User.Login
+
+<PageTitle>Seahawk Saver | Login</PageTitle>
+
+<MudContainer Class="mx-auto pa-6"
+              MaxWidth="MaxWidth.Medium"
+              Gutters="true">
+    <MudCard Class="mt-4 mb-4 pa-8 mud-theme-secondary"
+             Elevation="4">
+        <MudCardContent>
+            <MudText Style="font-size: 1.5em;"
+                     Align="Align.Center">
+                Please log in to access your financial dashboard, where you can track your financial health to stay
+                on top of your financial goals.
+            </MudText>
+        </MudCardContent>
+    </MudCard>
+    <MudPaper Class=""
+              Elevation="4">
+        <MudDivider Class="mud-theme-tertiary pa-2"/>
+    </MudPaper>
+    <MudCard Class="mt-4"
+             Elevation="4">
+        <MudCardContent>
+            <MudText Class="mb-10"
+                     Typo="Typo.h2"
+                     Align="Align.Center"
+                     Style="font-weight: bold;">
+                Login
+            </MudText>
+            <LoginForm/>
+        </MudCardContent>
+    </MudCard>
+</MudContainer>

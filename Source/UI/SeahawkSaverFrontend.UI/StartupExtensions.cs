@@ -1,4 +1,6 @@
 ﻿namespace SeahawkSaverFrontend.UI;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using MudBlazor.Services;
 using SeahawkSaverFrontend.Application.UnitTest;
 using SeahawkSaverFrontend.UI.Components;
 
@@ -33,9 +35,24 @@ public static class StartupExtensions
 			configureOptions.JsonSerializerOptions.PropertyNamingPolicy = null;
 		});
 
+		builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+			   .AddCookie(configureOptions =>
+			   {
+				   configureOptions.LoginPath = "/login";
+				   configureOptions.AccessDeniedPath = "/access-denied";
+				   configureOptions.Cookie.HttpOnly = true;
+				   configureOptions.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+				   configureOptions.SlidingExpiration = true;
+			   });
+
+		builder.Services.AddAuthorization();
+		builder.Services.AddCascadingAuthenticationState();
+		builder.Services.AddHttpClient();
 		builder.Services
 			   .AddRazorComponents()
 			   .AddInteractiveServerComponents();
+
+		builder.Services.AddMudServices();
 
 		builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 		builder.Services.RegisterApplicationServices();
@@ -56,8 +73,12 @@ public static class StartupExtensions
 			application.UseHsts();
 		}
 
+		application.UseDeveloperExceptionPage();
 		application.UseHttpsRedirection();
 		application.UseStaticFiles();
+		application.UseRouting();
+		application.UseAuthentication();
+		application.UseAuthorization();
 		application.UseAntiforgery();
 		application.MapRazorComponents<App>()
 				   .AddInteractiveServerRenderMode();
