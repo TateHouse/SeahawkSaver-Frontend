@@ -1,0 +1,54 @@
+﻿@using SeahawkSaverFrontend.UI.Features.User.Login.Services
+@inject NavigationManager NavigationManager
+@inject ILoginService LoginService
+
+<MudPaper Elevation="0"
+          Outlined="false">
+    <MudForm @ref="form">
+        <MudTextField T="string"
+                      Class="px-10"
+                      @bind-Value="model.Email"
+                      Label="Email"
+                      Required="true"
+                      RequiredError="Email is required."
+                      InputType="InputType.Email"
+                      Variant="Variant.Outlined"/>
+        <MudTextField T="string"
+                      Class="px-10"
+                      @bind-Value="model.Password"
+                      Label="Password"
+                      Required="true"
+                      RequiredError="Password is required."
+                      InputType="InputType.Password"
+                      Variant="Variant.Outlined"/>
+
+        @if (string.IsNullOrEmpty(errorMessage) == false)
+        {
+        <MudText Class="mt-2"
+                 Typo="Typo.body1"
+                 Align="Align.Center"
+                 Color="Color.Error">
+            @errorMessage
+        </MudText>
+        }
+
+        <MudCardActions>
+            <MudButton OnClick="async () => await LoginAsync()"
+                       Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       FullWidth="true"
+                       Class="mt-20 mx-10">
+                Login
+            </MudButton>
+        </MudCardActions>
+        <MudCardActions>
+            <MudLink Href="/reset-password"
+                     Class="mx-auto"
+                     Color="Color.Dark"
+                     Typo="Typo.body2"
+                     Underline="Underline.Always">
+                Forgot password?
+            </MudLink>
+        </MudCardActions>
+    </MudForm>
+</MudPaper>

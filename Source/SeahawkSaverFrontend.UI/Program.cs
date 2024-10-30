@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 namespace SeahawkSaverFrontend.UI;
 using MudBlazor.Services;
+using SeahawkSaverFrontend.UI.Features.Caching.Services;
+using SeahawkSaverFrontend.UI.Features.User.Login.Services;
 
 public class Program
 {
@@ -12,8 +14,11 @@ public class Program
 		builder.RootComponents.Add<App>("#app");
 		builder.RootComponents.Add<HeadOutlet>("head::after");
 
-		builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+		builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 		builder.Services.AddMudServices();
+		builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+		builder.Services.AddSingleton<IDataCache, InMemoryDataCache>();
+		builder.Services.AddScoped<ILoginService, LoginService>();
 
 		await builder.Build().RunAsync();
 	}
