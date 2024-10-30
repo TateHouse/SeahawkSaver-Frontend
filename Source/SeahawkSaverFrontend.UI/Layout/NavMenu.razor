@@ -1,0 +1,27 @@
+﻿@using SeahawkSaverFrontend.UI.Features.Caching.Services
+@using SeahawkSaverFrontend.UI.Features.User.LogOut.Services
+@inject NavigationManager NavigationManager
+@inject IDataCache DataCache
+@inject ILogOutService LogOutService
+
+<MudLayout>
+    <MudAppBar Elevation="0">
+        <MudText Style="font-size: 2em; font-weight: bold"
+                 Typo="Typo.body1">
+            Seahawk Saver
+        </MudText>
+
+        @if (string.IsNullOrWhiteSpace(DataCache.Token) == false)
+        {
+            <MudList T="string">
+                <MudButton Color="Color.Inherit">
+                    Home
+                </MudButton>
+                <MudButton Color="Color.Inherit"
+                           OnClick="LogOut">
+                    Logout
+                </MudButton>
+            </MudList>
+        }
+    </MudAppBar>
+</MudLayout>

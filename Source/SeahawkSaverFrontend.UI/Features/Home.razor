@@ -1,0 +1,23 @@
+﻿@page "/"
+@using SeahawkSaverFrontend.UI.Features.Caching.Services
+
+@inject NavigationManager NavigationManager
+@inject IDataCache DataCache
+
+<PageTitle>Seahawk Saver | Home</PageTitle>
+
+@if (string.IsNullOrWhiteSpace(DataCache.Token))
+{
+    NavigationManager.NavigateTo("/login");
+}
+else
+{
+    <MudCard>
+        <MudCardContent>
+            <p>Token: @DataCache.Token</p>
+            <p>Email: @DataCache.User.Email</p>
+            <p>First Name: @DataCache.User.FirstName</p>
+            <p>Last Name: @DataCache.User.LastName</p>
+        </MudCardContent>
+    </MudCard>
+}
