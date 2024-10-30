@@ -1,0 +1,13 @@
+﻿@using SeahawkSaverFrontend.UI.Features.Income.Services
+@inject IIncomeService IncomeService
+
+<MudContainer>
+    <MudPaper Elevation="4">
+        @foreach (var income in incomes)
+        {
+            <IncomeEntryComponent Model="income"
+                                  OnSave="Save"
+                                  OnDelete="Delete"/>
+        }
+    </MudPaper>
+</MudContainer>

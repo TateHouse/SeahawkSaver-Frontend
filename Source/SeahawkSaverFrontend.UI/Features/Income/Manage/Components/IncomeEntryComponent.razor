@@ -1,0 +1,19 @@
+﻿<MudItem xs="12">
+    <MudPaper>
+        <MudForm>
+            <MudTextField T="decimal"
+                          @bind-Value="Model.Amount"
+                          Label="Amount"
+                          Disabled="!Model.IsEditable"/>
+            <MudDatePicker @bind-Date="Model.DateTime"
+                           Label="Basic example"
+                           Disabled="!Model.IsEditable"/>
+            <MudButton OnClick="@(() => ToggleEdit())">
+                @(Model.IsEditable ? "Save" : "Edit")
+            </MudButton>
+            <MudButton OnClick="@(() => Delete())">
+                Remove
+            </MudButton>
+        </MudForm>
+    </MudPaper>
+</MudItem>
