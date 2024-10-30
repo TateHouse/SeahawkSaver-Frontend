@@ -23,7 +23,9 @@ public partial class IncomeManagementComponent : ComponentBase
 
 	private async Task Save(IncomeEntryModel model)
 	{
-
+		var result = await IncomeService.UpdateIncome(model);
+		model.ErrorMessage = result ? null : "An error occurred when updating the income...";
+		StateHasChanged();
 	}
 
 	private async Task Delete(IncomeEntryModel model)

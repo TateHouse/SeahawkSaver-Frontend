@@ -42,7 +42,7 @@ public sealed class IncomeService : IIncomeService
 
 		if (content == null)
 		{
-			// TODO: Log an error.
+			// TODO: Log an error message.
 			return new List<IncomeModel>();
 		}
 
@@ -55,9 +55,29 @@ public sealed class IncomeService : IIncomeService
 					  .ToList();
 	}
 
-	public Task<bool> UpdateIncome(IncomeModel model)
+	public async Task<bool> UpdateIncome(IncomeModel model)
 	{
-		throw new NotImplementedException();
+		var url = $"http://localhost:5103/api/v1/income/{dataCache.User.UserId}?incomeId={model.IncomeId}";
+		var content = new
+		{
+			Income = new
+			{
+				IncomeId = model.IncomeId,
+				Amount = model.Amount,
+				DateTime = model.DateTime
+			}
+		};
+
+		var request = JsonContent.Create(content);
+		var response = await httpClient.PutAsync(url, request);
+
+		if (response.IsSuccessStatusCode == false)
+		{
+			// TODO: Log an error message.
+			return false;
+		}
+
+		return true;
 	}
 
 	public async Task<bool> RemoveIncome(IncomeModel model)
@@ -67,7 +87,7 @@ public sealed class IncomeService : IIncomeService
 
 		if (response.IsSuccessStatusCode == false)
 		{
-			// TODO: Log an error.
+			// TODO: Log an error message.
 			return false;
 		}
 
