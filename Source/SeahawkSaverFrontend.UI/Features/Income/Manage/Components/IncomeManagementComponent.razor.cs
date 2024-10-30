@@ -28,7 +28,18 @@ public partial class IncomeManagementComponent : ComponentBase
 
 	private async Task Delete(IncomeEntryModel model)
 	{
-		incomes.Remove(model);
+		var result = await IncomeService.RemoveIncome(model);
+
+		if (result)
+		{
+			model.ErrorMessage = null;
+			incomes.Remove(model);
+		}
+		else
+		{
+			model.ErrorMessage = "An error occurred when deleting the income...";
+		}
+
 		StateHasChanged();
 	}
 }

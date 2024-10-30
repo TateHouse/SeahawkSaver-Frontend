@@ -60,9 +60,18 @@ public sealed class IncomeService : IIncomeService
 		throw new NotImplementedException();
 	}
 
-	public Task<bool> RemoveIncome(IncomeModel model)
+	public async Task<bool> RemoveIncome(IncomeModel model)
 	{
-		throw new NotImplementedException();
+		var url = $"http://localhost:5103/api/v1/income/{dataCache.User.UserId}?incomeId={model.IncomeId}";
+		var response = await httpClient.DeleteAsync(url);
+
+		if (response.IsSuccessStatusCode == false)
+		{
+			// TODO: Log an error.
+			return false;
+		}
+
+		return true;
 	}
 
 	private void AddBearerHeader()
