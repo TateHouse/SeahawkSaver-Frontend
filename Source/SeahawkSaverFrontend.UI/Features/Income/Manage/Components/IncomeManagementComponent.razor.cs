@@ -21,6 +21,29 @@ public partial class IncomeManagementComponent : ComponentBase
 		StateHasChanged();
 	}
 
+	private async Task Add()
+	{
+		var dialog = await DialogService.ShowAsync<CreateIncomeFormComponent>();
+		var dialogResult = await dialog.Result;
+
+		if (!dialogResult.Canceled && dialogResult.Data is IncomeEntryModel model)
+		{
+			var result = await IncomeService.AddIncome(model);
+
+			if (result)
+			{
+				model.ErrorMessage = null;
+				incomes.Add(model);
+			}
+			else
+			{
+				model.ErrorMessage = "An error occurred when adding the income...";
+			}
+
+			StateHasChanged();
+		}
+	}
+
 	private async Task Save(IncomeEntryModel model)
 	{
 		var result = await IncomeService.UpdateIncome(model);

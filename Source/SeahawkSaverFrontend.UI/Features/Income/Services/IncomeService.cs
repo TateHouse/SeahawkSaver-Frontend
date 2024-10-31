@@ -55,6 +55,39 @@ public sealed class IncomeService : IIncomeService
 					  .ToList();
 	}
 
+	public async Task<bool> AddIncome(IncomeModel model)
+	{
+		var url = $"http://localhost:5103/api/v1/income/{dataCache.User.UserId}";
+		var request = new
+		{
+			Income = new
+			{
+				Amount = model.Amount,
+				DateTime = model.DateTime
+			}
+		};
+
+		var response = await httpClient.PostAsJsonAsync(url, request);
+
+		if (response.IsSuccessStatusCode == false)
+		{
+			// TODO: Log an error message.
+			return false;
+		}
+
+		var content = await response.Content.ReadFromJsonAsync<CreateIncomeEndpointResponse>();
+
+		if (content == null)
+		{
+			// TODO: Log an error message.
+			return false;
+		}
+
+		model.IncomeId = content.IncomeId;
+
+		return true;
+	}
+
 	public async Task<bool> UpdateIncome(IncomeModel model)
 	{
 		var url = $"http://localhost:5103/api/v1/income/{dataCache.User.UserId}?incomeId={model.IncomeId}";
