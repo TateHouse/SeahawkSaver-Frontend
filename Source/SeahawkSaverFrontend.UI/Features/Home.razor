@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using SeahawkSaverFrontend.UI.Features.Caching.Services
+@using SeahawkSaverFrontend.UI.Features.Income.Manage.Components
 
 @inject NavigationManager NavigationManager
 @inject IDataCache DataCache
@@ -19,5 +20,8 @@ else
             <p>First Name: @DataCache.User.FirstName</p>
             <p>Last Name: @DataCache.User.LastName</p>
         </MudCardContent>
+    </MudCard>
+    <MudCard>
+        <IncomeManagementComponent/>
     </MudCard>
 }
