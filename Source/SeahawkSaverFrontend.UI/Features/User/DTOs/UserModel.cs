@@ -4,7 +4,7 @@
  * A data transfer object containing the logged-in user's properties.
  * </summary>
  */
-public sealed class UserModel
+public class UserModel
 {
 	public Guid UserId { get; set; }
 	public string Email { get; set; } = string.Empty;

@@ -8,7 +8,7 @@ public partial class IncomeManagementComponent : ComponentBase
 
 	protected override async Task OnInitializedAsync()
 	{
-		incomes = (await IncomeService.GetIncomes())
+		incomes = (await IncomeService.GetIncomesAsync())
 				  .Select(income => new IncomeEntryModel
 				  {
 					  IncomeId = income.IncomeId,
@@ -28,7 +28,7 @@ public partial class IncomeManagementComponent : ComponentBase
 
 		if (!dialogResult.Canceled && dialogResult.Data is IncomeEntryModel model)
 		{
-			var result = await IncomeService.AddIncome(model);
+			var result = await IncomeService.AddIncomeAsync(model);
 
 			if (result)
 			{
@@ -46,14 +46,14 @@ public partial class IncomeManagementComponent : ComponentBase
 
 	private async Task Save(IncomeEntryModel model)
 	{
-		var result = await IncomeService.UpdateIncome(model);
+		var result = await IncomeService.UpdateIncomeAsync(model);
 		model.ErrorMessage = result ? null : "An error occurred when updating the income...";
 		StateHasChanged();
 	}
 
 	private async Task Delete(IncomeEntryModel model)
 	{
-		var result = await IncomeService.RemoveIncome(model);
+		var result = await IncomeService.RemoveIncomeAsync(model);
 
 		if (result)
 		{

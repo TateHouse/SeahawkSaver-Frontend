@@ -7,6 +7,7 @@ using SeahawkSaverFrontend.UI.Features.Caching.Services;
 using SeahawkSaverFrontend.UI.Features.Income.Services;
 using SeahawkSaverFrontend.UI.Features.User.Login.Services;
 using SeahawkSaverFrontend.UI.Features.User.LogOut.Services;
+using SeahawkSaverFrontend.UI.Features.User.Services;
 
 public class Program
 {
@@ -22,6 +23,7 @@ public class Program
 		builder.Services.AddSingleton<IDataCache, InMemoryDataCache>();
 		builder.Services.AddScoped<ILoginService, LoginService>();
 		builder.Services.AddScoped<ILogOutService, LogOutService>();
+		builder.Services.AddScoped<IUserService, UserService>();
 		builder.Services.AddScoped<IIncomeService, IncomeService>();
 
 		await builder.Build().RunAsync();

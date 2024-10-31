@@ -27,7 +27,7 @@ public sealed class IncomeService : IIncomeService
 		AddBearerHeader();
 	}
 
-	public async Task<IEnumerable<IncomeModel>> GetIncomes()
+	public async Task<IEnumerable<IncomeModel>> GetIncomesAsync()
 	{
 		var url = $"http://localhost:5103/api/v1/income/list/{dataCache.User.UserId}";
 		var response = await httpClient.GetAsync(url);
@@ -55,7 +55,7 @@ public sealed class IncomeService : IIncomeService
 					  .ToList();
 	}
 
-	public async Task<bool> AddIncome(IncomeModel model)
+	public async Task<bool> AddIncomeAsync(IncomeModel model)
 	{
 		var url = $"http://localhost:5103/api/v1/income/{dataCache.User.UserId}";
 		var request = new
@@ -88,7 +88,7 @@ public sealed class IncomeService : IIncomeService
 		return true;
 	}
 
-	public async Task<bool> UpdateIncome(IncomeModel model)
+	public async Task<bool> UpdateIncomeAsync(IncomeModel model)
 	{
 		var url = $"http://localhost:5103/api/v1/income/{dataCache.User.UserId}?incomeId={model.IncomeId}";
 		var content = new
@@ -113,7 +113,7 @@ public sealed class IncomeService : IIncomeService
 		return true;
 	}
 
-	public async Task<bool> RemoveIncome(IncomeModel model)
+	public async Task<bool> RemoveIncomeAsync(IncomeModel model)
 	{
 		var url = $"http://localhost:5103/api/v1/income/{dataCache.User.UserId}?incomeId={model.IncomeId}";
 		var response = await httpClient.DeleteAsync(url);

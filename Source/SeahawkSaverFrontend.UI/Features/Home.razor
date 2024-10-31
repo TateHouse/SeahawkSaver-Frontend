@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using SeahawkSaverFrontend.UI.Features.Caching.Services
 @using SeahawkSaverFrontend.UI.Features.Income.Manage.Components
+@using SeahawkSaverFrontend.UI.Features.User.Manage.Components
 
 @inject NavigationManager NavigationManager
 @inject IDataCache DataCache
@@ -13,15 +14,17 @@
 }
 else
 {
-    <MudCard>
-        <MudCardContent>
-            <p>Token: @DataCache.Token</p>
-            <p>Email: @DataCache.User.Email</p>
-            <p>First Name: @DataCache.User.FirstName</p>
-            <p>Last Name: @DataCache.User.LastName</p>
-        </MudCardContent>
-    </MudCard>
-    <MudCard>
-        <IncomeManagementComponent/>
-    </MudCard>
+    <div style="display: flex; justify-content: space-between; gap: 16px;">
+        <MudCard Style="flex: 1">
+            <MudCardContent>
+                <UserManagementComponent/>
+            </MudCardContent>
+        </MudCard>
+        <MudCard Style="flex: 1">
+            <MudCardContent>
+                <IncomeManagementComponent/>
+            </MudCardContent>
+        </MudCard>
+
+    </div>
 }
