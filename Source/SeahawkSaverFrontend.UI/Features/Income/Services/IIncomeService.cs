@@ -4,11 +4,11 @@ using SeahawkSaverFrontend.UI.Features.Income.Manage.DTOs;
 
 public interface IIncomeService
 {
-	public Task<IEnumerable<IncomeModel>> GetIncomes();
+	public Task<IEnumerable<IncomeModel>> GetIncomesAsync();
 
-	public Task<bool> AddIncome(IncomeModel model);
+	public Task<bool> AddIncomeAsync(IncomeModel model);
 
-	public Task<bool> UpdateIncome(IncomeModel model);
+	public Task<bool> UpdateIncomeAsync(IncomeModel model);
 
-	public Task<bool> RemoveIncome(IncomeModel model);
+	public Task<bool> RemoveIncomeAsync(IncomeModel model);
 }
