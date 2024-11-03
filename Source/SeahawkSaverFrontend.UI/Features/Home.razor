@@ -20,11 +20,14 @@ else
                 <UserManagementComponent/>
             </MudCardContent>
         </MudCard>
-        <MudCard Style="flex: 1">
-            <MudCardContent>
-                <IncomeManagementComponent/>
-            </MudCardContent>
-        </MudCard>
 
+        @if (DataCache.User.IsAdmin == false)
+        {
+            <MudCard Style="flex: 1">
+                <MudCardContent>
+                    <IncomeManagementComponent/>
+                </MudCardContent>
+            </MudCard>
+        }
     </div>
 }
