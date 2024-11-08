@@ -1,0 +1,29 @@
+﻿@using SeahawkSaverFrontend.UI.Features.Debt.Services
+@inject IDialogService DialogService
+@inject IDebtService DebtService
+
+<MudContainer MaxWidth="MaxWidth.Small"
+              Style="margin: auto; overflow-y: auto">
+    <MudText Typo="Typo.h1"
+             Align="Align.Center"
+             Color="Color.Secondary"
+             Style="font-weight: bold;">
+        Debt Management
+    </MudText>
+    <MudGrid Justify="Justify.Center">
+        <MudItem>
+            <MudButton Class="mud-theme-primary"
+                       OnClick="Add">
+                Add Debt
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+    <MudContainer MaxWidth="MaxWidth.Small">
+        @foreach (var debt in debts)
+        {
+            <DebtEntryComponent Model="debt"
+                                OnSave="Save"
+                                OnDelete="Delete"/>
+        }
+    </MudContainer>
+</MudContainer>

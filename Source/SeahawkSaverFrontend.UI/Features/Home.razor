@@ -2,6 +2,9 @@
 @using SeahawkSaverFrontend.UI.Features.Caching.Services
 @using SeahawkSaverFrontend.UI.Features.Income.Manage.Components
 @using SeahawkSaverFrontend.UI.Features.User.Manage.Components
+@using SeahawkSaverFrontend.UI.Features.Saving.Manage.Components
+@using SeahawkSaverFrontend.UI.Features.Debt.Manage.Components
+@using SeahawkSaverFrontend.UI.Features.Subscription.Manage.Components
 
 @inject NavigationManager NavigationManager
 @inject IDataCache DataCache
@@ -25,7 +28,22 @@ else
         {
             <MudCard Style="flex: 1">
                 <MudCardContent>
+                    <DebtManagementComponent/>
+                </MudCardContent>
+            </MudCard>
+            <MudCard Style="flex: 1">
+                <MudCardContent>
                     <IncomeManagementComponent/>
+                </MudCardContent>
+            </MudCard>
+            <MudCard Style="flex: 1">
+                <MudCardContent>
+                    <SavingManagementComponent/>
+                </MudCardContent>
+            </MudCard>
+            <MudCard Style="flex: 1">
+                <MudCardContent>
+                    <SubscriptionManagementComponent/>
                 </MudCardContent>
             </MudCard>
         }
