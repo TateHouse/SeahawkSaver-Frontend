@@ -13,6 +13,16 @@ public partial class NavMenu : ComponentBase, IDisposable
 		DataCache.OnChange -= StateHasChanged;
 	}
 
+	private void Home()
+	{
+		NavigationManager.NavigateTo("/");
+	}
+
+	private void Resources()
+	{
+		NavigationManager.NavigateTo("/resources");
+	}
+
 	private void LogOut()
 	{
 		LogOutService.LogOut();
