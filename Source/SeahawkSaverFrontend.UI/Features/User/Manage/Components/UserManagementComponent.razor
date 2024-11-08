@@ -3,15 +3,26 @@
 @inject IUserService UserService
 @inject IDataCache DataCache
 
-<MudContainer>
-    <MudText Typo="Typo.h1"
-             Align="Align.Center"
-             Color="Color.Secondary"
-             Style="font-weight: bold;">
-        User Profile
-    </MudText>
-    <MudContainer MaxWidth="MaxWidth.Small">
-        <UserEntryComponent Model="model"
-                            OnSave="Save"/>
+@if (DataCache.User.IsAdmin)
+{
+    <MudContainer>
+        <MudText>
+            Admin User Management
+        </MudText>
     </MudContainer>
-</MudContainer>
+}
+else
+{
+    <MudContainer>
+        <MudText Typo="Typo.h1"
+                 Align="Align.Center"
+                 Color="Color.Secondary"
+                 Style="font-weight: bold;">
+            User Management
+        </MudText>
+        <MudContainer MaxWidth="MaxWidth.Small">
+            <UserEntryComponent Model="model"
+                                OnSave="Save"/>
+        </MudContainer>
+    </MudContainer>
+}
