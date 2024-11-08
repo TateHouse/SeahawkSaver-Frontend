@@ -14,8 +14,13 @@
         @if (string.IsNullOrWhiteSpace(DataCache.Token) == false)
         {
             <MudList T="string">
-                <MudButton Color="Color.Inherit">
+                <MudButton Color="Color.Inherit"
+                           OnClick="Home">
                     Home
+                </MudButton>
+                <MudButton Color="Color.Inherit"
+                           OnClick="Resources">
+                    Resources
                 </MudButton>
                 <MudButton Color="Color.Inherit"
                            OnClick="LogOut">
