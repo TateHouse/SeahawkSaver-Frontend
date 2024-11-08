@@ -5,6 +5,7 @@ namespace SeahawkSaverFrontend.UI;
 using MudBlazor.Services;
 using SeahawkSaverFrontend.UI.Features.Caching.Services;
 using SeahawkSaverFrontend.UI.Features.Income.Services;
+using SeahawkSaverFrontend.UI.Features.Saving.Services;
 using SeahawkSaverFrontend.UI.Features.User.Login.Services;
 using SeahawkSaverFrontend.UI.Features.User.LogOut.Services;
 using SeahawkSaverFrontend.UI.Features.User.Services;
@@ -25,6 +26,7 @@ public class Program
 		builder.Services.AddScoped<ILogOutService, LogOutService>();
 		builder.Services.AddScoped<IUserService, UserService>();
 		builder.Services.AddScoped<IIncomeService, IncomeService>();
+		builder.Services.AddScoped<ISavingService, SavingService>();
 
 		await builder.Build().RunAsync();
 	}
