@@ -4,6 +4,7 @@
 @using SeahawkSaverFrontend.UI.Features.User.Manage.Components
 @using SeahawkSaverFrontend.UI.Features.Saving.Manage.Components
 @using SeahawkSaverFrontend.UI.Features.Debt.Manage.Components
+@using SeahawkSaverFrontend.UI.Features.Subscription.Manage.Components
 
 @inject NavigationManager NavigationManager
 @inject IDataCache DataCache
@@ -38,6 +39,11 @@ else
             <MudCard Style="flex: 1">
                 <MudCardContent>
                     <SavingManagementComponent/>
+                </MudCardContent>
+            </MudCard>
+            <MudCard Style="flex: 1">
+                <MudCardContent>
+                    <SubscriptionManagementComponent/>
                 </MudCardContent>
             </MudCard>
         }

@@ -1,0 +1,29 @@
+﻿@using SeahawkSaverFrontend.UI.Features.Subscription.Services
+@inject IDialogService DialogService
+@inject ISubscriptionService SubscriptionService
+
+<MudContainer MaxWidth="MaxWidth.Small"
+              Style="margin: auto; overflow-y: auto">
+    <MudText Typo="Typo.h1"
+             Align="Align.Center"
+             Color="Color.Secondary"
+             Style="font-weight: bold;">
+        Subscription Management
+    </MudText>
+    <MudGrid Justify="Justify.Center">
+        <MudItem>
+            <MudButton Class="mud-theme-primary"
+                       OnClick="Add">
+                Add Subscription
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+    <MudContainer MaxWidth="MaxWidth.Small">
+        @foreach (var subscription in subscriptions)
+        {
+            <SubscriptionEntryComponent Model="subscription"
+                                        OnSave="Save"
+                                        OnDelete="Delete"/>
+        }
+    </MudContainer>
+</MudContainer>
