@@ -1,5 +1,5 @@
 ﻿namespace SeahawkSaverFrontend.UI.Features.Income.Manage.DTOs;
-public class CreateIncomeEndpointResponse
+public sealed record CreateIncomeEndpointResponse
 {
 	public required Guid IncomeId { get; init; }
 }

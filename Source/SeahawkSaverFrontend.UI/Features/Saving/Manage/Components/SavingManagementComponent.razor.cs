@@ -39,7 +39,7 @@ public partial class SavingManagementComponent : ComponentBase
 			}
 			else
 			{
-				model.ErrorMessage = "An error occurred when adding the income...";
+				model.ErrorMessage = "An error occurred when adding the saving...";
 			}
 
 			StateHasChanged();
@@ -49,7 +49,7 @@ public partial class SavingManagementComponent : ComponentBase
 	private async Task Save(SavingEntryModel model)
 	{
 		var result = await SavingService.UpdateSavingAsync(model);
-		model.ErrorMessage = result ? null : "An error occurred when updating the income...";
+		model.ErrorMessage = result ? null : "An error occurred when updating the saving...";
 		StateHasChanged();
 	}
 
@@ -64,7 +64,7 @@ public partial class SavingManagementComponent : ComponentBase
 		}
 		else
 		{
-			model.ErrorMessage = "An error occurred when deleting the income...";
+			model.ErrorMessage = "An error occurred when deleting the saving...";
 		}
 
 		StateHasChanged();

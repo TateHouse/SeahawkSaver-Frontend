@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 namespace SeahawkSaverFrontend.UI;
 using MudBlazor.Services;
 using SeahawkSaverFrontend.UI.Features.Caching.Services;
+using SeahawkSaverFrontend.UI.Features.Debt.Services;
 using SeahawkSaverFrontend.UI.Features.Income.Services;
 using SeahawkSaverFrontend.UI.Features.Saving.Services;
 using SeahawkSaverFrontend.UI.Features.User.Login.Services;
@@ -25,6 +26,7 @@ public class Program
 		builder.Services.AddScoped<ILoginService, LoginService>();
 		builder.Services.AddScoped<ILogOutService, LogOutService>();
 		builder.Services.AddScoped<IUserService, UserService>();
+		builder.Services.AddScoped<IDebtService, DebtService>();
 		builder.Services.AddScoped<IIncomeService, IncomeService>();
 		builder.Services.AddScoped<ISavingService, SavingService>();
 

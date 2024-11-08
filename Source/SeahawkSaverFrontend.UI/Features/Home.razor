@@ -3,6 +3,7 @@
 @using SeahawkSaverFrontend.UI.Features.Income.Manage.Components
 @using SeahawkSaverFrontend.UI.Features.User.Manage.Components
 @using SeahawkSaverFrontend.UI.Features.Saving.Manage.Components
+@using SeahawkSaverFrontend.UI.Features.Debt.Manage.Components
 
 @inject NavigationManager NavigationManager
 @inject IDataCache DataCache
@@ -24,6 +25,11 @@ else
 
         @if (DataCache.User.IsAdmin == false)
         {
+            <MudCard Style="flex: 1">
+                <MudCardContent>
+                    <DebtManagementComponent/>
+                </MudCardContent>
+            </MudCard>
             <MudCard Style="flex: 1">
                 <MudCardContent>
                     <IncomeManagementComponent/>
