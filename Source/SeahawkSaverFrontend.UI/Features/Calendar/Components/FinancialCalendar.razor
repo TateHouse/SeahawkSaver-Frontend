@@ -1,0 +1,18 @@
+﻿@using SeahawkSaverFrontend.UI.Features.Debt.Services
+@using SeahawkSaverFrontend.UI.Features.Income.Services
+@using SeahawkSaverFrontend.UI.Features.Saving.Services
+@using SeahawkSaverFrontend.UI.Features.Subscription.Services
+@inject IDialogService DialogService
+@inject IDebtService DebtService
+@inject IIncomeService IncomeService
+@inject ISavingService SavingService
+@inject ISubscriptionService SubscriptionService
+
+<MudContainer>
+    <MudCalendar Items="calendarItems"
+                 DateRangeChanged="DateRangeChanged"
+                 ShowDay="false"
+                 ShowWeek="false"
+                 ShowWorkWeek="false"
+                 ShowMonth="true"/>
+</MudContainer>
