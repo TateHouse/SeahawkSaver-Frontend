@@ -1,4 +1,4 @@
-﻿namespace SeahawkSaverFrontend.UI.Features.Saving.Manage.DTOs;
+﻿namespace SeahawkSaverFrontend.UI.Features.Saving.DTOs;
 public sealed record ListSavingEndpointResponse
 {
 	public required IReadOnlyList<ListSavingEndpointSavingResponse> Savings { get; init; }

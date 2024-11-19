@@ -1,6 +1,4 @@
-﻿namespace SeahawkSaverFrontend.UI.Features.Saving.Manage.DTOs;
-using SeahawkSaverFrontend.UI.Features.Saving.DTOs;
-
+﻿namespace SeahawkSaverFrontend.UI.Features.Saving.DTOs;
 public sealed class SavingEntryModel : SavingModel
 {
 	public bool IsEditable { get; set; } = false;

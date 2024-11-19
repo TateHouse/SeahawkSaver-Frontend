@@ -1,4 +1,4 @@
-﻿namespace SeahawkSaverFrontend.UI.Features.Income.Manage.DTOs;
+﻿namespace SeahawkSaverFrontend.UI.Features.Income.DTOs;
 public sealed record ListIncomeEndpointIncomeResponse
 {
 	public required Guid IncomeId { get; init; }

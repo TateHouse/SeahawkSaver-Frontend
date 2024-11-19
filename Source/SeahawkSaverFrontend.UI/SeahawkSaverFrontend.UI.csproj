@@ -19,6 +19,9 @@
       <_ContentIncludedByDefault Remove="wwwroot\css\app.css" />
       <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css" />
       <_ContentIncludedByDefault Remove="wwwroot\css\bootstrap\bootstrap.min.css.map" />
+      <_ContentIncludedByDefault Remove="Features\Debt\Manage\Components\CreateDebtFormComponent.razor" />
+      <_ContentIncludedByDefault Remove="Features\Debt\Manage\Components\DebtEntryComponent.razor" />
+      <_ContentIncludedByDefault Remove="Features\Debt\Manage\Components\DebtManagementComponent.razor" />
     </ItemGroup>
 
     <ItemGroup>

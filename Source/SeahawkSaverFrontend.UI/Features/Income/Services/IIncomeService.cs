@@ -1,6 +1,5 @@
 ﻿namespace SeahawkSaverFrontend.UI.Features.Income.Services;
 using SeahawkSaverFrontend.UI.Features.Income.DTOs;
-using SeahawkSaverFrontend.UI.Features.Income.Manage.DTOs;
 
 public interface IIncomeService
 {

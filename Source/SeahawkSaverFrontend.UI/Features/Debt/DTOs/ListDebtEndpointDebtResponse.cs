@@ -1,4 +1,4 @@
-﻿namespace SeahawkSaverFrontend.UI.Features.Debt.Manage.DTOs;
+﻿namespace SeahawkSaverFrontend.UI.Features.Debt.DTOs;
 public class ListDebtEndpointDebtResponse
 {
 	public required Guid DebtId { get; init; }

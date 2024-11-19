@@ -2,7 +2,6 @@
 using AutoMapper;
 using SeahawkSaverFrontend.UI.Features.Caching.Services;
 using SeahawkSaverFrontend.UI.Features.Debt.DTOs;
-using SeahawkSaverFrontend.UI.Features.Debt.Manage.DTOs;
 using System.Net.Http.Json;
 
 public sealed class DebtService : IDebtService

@@ -1,4 +1,4 @@
-﻿namespace SeahawkSaverFrontend.UI.Features.Subscription.Manage.DTOs;
+﻿namespace SeahawkSaverFrontend.UI.Features.Subscription.DTOs;
 public sealed record ListSubscriptionEndpointSubscriptionResponse
 {
 	public required Guid SubscriptionId { get; init; }

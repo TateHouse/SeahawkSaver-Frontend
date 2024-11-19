@@ -2,7 +2,6 @@
 using AutoMapper;
 using SeahawkSaverFrontend.UI.Features.Caching.Services;
 using SeahawkSaverFrontend.UI.Features.Income.DTOs;
-using SeahawkSaverFrontend.UI.Features.Income.Manage.DTOs;
 using System.Net.Http.Json;
 
 public sealed class IncomeService : IIncomeService
