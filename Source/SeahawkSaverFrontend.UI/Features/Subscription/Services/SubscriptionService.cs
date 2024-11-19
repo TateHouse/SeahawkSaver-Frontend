@@ -2,7 +2,6 @@
 using AutoMapper;
 using SeahawkSaverFrontend.UI.Features.Caching.Services;
 using SeahawkSaverFrontend.UI.Features.Subscription.DTOs;
-using SeahawkSaverFrontend.UI.Features.Subscription.Manage.DTOs;
 using System.Net.Http.Json;
 
 public class SubscriptionService : ISubscriptionService
