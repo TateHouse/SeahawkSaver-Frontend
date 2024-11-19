@@ -1,4 +1,5 @@
 ﻿@inject IDialogService DialogService
+@inject ISnackbar Snackbar
 
 <MudDialog>
     <TitleContent>
@@ -9,11 +10,9 @@
             <MudTextField T="decimal"
                           @bind-Value="Model.Amount"
                           Error="@isAmountValid"
-                          ErrorText="@FinancialCalendarEntryManageComponent.AmountErrorMessage"
                           Label="Amount"/>
             <MudDatePicker @bind-Date="Model.DateTime"
                            Error="@isDateValid"
-                           ErrorText="@FinancialCalendarEntryManageComponent.DateErrorMessage"
                            Label="Date"/>
         </MudForm>
     </DialogContent>

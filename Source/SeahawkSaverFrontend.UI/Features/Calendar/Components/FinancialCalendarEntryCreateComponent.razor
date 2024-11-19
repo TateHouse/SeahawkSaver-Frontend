@@ -1,4 +1,5 @@
 ﻿@inject IDialogService DialogService
+@inject ISnackbar Snackbar
 
 <MudDialog>
     <TitleContent>
@@ -9,7 +10,6 @@
                       Required="true"
                       @bind-Value="model.Amount"
                       Error="@isAmountValid"
-                      ErrorText="@FinancialCalendarEntryCreateComponent.AmountErrorMessage"
                       Label="Amount">
         </MudTextField>
         <MudSelect T="FinancialItemType"

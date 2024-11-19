@@ -32,15 +32,25 @@ public partial class FinancialCalendarEntryManageComponent : ComponentBase
 		if (Model.Amount <= 0)
 		{
 			isAmountValid = false;
+			Model.ErrorMessage = "The amount must be greater than 0.";
+
+			Snackbar.Add(Model.ErrorMessage);
 
 			return;
 		}
 
-		if (Model.DateTime == null ||
-			Model.DateTime < DateTime.UtcNow.AddDays(-30) ||
+		if (Model.DateTime == null)
+		{
+			Model.ErrorMessage = "The date must be provided.";
+
+			return;
+		}
+
+		if (Model.DateTime < DateTime.UtcNow.AddDays(-30) ||
 			Model.DateTime > DateTime.UtcNow)
 		{
-			isDateValid = false;
+			Model.ErrorMessage = "The date must be less than 30 days ago and cannot be in the future.";
+			Snackbar.Add(Model.ErrorMessage);
 
 			return;
 		}

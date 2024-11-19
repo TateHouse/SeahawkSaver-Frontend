@@ -7,7 +7,6 @@ using SeahawkSaverFrontend.UI.Features.Calendar.DTOs;
 public partial class FinancialCalendarEntryCreateComponent : ComponentBase
 {
 	private const string AmountErrorMessage = "The amount is required";
-	private const string DateErrorMessage = "The date is required.";
 
 	[CascadingParameter]
 	public MudDialogInstance Dialog { get; set; }
@@ -22,21 +21,30 @@ public partial class FinancialCalendarEntryCreateComponent : ComponentBase
 	private void Submit()
 	{
 		isAmountValid = true;
-		isDateValid = true;
 		model.DateTime = DateTime;
 
 		if (model.Amount <= 0)
 		{
 			isAmountValid = false;
+			model.ErrorMessage = "The amount must be greater than 0.";
+
+			Snackbar.Add(model.ErrorMessage);
 
 			return;
 		}
 
-		if (model.DateTime == null ||
-			model.DateTime < DateTime.UtcNow.AddDays(-30) ||
+		if (model.DateTime == null)
+		{
+			model.ErrorMessage = "The date must be provided.";
+
+			return;
+		}
+
+		if (model.DateTime < DateTime.UtcNow.AddDays(-30) ||
 			model.DateTime > DateTime.UtcNow)
 		{
-			isDateValid = false;
+			model.ErrorMessage = "The date must be less than 30 days ago and cannot be in the future.";
+			Snackbar.Add(model.ErrorMessage);
 
 			return;
 		}
