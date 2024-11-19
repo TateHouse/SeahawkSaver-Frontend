@@ -2,12 +2,15 @@
 
 namespace SeahawkSaverFrontend.UI.Features.Calendar.Components;
 using Heron.MudCalendar;
+using Microsoft.JSInterop;
 using MudBlazor;
 using SeahawkSaverFrontend.UI.Features.Calendar.DTOs;
 using SeahawkSaverFrontend.UI.Features.Debt.DTOs;
 using SeahawkSaverFrontend.UI.Features.Income.DTOs;
 using SeahawkSaverFrontend.UI.Features.Saving.DTOs;
 using SeahawkSaverFrontend.UI.Features.Subscription.DTOs;
+using System.Globalization;
+using System.Text;
 
 public partial class FinancialCalendar : ComponentBase
 {
@@ -421,5 +424,85 @@ public partial class FinancialCalendar : ComponentBase
 	{
 		calendarItems.Clear();
 		LoadCalendarEvents();
+	}
+
+	private async Task DownloadFinancialData()
+	{
+		var content = GenerateCSVContent();
+		var fileName = $"SeahawkSaver_{DataCache.User.FirstName}{DataCache.User.LastName}_FinancialData_{DateTime.Now.ToString(CultureInfo.InvariantCulture)}.csv";
+		await JSRuntime.InvokeVoidAsync("downloadCsvFile", content, fileName);
+	}
+
+	private sealed class CSVRow
+	{
+		public required decimal Amount { get; init; }
+		public required DateTime? DateTime { get; init; }
+		public required FinancialItemType Type { get; init; }
+	}
+
+	private string GenerateCSVContent()
+	{
+		var data = new List<CSVRow>();
+
+		foreach (var debt in debts)
+		{
+			var row = new CSVRow
+			{
+				Amount = debt.Amount,
+				DateTime = debt.DateTime,
+				Type = FinancialItemType.Debt
+			};
+
+			data.Add(row);
+		}
+
+		foreach (var income in incomes)
+		{
+			var row = new CSVRow
+			{
+				Amount = income.Amount,
+				DateTime = income.DateTime,
+				Type = FinancialItemType.Income
+			};
+
+			data.Add(row);
+		}
+
+		foreach (var saving in savings)
+		{
+			var row = new CSVRow
+			{
+				Amount = saving.Amount,
+				DateTime = saving.DateTime,
+				Type = FinancialItemType.Saving
+			};
+
+			data.Add(row);
+		}
+
+		foreach (var subscription in subscriptions)
+		{
+			var row = new CSVRow
+			{
+				Amount = subscription.Amount,
+				DateTime = subscription.DateTime,
+				Type = FinancialItemType.Subscription
+			};
+
+			data.Add(row);
+		}
+
+		var sortedData = data.OrderBy(row => row.DateTime)
+							 .ToList();
+
+		var stringBuilder = new StringBuilder();
+		stringBuilder.AppendLine("Date,Amount,Type");
+
+		foreach (var row in sortedData)
+		{
+			stringBuilder.AppendLine($"{row.DateTime!.Value.ToShortDateString()},{row.Amount},{row.Type}");
+		}
+
+		return stringBuilder.ToString();
 	}
 }

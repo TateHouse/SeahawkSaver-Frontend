@@ -1,8 +1,11 @@
-﻿@using SeahawkSaverFrontend.UI.Features.Debt.Services
+﻿@using SeahawkSaverFrontend.UI.Features.Caching.Services
+@using SeahawkSaverFrontend.UI.Features.Debt.Services
 @using SeahawkSaverFrontend.UI.Features.Income.Services
 @using SeahawkSaverFrontend.UI.Features.Saving.Services
 @using SeahawkSaverFrontend.UI.Features.Subscription.Services
 @inject IDialogService DialogService
+@inject IJSRuntime JSRuntime
+@inject IDataCache DataCache
 @inject IDebtService DebtService
 @inject IIncomeService IncomeService
 @inject ISavingService SavingService
@@ -16,5 +19,13 @@
                  ShowDay="false"
                  ShowWeek="false"
                  ShowWorkWeek="false"
-                 ShowMonth="true"/>
+                 ShowMonth="true">
+        <ToolbarContent>
+            <MudButton Variant="Variant.Filled"
+                       Color="Color.Primary"
+                       OnClick="DownloadFinancialData">
+                Download Data
+            </MudButton>
+        </ToolbarContent>
+    </MudCalendar>
 </MudContainer>
