@@ -1,0 +1,33 @@
+﻿@inject IDialogService DialogService
+
+<MudDialog>
+    <TitleContent>
+        Create
+    </TitleContent>
+    <DialogContent>
+        <MudTextField T="decimal"
+                      Required="true"
+                      @bind-Value="model.Amount"
+                      Error="@isAmountValid"
+                      ErrorText="@FinancialCalendarEntryCreateComponent.AmountErrorMessage"
+                      Label="Amount">
+        </MudTextField>
+        <MudSelect T="FinancialItemType"
+                   Required="true"
+                   @bind-Value="model.Type"
+                   Label="Type">
+            <MudSelectItem Value="FinancialItemType.Debt">Debt</MudSelectItem>
+            <MudSelectItem Value="FinancialItemType.Income">Income</MudSelectItem>
+            <MudSelectItem Value="FinancialItemType.Saving">Saving</MudSelectItem>
+            <MudSelectItem Value="FinancialItemType.Subscription">Subscription</MudSelectItem>
+        </MudSelect>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Submit">
+            Create
+        </MudButton>
+        <MudButton OnClick="Cancel">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>

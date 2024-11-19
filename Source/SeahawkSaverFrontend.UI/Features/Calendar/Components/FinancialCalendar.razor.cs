@@ -3,6 +3,7 @@
 namespace SeahawkSaverFrontend.UI.Features.Calendar.Components;
 using Heron.MudCalendar;
 using MudBlazor;
+using SeahawkSaverFrontend.UI.Features.Calendar.DTOs;
 using SeahawkSaverFrontend.UI.Features.Debt.DTOs;
 using SeahawkSaverFrontend.UI.Features.Income.DTOs;
 using SeahawkSaverFrontend.UI.Features.Saving.DTOs;
@@ -23,12 +24,6 @@ public partial class FinancialCalendar : ComponentBase
 		LoadCalendarEvents();
 
 		StateHasChanged();
-	}
-
-	private void DateRangeChanged(DateRange dateRange)
-	{
-		calendarItems.Clear();
-		LoadCalendarEvents();
 	}
 
 	private async Task LoadFinancialData()
@@ -103,6 +98,100 @@ public partial class FinancialCalendar : ComponentBase
 			item.Text = $"Subscription: ${subscription.Amount}";
 
 			calendarItems.Add(item);
+		}
+	}
+
+	private void DateRangeChanged(DateRange dateRange)
+	{
+		calendarItems.Clear();
+		LoadCalendarEvents();
+	}
+
+	private async Task CellClicked(DateTime dateTime)
+	{
+		var parameters = new DialogParameters
+		{
+			{ "DateTime", dateTime }
+		};
+
+		var dialog = await DialogService.ShowAsync<FinancialCalendarEntryCreateComponent>("Create", parameters);
+		var dialogResult = await dialog.Result;
+
+		if (!dialogResult.Canceled && dialogResult.Data is FinancialEntryModel model)
+		{
+			switch (model.Type)
+			{
+				case FinancialItemType.Debt:
+					var debt = new DebtModel
+					{
+						DebtId = model.Id,
+						Amount = model.Amount,
+						DateTime = model.DateTime
+					};
+
+					if (await DebtService.AddDebtAsync(debt))
+					{
+						model.ErrorMessage = null;
+						debts.Add(debt);
+					}
+
+					break;
+
+				case FinancialItemType.Income:
+					var income = new IncomeModel
+					{
+						IncomeId = model.Id,
+						Amount = model.Amount,
+						DateTime = model.DateTime
+					};
+
+					if (await IncomeService.AddIncomeAsync(income))
+					{
+						model.ErrorMessage = null;
+						incomes.Add(income);
+					}
+
+					break;
+
+				case FinancialItemType.Saving:
+					var saving = new SavingModel
+					{
+						SavingId = model.Id,
+						Amount = model.Amount,
+						DateTime = model.DateTime
+					};
+
+					if (await SavingService.AddSavingAsync(saving))
+					{
+						model.ErrorMessage = null;
+						savings.Add(saving);
+					}
+
+					break;
+
+				case FinancialItemType.Subscription:
+					var subscription = new SubscriptionModel
+					{
+						SubscriptionId = model.Id,
+						Amount = model.Amount,
+						DateTime = model.DateTime
+					};
+
+					if (await SubscriptionService.AddSubscriptionAsync(subscription))
+					{
+						model.ErrorMessage = null;
+						subscriptions.Add(subscription);
+					}
+
+					break;
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			calendarItems.Clear();
+			LoadCalendarEvents();
+			StateHasChanged();
 		}
 	}
 }
