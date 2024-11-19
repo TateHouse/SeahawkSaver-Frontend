@@ -16,7 +16,7 @@ public partial class FinancialCalendar : ComponentBase
 	private List<SavingModel> savings = new List<SavingModel>();
 	private List<SubscriptionModel> subscriptions = new List<SubscriptionModel>();
 
-	private List<CalendarItem> calendarItems = new List<CalendarItem>();
+	private readonly List<CalendarItem> calendarItems = new List<CalendarItem>();
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -103,8 +103,7 @@ public partial class FinancialCalendar : ComponentBase
 
 	private void DateRangeChanged(DateRange dateRange)
 	{
-		calendarItems.Clear();
-		LoadCalendarEvents();
+		ReloadCalendar();
 	}
 
 	private async Task CellClicked(DateTime dateTime)
@@ -189,8 +188,7 @@ public partial class FinancialCalendar : ComponentBase
 					throw new ArgumentOutOfRangeException();
 			}
 
-			calendarItems.Clear();
-			LoadCalendarEvents();
+			ReloadCalendar();
 			StateHasChanged();
 		}
 	}
@@ -326,8 +324,7 @@ public partial class FinancialCalendar : ComponentBase
 				break;
 		}
 
-		calendarItems.Clear();
-		LoadCalendarEvents();
+		ReloadCalendar();
 		StateHasChanged();
 	}
 
@@ -416,8 +413,13 @@ public partial class FinancialCalendar : ComponentBase
 				break;
 		}
 
+		ReloadCalendar();
+		StateHasChanged();
+	}
+
+	private void ReloadCalendar()
+	{
 		calendarItems.Clear();
 		LoadCalendarEvents();
-		StateHasChanged();
 	}
 }
