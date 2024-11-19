@@ -194,4 +194,230 @@ public partial class FinancialCalendar : ComponentBase
 			StateHasChanged();
 		}
 	}
+
+	private async Task ItemClicked(CalendarItem item)
+	{
+		var colonIndex = item.Text.IndexOf(':');
+		var typeText = item.Text[..colonIndex];
+		FinancialEntryModel? entryModel = null;
+
+		switch (typeText)
+		{
+			case "Debt":
+				var debtItem = (FinancialItem<DebtModel>)item;
+				entryModel = new FinancialEntryModel
+				{
+					Id = debtItem.Model.DebtId,
+					Amount = debtItem.Model.Amount,
+					DateTime = debtItem.Model.DateTime,
+					Type = FinancialItemType.Debt
+				};
+
+				break;
+
+			case "Income":
+				var incomeItem = (FinancialItem<IncomeModel>)item;
+				entryModel = new FinancialEntryModel
+				{
+					Id = incomeItem.Model.IncomeId,
+					Amount = incomeItem.Model.Amount,
+					DateTime = incomeItem.Model.DateTime,
+					Type = FinancialItemType.Income
+				};
+
+				break;
+
+			case "Saving":
+				var savingItem = (FinancialItem<SavingModel>)item;
+				entryModel = new FinancialEntryModel
+				{
+					Id = savingItem.Model.SavingId,
+					Amount = savingItem.Model.Amount,
+					DateTime = savingItem.Model.DateTime,
+					Type = FinancialItemType.Saving
+				};
+
+				break;
+
+			case "Subscription":
+				var subscriptionItem = (FinancialItem<SubscriptionModel>)item;
+				entryModel = new FinancialEntryModel
+				{
+					Id = subscriptionItem.Model.SubscriptionId,
+					Amount = subscriptionItem.Model.Amount,
+					DateTime = subscriptionItem.Model.DateTime,
+					Type = FinancialItemType.Subscription
+				};
+
+				break;
+
+			default:
+				throw new ArgumentOutOfRangeException();
+		}
+
+		var parameters = new DialogParameters
+		{
+			{ "Model", entryModel },
+			{ "OnSave", EventCallback.Factory.Create(this, (FinancialEntryModel model) => OnSave(model)) },
+			{ "OnDelete", EventCallback.Factory.Create(this, (FinancialEntryModel model) => OnDelete(model)) }
+		};
+
+		await DialogService.ShowAsync<FinancialCalendarEntryManageComponent>("Manage", parameters);
+	}
+
+	private async Task OnSave(FinancialEntryModel model)
+	{
+		switch (model.Type)
+		{
+			case FinancialItemType.Debt:
+				var debt = debts.Find(debt => debt.DebtId == model.Id);
+
+				if (debt == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				debt.Amount = model.Amount;
+				debt.DateTime = model.DateTime;
+				model.ErrorMessage = await DebtService.UpdateDebtAsync(debt) ? null : "An error occurred when updating the debt...";
+
+				break;
+
+			case FinancialItemType.Income:
+				var income = incomes.Find(income => income.IncomeId == model.Id);
+
+				if (income == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				income.Amount = model.Amount;
+				income.DateTime = model.DateTime;
+				model.ErrorMessage = await IncomeService.UpdateIncomeAsync(income) ? null : "An error occurred when updating the income...";
+
+				break;
+
+			case FinancialItemType.Saving:
+				var saving = savings.Find(saving => saving.SavingId == model.Id);
+
+				if (saving == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				saving.Amount = model.Amount;
+				saving.DateTime = model.DateTime;
+				model.ErrorMessage = await SavingService.UpdateSavingAsync(saving) ? null : "An error occurred when updating the saving...";
+
+				break;
+
+			case FinancialItemType.Subscription:
+				var subscription = subscriptions.Find(subscription => subscription.SubscriptionId == model.Id);
+
+				if (subscription == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				subscription.Amount = model.Amount;
+				subscription.DateTime = model.DateTime;
+				model.ErrorMessage = await SubscriptionService.UpdateSubscriptionAsync(subscription) ? null : "An error occurred when updating the subscription...";
+
+				break;
+		}
+
+		calendarItems.Clear();
+		LoadCalendarEvents();
+		StateHasChanged();
+	}
+
+	private async Task OnDelete(FinancialEntryModel model)
+	{
+		switch (model.Type)
+		{
+			case FinancialItemType.Debt:
+				var debt = debts.Find(debt => debt.DebtId == model.Id);
+
+				if (debt == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				if (await DebtService.RemoveDebtAsync(debt))
+				{
+					model.ErrorMessage = null;
+					debts.Remove(debt);
+				}
+				else
+				{
+					model.ErrorMessage = "An error occurred when deleting the debt...";
+				}
+
+				break;
+
+			case FinancialItemType.Income:
+				var income = incomes.Find(income => income.IncomeId == model.Id);
+
+				if (income == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				if (await IncomeService.RemoveIncomeAsync(income))
+				{
+					model.ErrorMessage = null;
+					incomes.Remove(income);
+				}
+				else
+				{
+					model.ErrorMessage = "An error occurred when deleting the income...";
+				}
+
+				break;
+
+			case FinancialItemType.Saving:
+				var saving = savings.Find(saving => saving.SavingId == model.Id);
+
+				if (saving == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				if (await SavingService.RemoveSavingAsync(saving))
+				{
+					model.ErrorMessage = null;
+					savings.Remove(saving);
+				}
+				else
+				{
+					model.ErrorMessage = "An error occurred when deleting the saving...";
+				}
+
+				break;
+
+			case FinancialItemType.Subscription:
+				var subscription = subscriptions.Find(subscription => subscription.SubscriptionId == model.Id);
+
+				if (subscription == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				if (await SubscriptionService.RemoveSubscriptionAsync(subscription))
+				{
+					model.ErrorMessage = null;
+					subscriptions.Remove(subscription);
+				}
+				else
+				{
+					model.ErrorMessage = "An error occurred when deleting the subscription...";
+				}
+
+				break;
+		}
+
+		calendarItems.Clear();
+		LoadCalendarEvents();
+		StateHasChanged();
+	}
 }

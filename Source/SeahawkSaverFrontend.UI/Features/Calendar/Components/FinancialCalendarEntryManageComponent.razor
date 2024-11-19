@@ -1,0 +1,31 @@
+﻿@inject IDialogService DialogService
+
+<MudDialog>
+    <TitleContent>
+        Manage
+    </TitleContent>
+    <DialogContent>
+        <MudForm>
+            <MudTextField T="decimal"
+                          @bind-Value="Model.Amount"
+                          Error="@isAmountValid"
+                          ErrorText="@FinancialCalendarEntryManageComponent.AmountErrorMessage"
+                          Label="Amount"/>
+            <MudDatePicker @bind-Date="Model.DateTime"
+                           Error="@isDateValid"
+                           ErrorText="@FinancialCalendarEntryManageComponent.DateErrorMessage"
+                           Label="Date"/>
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Save">
+            Save
+        </MudButton>
+        <MudButton OnClick="Delete">
+            Delete
+        </MudButton>
+        <MudButton OnClick="Cancel">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>
