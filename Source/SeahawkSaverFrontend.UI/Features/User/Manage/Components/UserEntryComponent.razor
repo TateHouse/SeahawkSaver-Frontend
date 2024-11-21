@@ -1,4 +1,7 @@
-﻿<MudPaper>
+﻿@using SeahawkSaverFrontend.UI.Features.Caching.Services
+@inject IDataCache DataCache
+
+<MudPaper>
     <MudForm>
         <MudTextField T="string"
                       @bind-Value="Model.Email"
@@ -12,6 +15,16 @@
                       @bind-Value="Model.LastName"
                       Label="Last Name"
                       Disabled="!Model.IsEditable"/>
+        @if (DataCache.User.IsAdmin)
+        {
+            <MudCheckBox @bind-Value="Model.IsActive"
+                         Label="Is Active"
+                         Color="Color.Tertiary"
+                         UncheckedColor="Color.Secondary"
+                         Disabled="!Model.IsEditable">
+            </MudCheckBox>
+        }
+
         <MudButton OnClick="@(() => ToggleEdit())">
             @(Model.IsEditable ? "Save" : "Edit")
         </MudButton>
