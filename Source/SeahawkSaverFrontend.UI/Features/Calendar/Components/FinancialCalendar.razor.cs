@@ -2,6 +2,7 @@
 
 namespace SeahawkSaverFrontend.UI.Features.Calendar.Components;
 using Heron.MudCalendar;
+using Heron.MudTotalCalendar;
 using Microsoft.JSInterop;
 using MudBlazor;
 using SeahawkSaverFrontend.UI.Features.Calendar.DTOs;
@@ -20,6 +21,8 @@ public partial class FinancialCalendar : ComponentBase
 	private List<SubscriptionModel> subscriptions = new List<SubscriptionModel>();
 
 	private readonly List<CalendarItem> calendarItems = new List<CalendarItem>();
+	private bool isWeekTotalEnabled = true;
+	private bool isMonthTotalEnabled = true;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -102,6 +105,114 @@ public partial class FinancialCalendar : ComponentBase
 
 			calendarItems.Add(item);
 		}
+	}
+
+	private List<Value> CalculateTotals()
+	{
+		var calendarTotals = new List<Value>();
+		var totals = new Dictionary<string, ValueDefinition>
+		{
+			{
+				"Debt",
+				new ValueDefinition
+				{
+					Name = "Debt",
+					Units = "$",
+					PrefixUnits = true
+				}
+			},
+			{
+				"Income", new ValueDefinition
+				{
+					Name = "Income",
+					Units = "$",
+					PrefixUnits = true
+				}
+			},
+			{
+				"Saving", new ValueDefinition
+				{
+					Name = "Saving",
+					Units = "$",
+					PrefixUnits = true
+				}
+			},
+			{
+				"Subscription", new ValueDefinition
+				{
+					Name = "Subscription",
+					Units = "$",
+					PrefixUnits = true
+				}
+			}
+		};
+
+		foreach (var item in calendarItems)
+		{
+			var colonIndex = item.Text.IndexOf(':');
+			var typeText = item.Text[..colonIndex];
+
+			switch (typeText)
+			{
+				case "Debt":
+					var debt = (FinancialItem<DebtModel>)item;
+					var debtTotalEntry = new Value
+					{
+						Amount = (double)debt.Model.Amount,
+						Date = debt.Model.DateTime!.Value,
+						Definition = totals["Debt"]
+					};
+
+					calendarTotals.Add(debtTotalEntry);
+
+					break;
+
+				case "Income":
+					var income = (FinancialItem<IncomeModel>)item;
+					var incomeTotalEntry = new Value
+					{
+						Amount = (double)income.Model.Amount,
+						Date = income.Model.DateTime!.Value,
+						Definition = totals["Income"]
+					};
+
+					calendarTotals.Add(incomeTotalEntry);
+
+					break;
+
+				case "Saving":
+					var saving = (FinancialItem<SavingModel>)item;
+					var savingTotalEntry = new Value
+					{
+						Amount = (double)saving.Model.Amount,
+						Date = saving.Model.DateTime!.Value,
+						Definition = totals["Saving"]
+					};
+
+					calendarTotals.Add(savingTotalEntry);
+
+					break;
+
+				case "Subscription":
+					var subscription = (FinancialItem<SubscriptionModel>)item;
+					var subscriptionTotalEntry = new Value
+					{
+						Amount = (double)subscription.Model.Amount,
+						Date = subscription.Model.DateTime!.Value,
+						Definition = totals["Subscription"]
+					};
+
+					calendarTotals.Add(subscriptionTotalEntry);
+
+					break;
+
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+		}
+
+		return calendarTotals;
 	}
 
 	private void DateRangeChanged(DateRange dateRange)
