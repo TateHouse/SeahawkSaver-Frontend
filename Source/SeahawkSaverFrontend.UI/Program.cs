@@ -20,17 +20,17 @@ public class Program
 		builder.RootComponents.Add<App>("#app");
 		builder.RootComponents.Add<HeadOutlet>("head::after");
 
-		builder.Services.AddScoped(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+		builder.Services.AddTransient(_ => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 		builder.Services.AddMudServices();
 		builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 		builder.Services.AddSingleton<IDataCache, InMemoryDataCache>();
-		builder.Services.AddScoped<ILoginService, LoginService>();
-		builder.Services.AddScoped<ILogOutService, LogOutService>();
-		builder.Services.AddScoped<IUserService, UserService>();
-		builder.Services.AddScoped<IDebtService, DebtService>();
-		builder.Services.AddScoped<IIncomeService, IncomeService>();
-		builder.Services.AddScoped<ISavingService, SavingService>();
-		builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
+		builder.Services.AddTransient<ILoginService, LoginService>();
+		builder.Services.AddTransient<ILogOutService, LogOutService>();
+		builder.Services.AddTransient<IUserService, UserService>();
+		builder.Services.AddTransient<IDebtService, DebtService>();
+		builder.Services.AddTransient<IIncomeService, IncomeService>();
+		builder.Services.AddTransient<ISavingService, SavingService>();
+		builder.Services.AddTransient<ISubscriptionService, SubscriptionService>();
 
 		await builder.Build().RunAsync();
 	}
