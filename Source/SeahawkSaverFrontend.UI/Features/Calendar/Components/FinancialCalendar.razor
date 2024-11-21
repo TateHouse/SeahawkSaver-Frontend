@@ -12,14 +12,18 @@
 @inject ISubscriptionService SubscriptionService
 
 <MudContainer>
-    <MudCalendar Items="calendarItems"
-                 DateRangeChanged="DateRangeChanged"
-                 CellClicked="CellClicked"
-                 ItemClicked="ItemClicked"
-                 ShowDay="false"
-                 ShowWeek="false"
-                 ShowWorkWeek="false"
-                 ShowMonth="true">
+    <MudTotalCalendar Items="calendarItems"
+                      Values="CalculateTotals()"
+                      ShowDayTotal="false"
+                      ShowWeekTotal="true"
+                      ShowMonthTotal="true"
+                      DateRangeChanged="DateRangeChanged"
+                      CellClicked="CellClicked"
+                      ItemClicked="ItemClicked"
+                      ShowDay="false"
+                      ShowWeek="false"
+                      ShowWorkWeek="false"
+                      ShowMonth="true">
         <ToolbarContent>
             <MudButton Variant="Variant.Filled"
                        Color="Color.Primary"
@@ -27,5 +31,5 @@
                 Download Data
             </MudButton>
         </ToolbarContent>
-    </MudCalendar>
+    </MudTotalCalendar>
 </MudContainer>
