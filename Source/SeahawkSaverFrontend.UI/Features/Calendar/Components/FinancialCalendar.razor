@@ -3,6 +3,7 @@
 @using SeahawkSaverFrontend.UI.Features.Income.Services
 @using SeahawkSaverFrontend.UI.Features.Saving.Services
 @using SeahawkSaverFrontend.UI.Features.Subscription.Services
+@using System.Globalization
 @inject IDialogService DialogService
 @inject IJSRuntime JSRuntime
 @inject IDataCache DataCache
@@ -27,7 +28,7 @@
         <ToolbarContent>
             <MudButton Variant="Variant.Filled"
                        Color="Color.Primary"
-                       OnClick="DownloadFinancialData">
+                       OnClick="OnDownloadFinancialDataAsync">
                 Download Data
             </MudButton>
             <MudSwitch T="bool"
@@ -46,4 +47,39 @@
             </MudSwitch>
         </ToolbarContent>
     </MudTotalCalendar>
+    <MudPaper Class="ma-4"
+              Style="display: flex; flex-direction: row; gap: 2%">
+        <MudChart ChartType="ChartType.Donut"
+                  Class="d-flex"
+                  Width="300px"
+                  Height="300px"
+                  InputData="@financialReportData"
+                  InputLabels="@financialReportLabels"/>
+        <MudChart ChartType="ChartType.Pie"
+                  Class="d-flex"
+                  Width="300px"
+                  Height="300px"
+                  InputData="@financialReportData"
+                  InputLabels="@financialReportLabels"/>
+        <MudCard>
+            <MudCardContent>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Debt: $@financialReportData[0].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Income: $@financialReportData[1].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Saving: $@financialReportData[2].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Subscription: $@financialReportData[3].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+            </MudCardContent>
+        </MudCard>
+    </MudPaper>
 </MudContainer>

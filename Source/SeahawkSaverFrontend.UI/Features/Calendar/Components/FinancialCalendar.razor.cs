@@ -24,11 +24,20 @@ public partial class FinancialCalendar : ComponentBase
 	private bool isWeekTotalEnabled = true;
 	private bool isMonthTotalEnabled = true;
 
+	private readonly double[] financialReportData = new double[4];
+	private readonly string[] financialReportLabels = new string[4]
+	{
+		"Debt",
+		"Income",
+		"Saving",
+		"Subscription"
+	};
+
 	protected override async Task OnInitializedAsync()
 	{
 		await LoadFinancialData();
 		LoadCalendarEvents();
-
+		UpdateFinancialReport();
 		StateHasChanged();
 	}
 
@@ -303,6 +312,7 @@ public partial class FinancialCalendar : ComponentBase
 			}
 
 			ReloadCalendar();
+			UpdateFinancialReport();
 			StateHasChanged();
 		}
 	}
@@ -439,6 +449,7 @@ public partial class FinancialCalendar : ComponentBase
 		}
 
 		ReloadCalendar();
+		UpdateFinancialReport();
 		StateHasChanged();
 	}
 
@@ -528,6 +539,7 @@ public partial class FinancialCalendar : ComponentBase
 		}
 
 		ReloadCalendar();
+		UpdateFinancialReport();
 		StateHasChanged();
 	}
 
@@ -537,7 +549,7 @@ public partial class FinancialCalendar : ComponentBase
 		LoadCalendarEvents();
 	}
 
-	private async Task DownloadFinancialData()
+	private async Task OnDownloadFinancialDataAsync()
 	{
 		var content = GenerateCSVContent();
 		var fileName = $"SeahawkSaver_{DataCache.User.FirstName}{DataCache.User.LastName}_FinancialData_{DateTime.Now.ToString(CultureInfo.InvariantCulture)}.csv";
@@ -615,5 +627,13 @@ public partial class FinancialCalendar : ComponentBase
 		}
 
 		return stringBuilder.ToString();
+	}
+
+	private void UpdateFinancialReport()
+	{
+		financialReportData[0] = debts.Aggregate(0.0, (accumulator, debt) => accumulator + (double)debt.Amount);
+		financialReportData[1] = incomes.Aggregate(0.0, (accumulator, income) => accumulator + (double)income.Amount);
+		financialReportData[2] = savings.Aggregate(0.0, (accumulator, saving) => accumulator + (double)saving.Amount);
+		financialReportData[3] = subscriptions.Aggregate(0.0, (accumulator, subscription) => accumulator + (double)subscription.Amount);
 	}
 }
