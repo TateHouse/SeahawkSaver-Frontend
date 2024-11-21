@@ -13,7 +13,8 @@
 @inject ISubscriptionService SubscriptionService
 
 <MudContainer>
-    <MudTotalCalendar Items="calendarItems"
+    <MudTotalCalendar @ref="calendar"
+                      Items="calendarItems"
                       Values="CalculateTotals()"
                       ShowDayTotal="false"
                       ShowWeekTotal="isWeekTotalEnabled"
@@ -61,8 +62,18 @@
                   Height="300px"
                   InputData="@financialReportData"
                   InputLabels="@financialReportLabels"/>
+        <MudChart ChartType="ChartType.Line"
+                  ChartSeries="UpdateLineChart()"
+                  XAxisLabels="@monthLabels"
+                  Width="300px"
+                  Height="300px">
+
+        </MudChart>
         <MudCard>
             <MudCardContent>
+                <MudText>
+                    Overall Totals
+                </MudText>
                 <MudText Class="d-flex"
                          Align="Align.Center">
                     Debt: $@financialReportData[0].ToString(CultureInfo.InvariantCulture)
@@ -78,6 +89,29 @@
                 <MudText Class="d-flex"
                          Align="Align.Center">
                     Subscription: $@financialReportData[3].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+            </MudCardContent>
+        </MudCard>
+        <MudCard>
+            <MudCardContent>
+                <MudText>
+                    Currently Month Total
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Debt: $@currentMonthTotals[0].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Income: $@currentMonthTotals[1].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Saving: $@currentMonthTotals[2].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Subscription: $@currentMonthTotals[3].ToString(CultureInfo.InvariantCulture)
                 </MudText>
             </MudCardContent>
         </MudCard>

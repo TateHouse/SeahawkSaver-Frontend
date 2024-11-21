@@ -20,6 +20,7 @@ public partial class FinancialCalendar : ComponentBase
 	private List<SavingModel> savings = new List<SavingModel>();
 	private List<SubscriptionModel> subscriptions = new List<SubscriptionModel>();
 
+	private MudTotalCalendar calendar;
 	private readonly List<CalendarItem> calendarItems = new List<CalendarItem>();
 	private bool isWeekTotalEnabled = true;
 	private bool isMonthTotalEnabled = true;
@@ -31,6 +32,23 @@ public partial class FinancialCalendar : ComponentBase
 		"Income",
 		"Saving",
 		"Subscription"
+	};
+
+	private readonly double[] currentMonthTotals = new double[4];
+	private readonly string[] monthLabels = new string[12]
+	{
+		"Jan",
+		"Feb",
+		"Mar",
+		"Apr",
+		"May",
+		"Jun",
+		"Jul",
+		"Aug",
+		"Sep",
+		"Oct",
+		"Nov",
+		"Dec"
 	};
 
 	protected override async Task OnInitializedAsync()
@@ -635,5 +653,78 @@ public partial class FinancialCalendar : ComponentBase
 		financialReportData[1] = incomes.Aggregate(0.0, (accumulator, income) => accumulator + (double)income.Amount);
 		financialReportData[2] = savings.Aggregate(0.0, (accumulator, saving) => accumulator + (double)saving.Amount);
 		financialReportData[3] = subscriptions.Aggregate(0.0, (accumulator, subscription) => accumulator + (double)subscription.Amount);
+	}
+
+	private sealed class MonthTotal
+	{
+		public required int Month { get; init; }
+		public required double Amount { get; init; }
+		public required FinancialItemType Type { get; init; }
+	}
+
+	private List<ChartSeries> UpdateLineChart()
+	{
+		var data = new List<ChartSeries>
+		{
+			new ChartSeries
+			{
+				Name = "Debt",
+			},
+			new ChartSeries
+			{
+				Name = "Income",
+			},
+			new ChartSeries
+			{
+				Name = "Saving",
+			},
+			new ChartSeries
+			{
+				Name = "Subscription",
+			}
+		};
+
+		var debtTotalsPerMonth = new double[12];
+		var incomeTotalsPerMonth = new double[12];
+		var savingTotalsPerMonth = new double[12];
+		var subscriptionTotalPerMonth = new double[12];
+
+		foreach (var debt in debts)
+		{
+			var debtMonthIndex = debt.DateTime!.Value.Month - 1;
+			debtTotalsPerMonth[debtMonthIndex] += (double)debt.Amount;
+		}
+
+		foreach (var income in incomes)
+		{
+			var incomeMonthIndex = income.DateTime!.Value.Month - 1;
+			incomeTotalsPerMonth[incomeMonthIndex] += (double)income.Amount;
+		}
+
+		foreach (var saving in savings)
+		{
+			var savingMonthIndex = saving.DateTime!.Value.Month - 1;
+			savingTotalsPerMonth[savingMonthIndex] += (double)saving.Amount;
+		}
+
+		foreach (var subscription in subscriptions)
+		{
+			var subscriptionMonthIndex = subscription.DateTime!.Value.Month - 1;
+			subscriptionTotalPerMonth[subscriptionMonthIndex] += (double)subscription.Amount;
+		}
+
+		data[0].Data = debtTotalsPerMonth;
+		data[1].Data = incomeTotalsPerMonth;
+		data[2].Data = savingTotalsPerMonth;
+		data[3].Data = subscriptionTotalPerMonth;
+
+		var currentMonthIndex = calendar.CurrentDay.Month - 1;
+
+		currentMonthTotals[0] = debtTotalsPerMonth[currentMonthIndex];
+		currentMonthTotals[1] = incomeTotalsPerMonth[currentMonthIndex];
+		currentMonthTotals[2] = savingTotalsPerMonth[currentMonthIndex];
+		currentMonthTotals[3] = subscriptionTotalPerMonth[currentMonthIndex];
+
+		return data;
 	}
 }
