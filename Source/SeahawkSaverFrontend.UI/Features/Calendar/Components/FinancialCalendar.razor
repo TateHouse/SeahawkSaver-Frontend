@@ -15,8 +15,8 @@
     <MudTotalCalendar Items="calendarItems"
                       Values="CalculateTotals()"
                       ShowDayTotal="false"
-                      ShowWeekTotal="true"
-                      ShowMonthTotal="true"
+                      ShowWeekTotal="isWeekTotalEnabled"
+                      ShowMonthTotal="isMonthTotalEnabled"
                       DateRangeChanged="DateRangeChanged"
                       CellClicked="CellClicked"
                       ItemClicked="ItemClicked"
@@ -30,6 +30,20 @@
                        OnClick="DownloadFinancialData">
                 Download Data
             </MudButton>
+            <MudSwitch T="bool"
+                       @bind-Value="isWeekTotalEnabled"
+                       Class="mx-2"
+                       Color="Color.Tertiary"
+                       UncheckedColor="Color.Secondary">
+                Week Totals
+            </MudSwitch>
+            <MudSwitch T="bool"
+                       @bind-Value="isMonthTotalEnabled"
+                       Class="mx-2"
+                       Color="Color.Tertiary"
+                       UncheckedColor="Color.Secondary">
+                Month Totals
+            </MudSwitch>
         </ToolbarContent>
     </MudTotalCalendar>
 </MudContainer>

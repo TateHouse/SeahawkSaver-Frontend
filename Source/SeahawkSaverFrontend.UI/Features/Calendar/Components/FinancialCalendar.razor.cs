@@ -21,6 +21,8 @@ public partial class FinancialCalendar : ComponentBase
 	private List<SubscriptionModel> subscriptions = new List<SubscriptionModel>();
 
 	private readonly List<CalendarItem> calendarItems = new List<CalendarItem>();
+	private bool isWeekTotalEnabled = true;
+	private bool isMonthTotalEnabled = true;
 
 	protected override async Task OnInitializedAsync()
 	{
