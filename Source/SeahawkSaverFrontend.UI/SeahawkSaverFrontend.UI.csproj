@@ -22,6 +22,7 @@
       <_ContentIncludedByDefault Remove="Features\Debt\Manage\Components\CreateDebtFormComponent.razor" />
       <_ContentIncludedByDefault Remove="Features\Debt\Manage\Components\DebtEntryComponent.razor" />
       <_ContentIncludedByDefault Remove="Features\Debt\Manage\Components\DebtManagementComponent.razor" />
+      <_ContentIncludedByDefault Remove="Features\User\Deactivate\Components\DeactivateUserComponent.razor" />
     </ItemGroup>
 
     <ItemGroup>

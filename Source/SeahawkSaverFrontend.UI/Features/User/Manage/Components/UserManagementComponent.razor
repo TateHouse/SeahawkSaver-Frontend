@@ -9,6 +9,16 @@
         <MudText>
             Admin User Management
         </MudText>
+        <MudContainer>
+            @if (users.Count > 0)
+            {
+                @foreach (var user in users)
+                {
+                    <UserEntryComponent Model="user"
+                                        OnSave="Save"/>
+                }
+            }
+        </MudContainer>
     </MudContainer>
 }
 else
