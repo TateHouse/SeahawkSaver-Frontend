@@ -51,6 +51,41 @@ public sealed class ExpenseService : IExpenseService
 					  .ToList();
 	}
 
+	public async Task<bool> AddExpenseAsync(ExpenseModel model)
+	{
+		var url = $"http://localhost:5103/api/v1/expense/{dataCache.User.UserId}";
+		var request = new
+		{
+			Expense = new
+			{
+				Amount = model.Amount,
+				DateTime = model.DateTime
+			}
+		};
+
+		var response = await httpClient.PostAsJsonAsync(url, request);
+
+		if (response.IsSuccessStatusCode == false)
+		{
+			// TODO: Log an error message.
+
+			return false;
+		}
+
+		var content = await response.Content.ReadFromJsonAsync<CreateExpenseEndpointResponse>();
+
+		if (content == null)
+		{
+			// TODO: Log an error message.
+
+			return false;
+		}
+
+		model.ExpenseId = content.ExpenseId;
+
+		return true;
+	}
+
 	private void AddBearerHeader()
 	{
 		if (httpClient.DefaultRequestHeaders.Contains("Bearer"))

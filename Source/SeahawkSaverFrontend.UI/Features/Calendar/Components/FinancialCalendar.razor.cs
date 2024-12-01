@@ -365,6 +365,22 @@ public partial class FinancialCalendar : ComponentBase
 
 					break;
 
+				case FinancialItemType.Expense:
+					var expense = new ExpenseModel
+					{
+						ExpenseId = model.Id,
+						Amount = model.Amount,
+						DateTime = model.DateTime
+					};
+
+					if (await ExpenseService.AddExpenseAsync(expense))
+					{
+						model.ErrorMessage = null;
+						expenses.Add(expense);
+					}
+
+					break;
+
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
