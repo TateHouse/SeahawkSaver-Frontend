@@ -731,6 +731,18 @@ public partial class FinancialCalendar : ComponentBase
 			data.Add(row);
 		}
 
+		foreach (var expense in expenses)
+		{
+			var row = new CSVRow
+			{
+				Amount = expense.Amount,
+				DateTime = expense.DateTime,
+				Type = FinancialItemType.Expense
+			};
+
+			data.Add(row);
+		}
+
 		var sortedData = data.OrderBy(row => row.DateTime)
 							 .ToList();
 
