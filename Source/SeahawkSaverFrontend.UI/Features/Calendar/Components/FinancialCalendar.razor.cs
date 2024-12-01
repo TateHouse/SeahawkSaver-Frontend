@@ -7,6 +7,7 @@ using Microsoft.JSInterop;
 using MudBlazor;
 using SeahawkSaverFrontend.UI.Features.Calendar.DTOs;
 using SeahawkSaverFrontend.UI.Features.Debt.DTOs;
+using SeahawkSaverFrontend.UI.Features.Expense.DTOs;
 using SeahawkSaverFrontend.UI.Features.Income.DTOs;
 using SeahawkSaverFrontend.UI.Features.Saving.DTOs;
 using SeahawkSaverFrontend.UI.Features.Subscription.DTOs;
@@ -19,6 +20,7 @@ public partial class FinancialCalendar : ComponentBase
 	private List<IncomeModel> incomes = new List<IncomeModel>();
 	private List<SavingModel> savings = new List<SavingModel>();
 	private List<SubscriptionModel> subscriptions = new List<SubscriptionModel>();
+	private List<ExpenseModel> expenses = new List<ExpenseModel>();
 
 	private MudTotalCalendar calendar;
 	private readonly List<CalendarItem> calendarItems = new List<CalendarItem>();
@@ -65,6 +67,7 @@ public partial class FinancialCalendar : ComponentBase
 		incomes = (await IncomeService.GetIncomesAsync()).ToList();
 		savings = (await SavingService.GetSavingsAsync()).ToList();
 		subscriptions = (await SubscriptionService.GetSubscriptionsAsync()).ToList();
+		expenses = (await ExpenseService.GetExpensesAsync()).ToList();
 	}
 
 	private void LoadCalendarEvents()
@@ -132,6 +135,22 @@ public partial class FinancialCalendar : ComponentBase
 
 			calendarItems.Add(item);
 		}
+
+		foreach (var expense in expenses)
+		{
+			var item = new FinancialItem<ExpenseModel>
+			{
+				FinancialItemType = FinancialItemType.Expense,
+				Model = expense
+			};
+
+			item.Start = expense.DateTime!.Value;
+			item.End = expense.DateTime!.Value.AddMinutes(1);
+			item.AllDay = true;
+			item.Text = $"Expense: ${expense.Amount}";
+
+			calendarItems.Add(item);
+		}
 	}
 
 	private List<Value> CalculateTotals()
@@ -168,6 +187,14 @@ public partial class FinancialCalendar : ComponentBase
 				"Subscription", new ValueDefinition
 				{
 					Name = "Subscription",
+					Units = "$",
+					PrefixUnits = true
+				}
+			},
+			{
+				"Expense", new ValueDefinition
+				{
+					Name = "Expense",
 					Units = "$",
 					PrefixUnits = true
 				}
@@ -230,6 +257,19 @@ public partial class FinancialCalendar : ComponentBase
 					};
 
 					calendarTotals.Add(subscriptionTotalEntry);
+
+					break;
+
+				case "Expense":
+					var expense = (FinancialItem<ExpenseModel>)item;
+					var expenseTotalEntry = new Value
+					{
+						Amount = (double)expense.Model.Amount,
+						Date = expense.Model.DateTime!.Value,
+						Definition = totals["Expense"]
+					};
+
+					calendarTotals.Add(expenseTotalEntry);
 
 					break;
 
