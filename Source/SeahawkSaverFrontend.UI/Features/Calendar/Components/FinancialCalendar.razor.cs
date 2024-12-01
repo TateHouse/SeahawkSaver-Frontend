@@ -447,6 +447,18 @@ public partial class FinancialCalendar : ComponentBase
 
 				break;
 
+			case "Expense":
+				var expenseItem = (FinancialItem<ExpenseModel>)item;
+				entryModel = new FinancialEntryModel
+				{
+					Id = expenseItem.Model.ExpenseId,
+					Amount = expenseItem.Model.Amount,
+					DateTime = expenseItem.Model.DateTime,
+					Type = FinancialItemType.Expense
+				};
+
+				break;
+
 			default:
 				throw new ArgumentOutOfRangeException();
 		}
@@ -610,11 +622,28 @@ public partial class FinancialCalendar : ComponentBase
 				}
 
 				break;
+
+			case FinancialItemType.Expense:
+				var expense = expenses.Find(expense => expense.ExpenseId == model.Id);
+
+				if (expense == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				if (await ExpenseService.RemoveExpenseAsync(expense))
+				{
+					model.ErrorMessage = null;
+					expenses.Remove(expense);
+				}
+
+				break;
 		}
 
 		ReloadCalendar();
 		UpdateFinancialReport();
 		StateHasChanged();
+
 	}
 
 	private void ReloadCalendar()

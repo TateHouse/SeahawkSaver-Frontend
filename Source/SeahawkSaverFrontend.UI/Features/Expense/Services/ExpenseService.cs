@@ -86,6 +86,21 @@ public sealed class ExpenseService : IExpenseService
 		return true;
 	}
 
+	public async Task<bool> RemoveExpenseAsync(ExpenseModel model)
+	{
+		var url = $"http://localhost:5103/api/v1/expense/{dataCache.User.UserId}?expenseId={model.ExpenseId}";
+		var response = await httpClient.DeleteAsync(url);
+
+		if (response.IsSuccessStatusCode == false)
+		{
+			// TODO: Log an error message.
+
+			return false;
+		}
+
+		return true;
+	}
+
 	private void AddBearerHeader()
 	{
 		if (httpClient.DefaultRequestHeaders.Contains("Bearer"))

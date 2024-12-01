@@ -6,4 +6,6 @@ public interface IExpenseService
 	public Task<IEnumerable<ExpenseModel>> GetExpensesAsync();
 
 	public Task<bool> AddExpenseAsync(ExpenseModel model);
+
+	public Task<bool> RemoveExpenseAsync(ExpenseModel model);
 }
