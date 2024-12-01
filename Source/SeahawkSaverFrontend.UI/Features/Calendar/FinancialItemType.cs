@@ -4,5 +4,6 @@ public enum FinancialItemType
 	Debt,
 	Income,
 	Saving,
-	Subscription
+	Subscription,
+	Expense
 }

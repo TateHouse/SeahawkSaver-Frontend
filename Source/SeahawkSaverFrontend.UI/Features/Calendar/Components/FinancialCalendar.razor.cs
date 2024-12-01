@@ -7,6 +7,7 @@ using Microsoft.JSInterop;
 using MudBlazor;
 using SeahawkSaverFrontend.UI.Features.Calendar.DTOs;
 using SeahawkSaverFrontend.UI.Features.Debt.DTOs;
+using SeahawkSaverFrontend.UI.Features.Expense.DTOs;
 using SeahawkSaverFrontend.UI.Features.Income.DTOs;
 using SeahawkSaverFrontend.UI.Features.Saving.DTOs;
 using SeahawkSaverFrontend.UI.Features.Subscription.DTOs;
@@ -19,22 +20,24 @@ public partial class FinancialCalendar : ComponentBase
 	private List<IncomeModel> incomes = new List<IncomeModel>();
 	private List<SavingModel> savings = new List<SavingModel>();
 	private List<SubscriptionModel> subscriptions = new List<SubscriptionModel>();
+	private List<ExpenseModel> expenses = new List<ExpenseModel>();
 
 	private MudTotalCalendar calendar;
 	private readonly List<CalendarItem> calendarItems = new List<CalendarItem>();
 	private bool isWeekTotalEnabled = true;
 	private bool isMonthTotalEnabled = true;
 
-	private readonly double[] financialReportData = new double[4];
-	private readonly string[] financialReportLabels = new string[4]
+	private readonly double[] financialReportData = new double[5];
+	private readonly string[] financialReportLabels = new string[5]
 	{
 		"Debt",
 		"Income",
 		"Saving",
-		"Subscription"
+		"Subscription",
+		"Expense"
 	};
 
-	private readonly double[] currentMonthTotals = new double[4];
+	private readonly double[] currentMonthTotals = new double[5];
 	private readonly string[] monthLabels = new string[12]
 	{
 		"Jan",
@@ -65,6 +68,7 @@ public partial class FinancialCalendar : ComponentBase
 		incomes = (await IncomeService.GetIncomesAsync()).ToList();
 		savings = (await SavingService.GetSavingsAsync()).ToList();
 		subscriptions = (await SubscriptionService.GetSubscriptionsAsync()).ToList();
+		expenses = (await ExpenseService.GetExpensesAsync()).ToList();
 	}
 
 	private void LoadCalendarEvents()
@@ -132,6 +136,22 @@ public partial class FinancialCalendar : ComponentBase
 
 			calendarItems.Add(item);
 		}
+
+		foreach (var expense in expenses)
+		{
+			var item = new FinancialItem<ExpenseModel>
+			{
+				FinancialItemType = FinancialItemType.Expense,
+				Model = expense
+			};
+
+			item.Start = expense.DateTime!.Value;
+			item.End = expense.DateTime!.Value.AddMinutes(1);
+			item.AllDay = true;
+			item.Text = $"Expense: ${expense.Amount}";
+
+			calendarItems.Add(item);
+		}
 	}
 
 	private List<Value> CalculateTotals()
@@ -168,6 +188,14 @@ public partial class FinancialCalendar : ComponentBase
 				"Subscription", new ValueDefinition
 				{
 					Name = "Subscription",
+					Units = "$",
+					PrefixUnits = true
+				}
+			},
+			{
+				"Expense", new ValueDefinition
+				{
+					Name = "Expense",
 					Units = "$",
 					PrefixUnits = true
 				}
@@ -230,6 +258,19 @@ public partial class FinancialCalendar : ComponentBase
 					};
 
 					calendarTotals.Add(subscriptionTotalEntry);
+
+					break;
+
+				case "Expense":
+					var expense = (FinancialItem<ExpenseModel>)item;
+					var expenseTotalEntry = new Value
+					{
+						Amount = (double)expense.Model.Amount,
+						Date = expense.Model.DateTime!.Value,
+						Definition = totals["Expense"]
+					};
+
+					calendarTotals.Add(expenseTotalEntry);
 
 					break;
 
@@ -325,6 +366,22 @@ public partial class FinancialCalendar : ComponentBase
 
 					break;
 
+				case FinancialItemType.Expense:
+					var expense = new ExpenseModel
+					{
+						ExpenseId = model.Id,
+						Amount = model.Amount,
+						DateTime = model.DateTime
+					};
+
+					if (await ExpenseService.AddExpenseAsync(expense))
+					{
+						model.ErrorMessage = null;
+						expenses.Add(expense);
+					}
+
+					break;
+
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
@@ -387,6 +444,18 @@ public partial class FinancialCalendar : ComponentBase
 					Amount = subscriptionItem.Model.Amount,
 					DateTime = subscriptionItem.Model.DateTime,
 					Type = FinancialItemType.Subscription
+				};
+
+				break;
+
+			case "Expense":
+				var expenseItem = (FinancialItem<ExpenseModel>)item;
+				entryModel = new FinancialEntryModel
+				{
+					Id = expenseItem.Model.ExpenseId,
+					Amount = expenseItem.Model.Amount,
+					DateTime = expenseItem.Model.DateTime,
+					Type = FinancialItemType.Expense
 				};
 
 				break;
@@ -462,6 +531,19 @@ public partial class FinancialCalendar : ComponentBase
 				subscription.Amount = model.Amount;
 				subscription.DateTime = model.DateTime;
 				model.ErrorMessage = await SubscriptionService.UpdateSubscriptionAsync(subscription) ? null : "An error occurred when updating the subscription...";
+
+				break;
+
+			case FinancialItemType.Expense:
+				var expense = expenses.Find(expense => expense.ExpenseId == model.Id);
+
+				if (expense == null)
+				{
+					throw new InvalidOperationException();
+				}
+				expense.Amount = model.Amount;
+				expense.DateTime = model.DateTime;
+				model.ErrorMessage = await ExpenseService.UpdateExpenseAsync(expense) ? null : "An error occurred when updating the expense...";
 
 				break;
 		}
@@ -554,11 +636,28 @@ public partial class FinancialCalendar : ComponentBase
 				}
 
 				break;
+
+			case FinancialItemType.Expense:
+				var expense = expenses.Find(expense => expense.ExpenseId == model.Id);
+
+				if (expense == null)
+				{
+					throw new InvalidOperationException();
+				}
+
+				if (await ExpenseService.RemoveExpenseAsync(expense))
+				{
+					model.ErrorMessage = null;
+					expenses.Remove(expense);
+				}
+
+				break;
 		}
 
 		ReloadCalendar();
 		UpdateFinancialReport();
 		StateHasChanged();
+
 	}
 
 	private void ReloadCalendar()
@@ -633,6 +732,18 @@ public partial class FinancialCalendar : ComponentBase
 			data.Add(row);
 		}
 
+		foreach (var expense in expenses)
+		{
+			var row = new CSVRow
+			{
+				Amount = expense.Amount,
+				DateTime = expense.DateTime,
+				Type = FinancialItemType.Expense
+			};
+
+			data.Add(row);
+		}
+
 		var sortedData = data.OrderBy(row => row.DateTime)
 							 .ToList();
 
@@ -653,6 +764,7 @@ public partial class FinancialCalendar : ComponentBase
 		financialReportData[1] = incomes.Aggregate(0.0, (accumulator, income) => accumulator + (double)income.Amount);
 		financialReportData[2] = savings.Aggregate(0.0, (accumulator, saving) => accumulator + (double)saving.Amount);
 		financialReportData[3] = subscriptions.Aggregate(0.0, (accumulator, subscription) => accumulator + (double)subscription.Amount);
+		financialReportData[4] = expenses.Aggregate(0.0, (accumulator, expense) => accumulator + (double)expense.Amount);
 	}
 
 	private sealed class MonthTotal
@@ -681,6 +793,10 @@ public partial class FinancialCalendar : ComponentBase
 			new ChartSeries
 			{
 				Name = "Subscription",
+			},
+			new ChartSeries
+			{
+				Name = "Expense"
 			}
 		};
 
@@ -688,6 +804,7 @@ public partial class FinancialCalendar : ComponentBase
 		var incomeTotalsPerMonth = new double[12];
 		var savingTotalsPerMonth = new double[12];
 		var subscriptionTotalPerMonth = new double[12];
+		var expenseTotalPerMonth = new double[12];
 
 		foreach (var debt in debts)
 		{
@@ -713,10 +830,17 @@ public partial class FinancialCalendar : ComponentBase
 			subscriptionTotalPerMonth[subscriptionMonthIndex] += (double)subscription.Amount;
 		}
 
+		foreach (var expense in expenses)
+		{
+			var expenseMonthIndex = expense.DateTime!.Value.Month - 1;
+			expenseTotalPerMonth[expenseMonthIndex] += (double)expense.Amount;
+		}
+
 		data[0].Data = debtTotalsPerMonth;
 		data[1].Data = incomeTotalsPerMonth;
 		data[2].Data = savingTotalsPerMonth;
 		data[3].Data = subscriptionTotalPerMonth;
+		data[4].Data = expenseTotalPerMonth;
 
 		var currentMonthIndex = calendar.CurrentDay.Month - 1;
 
@@ -724,6 +848,7 @@ public partial class FinancialCalendar : ComponentBase
 		currentMonthTotals[1] = incomeTotalsPerMonth[currentMonthIndex];
 		currentMonthTotals[2] = savingTotalsPerMonth[currentMonthIndex];
 		currentMonthTotals[3] = subscriptionTotalPerMonth[currentMonthIndex];
+		currentMonthTotals[4] = expenseTotalPerMonth[currentMonthIndex];
 
 		return data;
 	}

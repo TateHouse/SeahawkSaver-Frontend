@@ -1,5 +1,6 @@
 ﻿@using SeahawkSaverFrontend.UI.Features.Caching.Services
 @using SeahawkSaverFrontend.UI.Features.Debt.Services
+@using SeahawkSaverFrontend.UI.Features.Expense.Services
 @using SeahawkSaverFrontend.UI.Features.Income.Services
 @using SeahawkSaverFrontend.UI.Features.Saving.Services
 @using SeahawkSaverFrontend.UI.Features.Subscription.Services
@@ -11,6 +12,7 @@
 @inject IIncomeService IncomeService
 @inject ISavingService SavingService
 @inject ISubscriptionService SubscriptionService
+@inject IExpenseService ExpenseService
 
 <MudContainer>
     <MudTotalCalendar @ref="calendar"
@@ -90,6 +92,10 @@
                          Align="Align.Center">
                     Subscription: $@financialReportData[3].ToString(CultureInfo.InvariantCulture)
                 </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Expense: $@financialReportData[4].ToString(CultureInfo.InvariantCulture)
+                </MudText>
             </MudCardContent>
         </MudCard>
         <MudCard>
@@ -112,6 +118,10 @@
                 <MudText Class="d-flex"
                          Align="Align.Center">
                     Subscription: $@currentMonthTotals[3].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Expense: $@currentMonthTotals[4].ToString(CultureInfo.InvariantCulture)
                 </MudText>
             </MudCardContent>
         </MudCard>

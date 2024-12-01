@@ -5,6 +5,7 @@ namespace SeahawkSaverFrontend.UI;
 using MudBlazor.Services;
 using SeahawkSaverFrontend.UI.Features.Caching.Services;
 using SeahawkSaverFrontend.UI.Features.Debt.Services;
+using SeahawkSaverFrontend.UI.Features.Expense.Services;
 using SeahawkSaverFrontend.UI.Features.Income.Services;
 using SeahawkSaverFrontend.UI.Features.Saving.Services;
 using SeahawkSaverFrontend.UI.Features.Subscription.Services;
@@ -31,6 +32,7 @@ public class Program
 		builder.Services.AddTransient<IIncomeService, IncomeService>();
 		builder.Services.AddTransient<ISavingService, SavingService>();
 		builder.Services.AddTransient<ISubscriptionService, SubscriptionService>();
+		builder.Services.AddTransient<IExpenseService, ExpenseService>();
 
 		await builder.Build().RunAsync();
 	}
