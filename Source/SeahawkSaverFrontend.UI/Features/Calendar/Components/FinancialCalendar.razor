@@ -92,6 +92,10 @@
                          Align="Align.Center">
                     Subscription: $@financialReportData[3].ToString(CultureInfo.InvariantCulture)
                 </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Expense: $@financialReportData[4].ToString(CultureInfo.InvariantCulture)
+                </MudText>
             </MudCardContent>
         </MudCard>
         <MudCard>
@@ -114,6 +118,10 @@
                 <MudText Class="d-flex"
                          Align="Align.Center">
                     Subscription: $@currentMonthTotals[3].ToString(CultureInfo.InvariantCulture)
+                </MudText>
+                <MudText Class="d-flex"
+                         Align="Align.Center">
+                    Expense: $@currentMonthTotals[4].ToString(CultureInfo.InvariantCulture)
                 </MudText>
             </MudCardContent>
         </MudCard>

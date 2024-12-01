@@ -27,16 +27,17 @@ public partial class FinancialCalendar : ComponentBase
 	private bool isWeekTotalEnabled = true;
 	private bool isMonthTotalEnabled = true;
 
-	private readonly double[] financialReportData = new double[4];
-	private readonly string[] financialReportLabels = new string[4]
+	private readonly double[] financialReportData = new double[5];
+	private readonly string[] financialReportLabels = new string[5]
 	{
 		"Debt",
 		"Income",
 		"Saving",
-		"Subscription"
+		"Subscription",
+		"Expense"
 	};
 
-	private readonly double[] currentMonthTotals = new double[4];
+	private readonly double[] currentMonthTotals = new double[5];
 	private readonly string[] monthLabels = new string[12]
 	{
 		"Jan",
@@ -763,6 +764,7 @@ public partial class FinancialCalendar : ComponentBase
 		financialReportData[1] = incomes.Aggregate(0.0, (accumulator, income) => accumulator + (double)income.Amount);
 		financialReportData[2] = savings.Aggregate(0.0, (accumulator, saving) => accumulator + (double)saving.Amount);
 		financialReportData[3] = subscriptions.Aggregate(0.0, (accumulator, subscription) => accumulator + (double)subscription.Amount);
+		financialReportData[4] = expenses.Aggregate(0.0, (accumulator, expense) => accumulator + (double)expense.Amount);
 	}
 
 	private sealed class MonthTotal
@@ -791,6 +793,10 @@ public partial class FinancialCalendar : ComponentBase
 			new ChartSeries
 			{
 				Name = "Subscription",
+			},
+			new ChartSeries
+			{
+				Name = "Expense"
 			}
 		};
 
@@ -798,6 +804,7 @@ public partial class FinancialCalendar : ComponentBase
 		var incomeTotalsPerMonth = new double[12];
 		var savingTotalsPerMonth = new double[12];
 		var subscriptionTotalPerMonth = new double[12];
+		var expenseTotalPerMonth = new double[12];
 
 		foreach (var debt in debts)
 		{
@@ -823,10 +830,17 @@ public partial class FinancialCalendar : ComponentBase
 			subscriptionTotalPerMonth[subscriptionMonthIndex] += (double)subscription.Amount;
 		}
 
+		foreach (var expense in expenses)
+		{
+			var expenseMonthIndex = expense.DateTime!.Value.Month - 1;
+			expenseTotalPerMonth[expenseMonthIndex] += (double)expense.Amount;
+		}
+
 		data[0].Data = debtTotalsPerMonth;
 		data[1].Data = incomeTotalsPerMonth;
 		data[2].Data = savingTotalsPerMonth;
 		data[3].Data = subscriptionTotalPerMonth;
+		data[4].Data = expenseTotalPerMonth;
 
 		var currentMonthIndex = calendar.CurrentDay.Month - 1;
 
@@ -834,6 +848,7 @@ public partial class FinancialCalendar : ComponentBase
 		currentMonthTotals[1] = incomeTotalsPerMonth[currentMonthIndex];
 		currentMonthTotals[2] = savingTotalsPerMonth[currentMonthIndex];
 		currentMonthTotals[3] = subscriptionTotalPerMonth[currentMonthIndex];
+		currentMonthTotals[4] = expenseTotalPerMonth[currentMonthIndex];
 
 		return data;
 	}
