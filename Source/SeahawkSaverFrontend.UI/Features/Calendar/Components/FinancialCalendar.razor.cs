@@ -532,6 +532,19 @@ public partial class FinancialCalendar : ComponentBase
 				model.ErrorMessage = await SubscriptionService.UpdateSubscriptionAsync(subscription) ? null : "An error occurred when updating the subscription...";
 
 				break;
+
+			case FinancialItemType.Expense:
+				var expense = expenses.Find(expense => expense.ExpenseId == model.Id);
+
+				if (expense == null)
+				{
+					throw new InvalidOperationException();
+				}
+				expense.Amount = model.Amount;
+				expense.DateTime = model.DateTime;
+				model.ErrorMessage = await ExpenseService.UpdateExpenseAsync(expense) ? null : "An error occurred when updating the expense...";
+
+				break;
 		}
 
 		ReloadCalendar();

@@ -86,6 +86,32 @@ public sealed class ExpenseService : IExpenseService
 		return true;
 	}
 
+	public async Task<bool> UpdateExpenseAsync(ExpenseModel model)
+	{
+		var url = $"http://localhost:5103/api/v1/expense/{dataCache.User.UserId}?expenseId={model.ExpenseId}";
+		var content = new
+		{
+			Expense = new
+			{
+				ExpenseId = model.ExpenseId,
+				Amount = model.Amount,
+				DateTime = model.DateTime
+			}
+		};
+
+		var request = JsonContent.Create(content);
+		var response = await httpClient.PutAsync(url, request);
+
+		if (response.IsSuccessStatusCode == false)
+		{
+			// TODO: Log an error message.
+
+			return false;
+		}
+
+		return true;
+	}
+
 	public async Task<bool> RemoveExpenseAsync(ExpenseModel model)
 	{
 		var url = $"http://localhost:5103/api/v1/expense/{dataCache.User.UserId}?expenseId={model.ExpenseId}";

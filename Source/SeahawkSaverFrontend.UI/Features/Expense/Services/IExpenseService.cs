@@ -7,5 +7,7 @@ public interface IExpenseService
 
 	public Task<bool> AddExpenseAsync(ExpenseModel model);
 
+	public Task<bool> UpdateExpenseAsync(ExpenseModel model);
+
 	public Task<bool> RemoveExpenseAsync(ExpenseModel model);
 }
