@@ -2,20 +2,13 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{A3747BCB-730A-4949-8A20-83156369DACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeahawkSaverFrontend.UI", "Source\SeahawkSaverFrontend.UI\SeahawkSaverFrontend.UI.csproj", "{8645D800-B46D-43AD-8FB3-E505965A016E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8645D800-B46D-43AD-8FB3-E505965A016E} = {A3747BCB-730A-4949-8A20-83156369DACE}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8645D800-B46D-43AD-8FB3-E505965A016E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8645D800-B46D-43AD-8FB3-E505965A016E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8645D800-B46D-43AD-8FB3-E505965A016E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8645D800-B46D-43AD-8FB3-E505965A016E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
