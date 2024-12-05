@@ -12,7 +12,7 @@ using System.Net.Http.Json;
  * <typeparam name="TEndpointRequest">The type of the request provided to the endpoint.</typeparam>
  * <typeparam name="TEndpointResponse">The type of the response returned by the endpoint.</typeparam>
  */
-public abstract class CreateFinancialModelUseCase<TFinancialModel, TEndpointRequest, TEndpointResponse> : IUseCase<TFinancialModel, bool>
+public abstract class CreateFinancialModelUseCase<TFinancialModel, TEndpointRequest, TEndpointResponse> : UseCase<TFinancialModel, bool>
 	where TFinancialModel : FinancialModel
 	where TEndpointRequest : class
 	where TEndpointResponse : class
@@ -60,7 +60,7 @@ public abstract class CreateFinancialModelUseCase<TFinancialModel, TEndpointRequ
 	 */
 	protected abstract void MapId(TFinancialModel financialModel, TEndpointResponse response);
 
-	public async Task<bool> ExecuteAsync(TFinancialModel input)
+	public override async Task<bool> ExecuteAsync(TFinancialModel input)
 	{
 		var baseUri = new Uri("http://localhost:5103/api/v1/");
 		var endpointRelativePath = GetEndpointRelativePath();

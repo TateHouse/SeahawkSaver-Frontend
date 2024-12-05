@@ -6,10 +6,13 @@ using System.Net.Http.Json;
 
 /**
  * <summary>
- * An abstract base class for all financial model use cases that utilize a list API endpoint.
+ * An abstract base class for all financial models to retrieve all data of that financial model type from the backend
+ * API.
  * </summary>
+ * <typeparam name="TFinancialModel">The type of the financial model.</typeparam>
+ * <typeparam name="TEndpointResponse">The type of the response returned by the endpoint.</typeparam>
  */
-public abstract class ListFinancialModelUseCase<TFinancialModel, TEndpointResponse> : IUseCase<object?, IEnumerable<TFinancialModel>>
+public abstract class ListFinancialModelUseCase<TFinancialModel, TEndpointResponse> : UseCase<object?, IEnumerable<TFinancialModel>>
 	where TFinancialModel : FinancialModel
 	where TEndpointResponse : class
 {
@@ -45,7 +48,7 @@ public abstract class ListFinancialModelUseCase<TFinancialModel, TEndpointRespon
 	 */
 	protected abstract IEnumerable<TFinancialModel> MapResponse(TEndpointResponse response);
 
-	public async Task<IEnumerable<TFinancialModel>> ExecuteAsync(object? input)
+	public override async Task<IEnumerable<TFinancialModel>> ExecuteAsync(object? input)
 	{
 		// TODO: Refactor the hardcoded URI into a configuration file.
 		var baseUri = new Uri("http://localhost:5103/api/v1/");

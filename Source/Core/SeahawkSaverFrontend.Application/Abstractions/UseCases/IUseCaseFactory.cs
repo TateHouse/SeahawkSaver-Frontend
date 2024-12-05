@@ -10,8 +10,9 @@ public interface IUseCaseFactory
 	 * <summary>
 	 * Instantiates a <see cref="IUseCase{TInput,TOutput}"/> of the specified type.
 	 * </summary>
-	 * <param name="useCaseType">The type of the use case.</param>
+	 * <typeparam name="TUseCase">The type of the use case.</typeparam>
 	 * <returns>A <see cref="IUseCase{TInput,TOutput}"/> of the specified type.</returns>
 	 */
-	public IUseCase<TInput, TOutput> Create<TInput, TOutput>(Type useCaseType);
+	public TUseCase Create<TUseCase>()
+		where TUseCase : IUseCase;
 }

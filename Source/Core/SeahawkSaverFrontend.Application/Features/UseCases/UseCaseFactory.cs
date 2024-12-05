@@ -4,7 +4,7 @@ using SeahawkSaverFrontend.Application.Abstractions.UseCases;
 
 /**
  * <summary>
- * A factory for <see cref="IUseCase{TInput,TOutput}"/> instances.
+ * A factory to instantiate use cases.
  * </summary>
  */
 public sealed class UseCaseFactory : IUseCaseFactory
@@ -22,8 +22,9 @@ public sealed class UseCaseFactory : IUseCaseFactory
 		this.serviceProvider = serviceProvider;
 	}
 
-	public IUseCase<TInput, TOutput> Create<TInput, TOutput>(Type useCaseType)
+	public TUseCase Create<TUseCase>()
+		where TUseCase : IUseCase
 	{
-		return (IUseCase<TInput, TOutput>)serviceProvider.GetRequiredService(useCaseType);
+		return (TUseCase)serviceProvider.GetRequiredService(typeof(TUseCase));
 	}
 }

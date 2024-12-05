@@ -11,7 +11,7 @@ using System.Net.Http.Json;
  * <typeparam name="TFinancialModel">The type of the financial model.</typeparam>
  * <typeparam name="TEndpointRequest">The type of the request provided to the endpoint.</typeparam>
  */
-public abstract class UpdateFinancialModelUseCase<TFinancialModel, TEndpointRequest> : IUseCase<TFinancialModel, bool>
+public abstract class UpdateFinancialModelUseCase<TFinancialModel, TEndpointRequest> : UseCase<TFinancialModel, bool>
 	where TFinancialModel : FinancialModel
 	where TEndpointRequest : class
 {
@@ -56,7 +56,7 @@ public abstract class UpdateFinancialModelUseCase<TFinancialModel, TEndpointRequ
 	 */
 	protected abstract TEndpointRequest MapRequest(TFinancialModel financialModel);
 
-	public async Task<bool> ExecuteAsync(TFinancialModel input)
+	public override async Task<bool> ExecuteAsync(TFinancialModel input)
 	{
 		var baseUri = new Uri("http://localhost:5103/api/v1/");
 		var endpointRelativePath = GetEndpointRelativePath();

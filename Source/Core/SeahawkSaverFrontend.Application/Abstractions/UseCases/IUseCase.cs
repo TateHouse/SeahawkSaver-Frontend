@@ -1,10 +1,10 @@
 ﻿namespace SeahawkSaverFrontend.Application.Abstractions.UseCases;
 /**
  * <summary>
- * An interface for a use case.
+ * A generic interface for a use case.
  * </summary>
- * <typeparam name="TInput">The input provided to the use case.</typeparam>
- * <typeparam name="TOutput">The output provided from the use case.</typeparam>
+ * <typeparam name="TInput">The type of the input provided to the use case.</typeparam>
+ * <typeparam name="TOutput">The type of the output provided from the use case.</typeparam>
  */
 public interface IUseCase<in TInput, TOutput>
 {
@@ -17,4 +17,15 @@ public interface IUseCase<in TInput, TOutput>
 	 * the use case.</returns>
 	 */
 	public Task<TOutput> ExecuteAsync(TInput input);
+}
+
+/**
+ * <summary>
+ * A non-generic interface for a use case.
+ * </summary>
+ */
+public interface IUseCase
+{
+	public Type InputType { get; }
+	public Type OutputType { get; }
 }

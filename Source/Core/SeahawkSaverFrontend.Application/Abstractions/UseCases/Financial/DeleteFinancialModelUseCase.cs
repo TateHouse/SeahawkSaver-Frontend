@@ -9,7 +9,7 @@ using SeahawkSaverFrontend.Domain.Models.Financial;
  * </summary>
  * <typeparam name="TFinancialModel">The type of the financial model.</typeparam>
  */
-public abstract class DeleteFinancialModelUseCase<TFinancialModel> : IUseCase<TFinancialModel, bool>
+public abstract class DeleteFinancialModelUseCase<TFinancialModel> : UseCase<TFinancialModel, bool>
 	where TFinancialModel : FinancialModel
 {
 	private readonly ApiHttpClient httpClient;
@@ -44,7 +44,7 @@ public abstract class DeleteFinancialModelUseCase<TFinancialModel> : IUseCase<TF
 	 */
 	protected abstract string GetEndpointQueryParameters(TFinancialModel financialModel);
 
-	public async Task<bool> ExecuteAsync(TFinancialModel input)
+	public override async Task<bool> ExecuteAsync(TFinancialModel input)
 	{
 		var baseUri = new Uri("http://localhost:5103/api/v1/");
 		var endpointRelativePath = GetEndpointRelativePath();
