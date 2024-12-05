@@ -26,4 +26,9 @@ public sealed class InMemoryAuthenticationCache : IAuthenticationCache
 
 		}
 	}
+
+	public bool IsAuthenticated()
+	{
+		return string.IsNullOrWhiteSpace(token) == false;
+	}
 }

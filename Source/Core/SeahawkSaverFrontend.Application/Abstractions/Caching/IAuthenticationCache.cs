@@ -8,4 +8,12 @@ public interface IAuthenticationCache
 {
 	public event Action? OnChange;
 	public string Token { get; set; }
+
+	/**
+	 * <summary>
+	 * Checks whether the client is authenticated.
+	 * </summary>
+	 * <returns>True if the client is authenticated. Otherwise, false.</returns>
+	 */
+	public bool IsAuthenticated();
 }
