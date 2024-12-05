@@ -58,7 +58,6 @@ public sealed class ApiHttpClient
 		return await httpClient.PostAsync(uri, request);
 	}
 
-
 	/**
 	 * <summary>
 	 * Asynchronously sends a PUT request to the specified <paramref name="uri"/> with the provided content.
@@ -70,6 +69,18 @@ public sealed class ApiHttpClient
 	public async Task<HttpResponseMessage> PutAsync(Uri uri, JsonContent request)
 	{
 		return await httpClient.PutAsync(uri, request);
+	}
+
+	/**
+	 * <summary>
+	 * Asynchronously sends a DELETE request to the specified <paramref name="uri"/>.
+	 * </summary>
+	 * <param name="uri">The uri to send the DELETE request to.</param>
+	 * <returns>A task that represents the asynchronous operation, and it contains the endpoint's response.</returns>
+	 */
+	public async Task<HttpResponseMessage> DeleteAsync(Uri uri)
+	{
+		return await httpClient.DeleteAsync(uri);
 	}
 
 	/**
