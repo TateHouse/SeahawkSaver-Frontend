@@ -49,13 +49,27 @@ public sealed class ApiHttpClient
 	 * <summary>
 	 * Asynchronously sends a POST request to the specified <paramref name="uri"/> with the provided content.
 	 * </summary>
-	 * <param name="uri">The uri to send the GET request to.</param>
+	 * <param name="uri">The uri to send the POST request to.</param>
 	 * <param name="request">The content to provide in the request.</param>
 	 * <returns>A task that represents the asynchronous operation, and it contains the endpoint's response.</returns>
 	 */
 	public async Task<HttpResponseMessage> PostAsync(Uri uri, JsonContent request)
 	{
 		return await httpClient.PostAsync(uri, request);
+	}
+
+
+	/**
+	 * <summary>
+	 * Asynchronously sends a PUT request to the specified <paramref name="uri"/> with the provided content.
+	 * </summary>
+	 * <param name="uri">The uri to send the PUT request to.</param>
+	 * <param name="request">The content to provide in the request.</param>
+	 * <returns>A task that represents the asynchronous operation, and it contains the endpoint's response.</returns>
+	 */
+	public async Task<HttpResponseMessage> PutAsync(Uri uri, JsonContent request)
+	{
+		return await httpClient.PutAsync(uri, request);
 	}
 
 	/**
