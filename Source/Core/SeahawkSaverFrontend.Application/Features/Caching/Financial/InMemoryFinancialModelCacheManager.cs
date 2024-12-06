@@ -1,4 +1,5 @@
 ﻿namespace SeahawkSaverFrontend.Application.Features.Caching.Financial;
+using SeahawkSaverFrontend.Application.Abstractions.Caching;
 using SeahawkSaverFrontend.Domain.Models.Financial;
 
 /**
@@ -8,11 +9,11 @@ using SeahawkSaverFrontend.Domain.Models.Financial;
  */
 public sealed class InMemoryFinancialModelCacheManager
 {
-	public InMemoryFinancialModelCache<DebtModel> DebtModelCache { get; init; }
-	public InMemoryFinancialModelCache<ExpenseModel> ExpenseModelCache { get; init; }
-	public InMemoryFinancialModelCache<IncomeModel> IncomeModelCache { get; init; }
-	public InMemoryFinancialModelCache<SavingModel> SavingModelCache { get; init; }
-	public InMemoryFinancialModelCache<SubscriptionModel> SubscriptionModelCache { get; init; }
+	public IFinancialModelCache<DebtModel> DebtModelCache { get; init; }
+	public IFinancialModelCache<ExpenseModel> ExpenseModelCache { get; init; }
+	public IFinancialModelCache<IncomeModel> IncomeModelCache { get; init; }
+	public IFinancialModelCache<SavingModel> SavingModelCache { get; init; }
+	public IFinancialModelCache<SubscriptionModel> SubscriptionModelCache { get; init; }
 
 	/**
 	 * <summary>
@@ -24,11 +25,11 @@ public sealed class InMemoryFinancialModelCacheManager
 	 * <param name="savingModelCache">The in-memory saving cache to use.</param>
 	 * <param name="subscriptionModelCache">The in-memory subscription cache to use.</param>
 	 */
-	public InMemoryFinancialModelCacheManager(InMemoryFinancialModelCache<DebtModel> debtModelCache,
-											  InMemoryFinancialModelCache<ExpenseModel> expenseModelCache,
-											  InMemoryFinancialModelCache<IncomeModel> incomeModelCache,
-											  InMemoryFinancialModelCache<SavingModel> savingModelCache,
-											  InMemoryFinancialModelCache<SubscriptionModel> subscriptionModelCache)
+	public InMemoryFinancialModelCacheManager(IFinancialModelCache<DebtModel> debtModelCache,
+											  IFinancialModelCache<ExpenseModel> expenseModelCache,
+											  IFinancialModelCache<IncomeModel> incomeModelCache,
+											  IFinancialModelCache<SavingModel> savingModelCache,
+											  IFinancialModelCache<SubscriptionModel> subscriptionModelCache)
 	{
 		DebtModelCache = debtModelCache;
 		ExpenseModelCache = expenseModelCache;

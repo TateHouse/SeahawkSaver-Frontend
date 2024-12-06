@@ -1,5 +1,4 @@
-﻿@using SeahawkSaverFrontend.UI.Themes
-@inherits LayoutComponentBase
+﻿@inherits LayoutComponentBase
 
 <MudThemeProvider Theme="mudTheme"/>
 <MudPopoverProvider/>
@@ -8,9 +7,7 @@
 
 <MudLayout>
     <NavigationBar/>
-    <MudMainContent>
-        <MudContainer>
-            @Body
-        </MudContainer>
+    <MudMainContent Style="height: 100vh;">
+        @Body
     </MudMainContent>
 </MudLayout>

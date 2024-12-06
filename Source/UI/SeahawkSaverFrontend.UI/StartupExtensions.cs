@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MudBlazor.Services;
 using SeahawkSaverFrontend.Application;
+using SeahawkSaverFrontend.UI.Components.Financial;
+using SeahawkSaverFrontend.UI.Components.Financial.Calendar.UseCases;
 
 /**
  * <summary>
@@ -29,6 +31,8 @@ public static class StartupExtensions
 		builder.Services.AddMudServices();
 
 		builder.Services.RegisterApplicationServices();
+		builder.Services.RegisterCalendarUseCases();
+		builder.Services.RegisterFinancialComponentServices();
 
 		return builder;
 	}
