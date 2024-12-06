@@ -19,6 +19,7 @@ public static class UseCaseRegistration
 	 */
 	internal static void RegisterUserUseCases(this IServiceCollection services)
 	{
+		services.AddTransient<LoginUserModelUseCase>();
 		services.AddTransient<LogoutUserModelUseCase>();
 	}
 }

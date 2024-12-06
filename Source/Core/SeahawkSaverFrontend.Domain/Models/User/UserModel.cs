@@ -6,10 +6,10 @@
  */
 public class UserModel
 {
-	public required Guid UserId { get; set; }
-	public required string Email { get; set; } = string.Empty;
-	public required string FirstName { get; set; } = string.Empty;
-	public required string LastName { get; set; } = string.Empty;
-	public required bool IsAdmin { get; set; }
-	public required bool IsActive { get; set; }
+	public Guid UserId { get; set; }
+	public string Email { get; set; } = string.Empty;
+	public string FirstName { get; set; } = string.Empty;
+	public string LastName { get; set; } = string.Empty;
+	public bool IsAdmin { get; set; }
+	public bool IsActive { get; set; }
 }
