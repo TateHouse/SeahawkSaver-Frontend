@@ -1,19 +1,12 @@
-﻿<MudContainer Class="mx-auto pa-6"
+﻿@using SeahawkSaverFrontend.UI.Components.Utilities
+<MudContainer Class="mx-auto pa-6"
               MaxWidth="MaxWidth.Medium">
-    <MudCard Class="mt-4 pa-8 mud-theme-secondary"
-             Elevation="2">
-        <MudCardContent>
-            <MudText Align="Align.Center">
-                Please log in to access your financial dashboard, where you can track your financial health to stay on
-                top of your financial goals.
-            </MudText>
-        </MudCardContent>
-    </MudCard>
-    <MudCard>
-        <MudPaper Elevation="2">
-            <MudDivider Class="pa-2 mud-theme-tertiary"/>
-        </MudPaper>
-    </MudCard>
+    <SectionHeaderComponent Align="Align.Center"
+                            Style="font-size: 1.5em;"
+                            Typo="Typo.body1">
+        Please log in to access your financial dashboard, where you can track your financial health to stay on
+        top of your financial goals.
+    </SectionHeaderComponent>
     <MudCard Class="my-4"
              Elevation="2">
         <MudCardContent>
