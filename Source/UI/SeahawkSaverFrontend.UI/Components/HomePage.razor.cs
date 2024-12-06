@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 namespace SeahawkSaverFrontend.UI.Components;
-public partial class Home : ComponentBase
+public partial class HomePage : ComponentBase
 {
 
 }
