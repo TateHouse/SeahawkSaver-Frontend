@@ -9,6 +9,7 @@ using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Expense;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Income;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Saving;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription;
+using SeahawkSaverFrontend.Application.Features.UseCases.User;
 using SeahawkSaverFrontend.Application.Utilities;
 
 /**
@@ -61,5 +62,6 @@ public static class ServiceRegistration
 		services.RegisterIncomeUseCases();
 		services.RegisterSavingUseCases();
 		services.RegisterSubscriptionUseCases();
+		services.RegisterUserUseCases();
 	}
 }

@@ -1,0 +1,30 @@
+﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
+@using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@inject NavigationManager NavigationManager
+@inject IAuthenticationCache AuthenticationCache
+@inject IUseCaseFactory UseCaseFactory
+
+<MudAppBar Elevation="0">
+    <MudText Style="font-size: 2em; font-weight: bold"
+             Typo="Typo.body1">
+        Seahawk Saver
+    </MudText>
+
+    @if (AuthenticationCache.IsAuthenticated())
+    {
+        <MudList T="string">
+            <MudButton Color="Color.Inherit"
+                       OnClick="OnClick_Home">
+                Home
+            </MudButton>
+            <MudButton Color="Color.Inherit"
+                       OnClick="OnClick_Resources">
+                Resources
+            </MudButton>
+            <MudButton Color="Color.Inherit"
+                       OnClick="OnClick_Logout">
+                Logout
+            </MudButton>
+        </MudList>
+    }
+</MudAppBar>
