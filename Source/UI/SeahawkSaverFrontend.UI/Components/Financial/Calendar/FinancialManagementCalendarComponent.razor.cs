@@ -6,7 +6,7 @@ using Heron.MudTotalCalendar;
 using MudBlazor;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items;
 
-public partial class FinancialManagementCalendar : ComponentBase
+public partial class FinancialManagementCalendarComponent : ComponentBase
 {
 	private MudTotalCalendar calendar = null!;
 	private Dictionary<char, bool> totalCalculationVisibilityToggles = new Dictionary<char, bool>

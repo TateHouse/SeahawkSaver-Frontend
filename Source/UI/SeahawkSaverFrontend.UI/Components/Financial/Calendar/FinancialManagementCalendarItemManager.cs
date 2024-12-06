@@ -4,7 +4,7 @@ using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items;
 
 /**
  * <summary>
- * A manager for the <see cref="FinancialManagementCalendar"/> items.
+ * A manager for the <see cref="FinancialManagementCalendarComponent"/> items.
  * </summary>
  */
 public sealed class FinancialManagementCalendarItemManager

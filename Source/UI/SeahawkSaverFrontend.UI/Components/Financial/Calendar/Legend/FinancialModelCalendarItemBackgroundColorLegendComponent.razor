@@ -1,0 +1,18 @@
+﻿@using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items
+
+<div Style="display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
+    <FinancialModelCalendarItemBackgroundColorLegendEntryComponent FinancialModelName="Debt"
+                                                                   BackgroundColor="@FinancialModelCalendarItemColors.BackgroundColors[nameof(DebtModelCalendarItem)]"/>
+
+    <FinancialModelCalendarItemBackgroundColorLegendEntryComponent FinancialModelName="Expense"
+                                                                   BackgroundColor="@FinancialModelCalendarItemColors.BackgroundColors[nameof(ExpenseModelCalendarItem)]"/>
+
+    <FinancialModelCalendarItemBackgroundColorLegendEntryComponent FinancialModelName="Income"
+                                                                   BackgroundColor="@FinancialModelCalendarItemColors.BackgroundColors[nameof(IncomeModelCalendarItem)]"/>
+
+    <FinancialModelCalendarItemBackgroundColorLegendEntryComponent FinancialModelName="Saving"
+                                                                   BackgroundColor="@FinancialModelCalendarItemColors.BackgroundColors[nameof(SavingModelCalendarItem)]"/>
+
+    <FinancialModelCalendarItemBackgroundColorLegendEntryComponent FinancialModelName="Subscription"
+                                                                   BackgroundColor="@FinancialModelCalendarItemColors.BackgroundColors[nameof(SubscriptionModelCalendarItem)]"/>
+</div>

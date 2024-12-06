@@ -1,5 +1,6 @@
 ﻿@using SeahawkSaverFrontend.Application.Features.Caching.Financial
 @using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items
+@using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Legend
 @inject FinancialManagementCalendarItemManager FinancialManagementCalendarItemManager
 @inject InMemoryFinancialModelCacheManager FinancialModelCacheManager
 
@@ -22,7 +23,8 @@
                       Values="CalculateTotals()">
         <CellTemplate>
             <div Style="display: flex; justify-content: center; align-items: center; ">
-                <div Style="margin: 5px 0; padding: 5px; width: 90%; height: 100%; border-radius: 10px; background-color: @(((FinancialModelCalendarItem)context).HexColor)">
+                <div Class="rounded"
+                     Style="margin: 5px 0; padding: 5px; width: 90%; height: 100%; background-color: @(((FinancialModelCalendarItem)context).HexColor)">
                     <MudText Align="Align.Center"
                              Style="font-weight: bold;"
                              Typo="Typo.body1">
@@ -51,6 +53,7 @@
                        T="bool">
                 Monthly Total
             </MudSwitch>
+            <FinancialModelCalendarItemBackgroundColorLegendComponent/>
         </ToolbarContent>
     </MudTotalCalendar>
 </MudPaper>

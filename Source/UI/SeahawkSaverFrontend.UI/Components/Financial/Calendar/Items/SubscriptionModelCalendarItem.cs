@@ -8,5 +8,8 @@ using SeahawkSaverFrontend.Domain.Models.Financial;
  */
 public sealed class SubscriptionModelCalendarItem : FinancialModelCalendarItem
 {
-	
+	public SubscriptionModelCalendarItem()
+	{
+		HexColor = FinancialModelCalendarItemColors.BackgroundColors[nameof(SubscriptionModelCalendarItem)];
+	}
 }

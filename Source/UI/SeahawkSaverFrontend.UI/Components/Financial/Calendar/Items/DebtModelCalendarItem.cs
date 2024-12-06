@@ -8,5 +8,8 @@ using SeahawkSaverFrontend.Domain.Models.Financial;
  */
 public sealed class DebtModelCalendarItem : FinancialModelCalendarItem
 {
-	
+	public DebtModelCalendarItem()
+	{
+		HexColor = FinancialModelCalendarItemColors.BackgroundColors[nameof(DebtModelCalendarItem)];
+	}
 }

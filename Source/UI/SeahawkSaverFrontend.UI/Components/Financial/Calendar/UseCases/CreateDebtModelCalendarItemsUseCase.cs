@@ -1,5 +1,4 @@
 ﻿namespace SeahawkSaverFrontend.UI.Components.Financial.Calendar.UseCases;
-using MudBlazor;
 using SeahawkSaverFrontend.Application.Abstractions.Caching;
 using SeahawkSaverFrontend.Domain.Models.Financial;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items;
@@ -30,7 +29,6 @@ public sealed class CreateDebtModelCalendarItemsUseCase : CreateFinancialModelCa
 		return new DebtModelCalendarItem
 		{
 			FinancialModel = debtModel,
-			HexColor = Colors.Red.Default,
 			Start = debtModel.DateTime!.Value,
 			End = null,
 			AllDay = true,
