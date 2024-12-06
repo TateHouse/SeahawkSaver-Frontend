@@ -16,7 +16,7 @@ public partial class FinancialManagementCalendarCreateFinancialModelComponent : 
 
 	private async Task OnCreate()
 	{
-		var wasCreated = await financialModelComponent.Create();
+		var wasCreated = await financialModelComponent.CreateAsync();
 
 		if (wasCreated)
 		{

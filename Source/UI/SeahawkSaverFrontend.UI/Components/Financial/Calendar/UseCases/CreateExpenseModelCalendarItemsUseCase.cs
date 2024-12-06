@@ -29,6 +29,7 @@ public sealed class CreateExpenseModelCalendarItemsUseCase : CreateFinancialMode
 		return new ExpenseModelCalendarItem
 		{
 			FinancialModel = expenseModel,
+			FinancialModelType = FinancialModelType.Expense,
 			Start = expenseModel.DateTime!.Value,
 			End = null,
 			AllDay = true,

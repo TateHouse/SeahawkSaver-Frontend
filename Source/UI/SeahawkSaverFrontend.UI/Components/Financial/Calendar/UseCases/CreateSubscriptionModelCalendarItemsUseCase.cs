@@ -29,6 +29,7 @@ public sealed class CreateSubscriptionModelCalendarItemsUseCase : CreateFinancia
 		return new SubscriptionModelCalendarItem
 		{
 			FinancialModel = subscriptionModel,
+			FinancialModelType = FinancialModelType.Subscription,
 			Start = subscriptionModel.DateTime!.Value,
 			End = null,
 			AllDay = true,

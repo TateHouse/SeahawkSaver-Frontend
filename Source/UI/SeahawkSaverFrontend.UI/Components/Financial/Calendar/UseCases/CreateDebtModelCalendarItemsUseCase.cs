@@ -29,6 +29,7 @@ public sealed class CreateDebtModelCalendarItemsUseCase : CreateFinancialModelCa
 		return new DebtModelCalendarItem
 		{
 			FinancialModel = debtModel,
+			FinancialModelType = FinancialModelType.Debt,
 			Start = debtModel.DateTime!.Value,
 			End = null,
 			AllDay = true,

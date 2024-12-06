@@ -1,0 +1,18 @@
+﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
+@using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@using SeahawkSaverFrontend.Domain.Models.Financial
+@inject ISnackbar Snackbar
+@inject IUseCaseFactory UseCaseFactory
+@inject IFinancialModelCache<SavingModel> SavingModelCache
+
+<MudTextField Adornment="Adornment.Start"
+              AdornmentIcon="@Icons.Material.Filled.AttachMoney"
+              @bind-Value="SavingModel.Amount"
+              Error="@propertyValidationStatuses[nameof(SavingModel.Amount)]"
+              Label="Amount"
+              T="decimal"
+              Variant="Variant.Text"/>
+
+<MudDatePicker @bind-Date="SavingModel.DateTime"
+               Error="@propertyValidationStatuses[nameof(SavingModel.DateTime)]"
+               Label="Date"/>

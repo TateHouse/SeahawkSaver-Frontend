@@ -1,0 +1,49 @@
+﻿@using SeahawkSaverFrontend.Domain.Models.Financial
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        Manage
+    </TitleContent>
+    <DialogContent>
+        @switch (FinancialModelType)
+        {
+            case FinancialModelType.Debt:
+                <FinancialManagementCalendarManageDebtModelComponent DebtModel="(DebtModel)FinancialModel" @ref="financialModelComponent"/>
+
+                break;
+
+            case FinancialModelType.Expense:
+                <FinancialManagementCalendarManageExpenseModelComponent ExpenseModel="(ExpenseModel)FinancialModel" @ref="financialModelComponent"/>
+
+                break;
+
+            case FinancialModelType.Income:
+                <FinancialManagementCalendarManageIncomeModelComponent IncomeModel="(IncomeModel)FinancialModel" @ref="financialModelComponent"/>
+
+                break;
+
+            case FinancialModelType.Saving:
+                <FinancialManagementCalendarManageSavingModelComponent SavingModel="(SavingModel)FinancialModel" @ref="financialModelComponent"/>
+
+                break;
+
+            case FinancialModelType.Subscription:
+                <FinancialManagementCalendarManageSubscriptionModelComponent SubscriptionModel="(SubscriptionModel)FinancialModel" @ref="financialModelComponent"/>
+
+                break;
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="OnUpdateAsync">
+            Update
+        </MudButton>
+        <MudButton OnClick="OnDeleteAsync">
+            Delete
+        </MudButton>
+        <MudButton OnClick="OnCancel">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>

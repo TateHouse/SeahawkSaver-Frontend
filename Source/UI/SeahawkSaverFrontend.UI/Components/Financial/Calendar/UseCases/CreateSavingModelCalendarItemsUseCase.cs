@@ -29,6 +29,7 @@ public sealed class CreateSavingModelCalendarItemsUseCase : CreateFinancialModel
 		return new SavingModelCalendarItem
 		{
 			FinancialModel = savingModel,
+			FinancialModelType = FinancialModelType.Saving,
 			Start = savingModel.DateTime!.Value,
 			End = null,
 			AllDay = true,

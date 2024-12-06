@@ -6,6 +6,7 @@ using Heron.MudTotalCalendar;
 using MudBlazor;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Create;
+using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Manage;
 
 public partial class FinancialManagementCalendarComponent : ComponentBase
 {
@@ -43,7 +44,21 @@ public partial class FinancialManagementCalendarComponent : ComponentBase
 
 	private async Task OnItemClicked(CalendarItem calendarItem)
 	{
-		var item = (FinancialModelCalendarItem)calendarItem;
+		var financialModelCalendarItem = (FinancialModelCalendarItem)calendarItem;
+		var parameters = new DialogParameters
+		{
+			{ "FinancialModelType", financialModelCalendarItem.FinancialModelType },
+			{ "FinancialModel", financialModelCalendarItem.FinancialModel },
+		};
+
+		var dialog = await DialogService.ShowAsync<FinancialManagementCalendarManageFinancialModelComponent>("Manage", parameters);
+		var dialogResult = await dialog.Result;
+
+		if (!dialogResult.Canceled && dialogResult.Data is true)
+		{
+			FinancialManagementCalendarItemManager.ReloadFinancialModelCalendarItems();
+			StateHasChanged();
+		}
 	}
 
 	private void OnDateRangeChanged(DateRange dateRange)

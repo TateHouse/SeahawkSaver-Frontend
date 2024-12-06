@@ -29,6 +29,7 @@ public sealed class CreateIncomeModelCalendarItemsUseCase : CreateFinancialModel
 		return new IncomeModelCalendarItem
 		{
 			FinancialModel = incomeModel,
+			FinancialModelType = FinancialModelType.Income,
 			Start = incomeModel.DateTime!.Value,
 			End = null,
 			AllDay = true,

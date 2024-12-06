@@ -35,7 +35,7 @@ public partial class FinancialManagementCalendarCreateIncomeModelComponent : Com
 		propertyValidationStatuses[nameof(DateTime)] = true;
 	}
 
-	public async Task<bool> Create()
+	public async Task<bool> CreateAsync()
 	{
 		var isValid = IsValid();
 
