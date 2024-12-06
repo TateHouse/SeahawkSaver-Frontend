@@ -10,4 +10,5 @@ using SeahawkSaverFrontend.Domain.Models.Financial;
 public abstract class FinancialModelCalendarItem : CalendarItem
 {
 	public required FinancialModel FinancialModel { get; init; }
+	public required string HexColor { get; init; }
 }

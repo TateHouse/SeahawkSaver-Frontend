@@ -8,5 +8,5 @@ using SeahawkSaverFrontend.Domain.Models.Financial;
  */
 public sealed class IncomeModelCalendarItem : FinancialModelCalendarItem
 {
-	
+
 }
