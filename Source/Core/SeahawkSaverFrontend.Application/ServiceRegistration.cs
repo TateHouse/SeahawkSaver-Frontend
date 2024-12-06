@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SeahawkSaverFrontend.Application.Abstractions.Caching;
 using SeahawkSaverFrontend.Application.Abstractions.UseCases;
 using SeahawkSaverFrontend.Application.Features.Caching;
+using SeahawkSaverFrontend.Application.Features.Caching.Financial;
 using SeahawkSaverFrontend.Application.Features.UseCases;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Debt;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Expense;
@@ -11,6 +12,7 @@ using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Saving;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription;
 using SeahawkSaverFrontend.Application.Features.UseCases.User;
 using SeahawkSaverFrontend.Application.Utilities;
+using SeahawkSaverFrontend.Domain.Models.Financial;
 
 /**
  * <summary>
@@ -45,7 +47,12 @@ public static class ServiceRegistration
 	{
 		services.AddSingleton<IUserCache, InMemoryUserCache>();
 		services.AddSingleton<IAuthenticationCache, InMemoryAuthenticationCache>();
-		services.AddSingleton(typeof(IFinancialModelCache<>), typeof(InMemoryFinancialModelCache<>));
+		services.AddSingleton<IFinancialModelCache<DebtModel>, InMemoryDebtModelCache>();
+		services.AddSingleton<IFinancialModelCache<ExpenseModel>, InMemoryExpenseModelCache>();
+		services.AddSingleton<IFinancialModelCache<IncomeModel>, InMemoryIncomeModelCache>();
+		services.AddSingleton<IFinancialModelCache<SavingModel>, InMemorySavingModelCache>();
+		services.AddSingleton<IFinancialModelCache<SubscriptionModel>, InMemorySubscriptionModelCache>();
+		services.AddSingleton<InMemoryFinancialModelCacheManager>();
 	}
 
 	/**

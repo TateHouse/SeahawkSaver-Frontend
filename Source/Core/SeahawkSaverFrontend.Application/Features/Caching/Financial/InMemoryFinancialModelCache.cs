@@ -1,4 +1,4 @@
-﻿namespace SeahawkSaverFrontend.Application.Features.Caching;
+﻿namespace SeahawkSaverFrontend.Application.Features.Caching.Financial;
 using AutoMapper;
 using SeahawkSaverFrontend.Application.Abstractions.Caching;
 using SeahawkSaverFrontend.Domain.Models.Financial;
@@ -9,11 +9,11 @@ using SeahawkSaverFrontend.Domain.Models.Financial;
  * </summary>
  * <typeparam name="TFinancialModel">The type of financial model stored in the cache.</typeparam>
  */
-public class InMemoryFinancialModelCache<TFinancialModel> : IFinancialModelCache<TFinancialModel>
+public abstract class InMemoryFinancialModelCache<TFinancialModel> : IFinancialModelCache<TFinancialModel>
 	where TFinancialModel : FinancialModel
 {
 	private readonly IMapper mapper;
-	private readonly List<TFinancialModel> models = new List<TFinancialModel>();
+	protected IList<TFinancialModel> models = new List<TFinancialModel>();
 
 	/**
 	 * <summary>
@@ -21,7 +21,7 @@ public class InMemoryFinancialModelCache<TFinancialModel> : IFinancialModelCache
 	 * </summary>
 	 * <param name="mapper">The mapper to use.</param>
 	 */
-	public InMemoryFinancialModelCache(IMapper mapper)
+	protected InMemoryFinancialModelCache(IMapper mapper)
 	{
 		this.mapper = mapper;
 	}
@@ -52,4 +52,6 @@ public class InMemoryFinancialModelCache<TFinancialModel> : IFinancialModelCache
 	{
 		models.Remove(financialModel);
 	}
+
+	public abstract Task LoadAsync();
 }

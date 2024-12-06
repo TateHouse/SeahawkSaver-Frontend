@@ -41,4 +41,11 @@ public interface IFinancialModelCache<TFinancialModel>
 	 * <param name="financialModel">The model to delete.</param>
 	 */
 	public void Delete(TFinancialModel financialModel);
+
+	/**
+	 * <summary>
+	 * Loads the financial model data from the backend API into the cache.
+	 * </summary>
+	 */
+	public Task LoadAsync();
 }
