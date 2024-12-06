@@ -44,7 +44,7 @@ public sealed class FinancialManagementCalendarItemManager
 	 * Clears the calendar and then creates the <see cref="FinancialModelCalendarItem"/> instances.
 	 * </summary>
 	 */
-	public void CreateFinancialModelCalendarItems()
+	public void ReloadFinancialModelCalendarItems()
 	{
 		CalendarItems.Clear();
 

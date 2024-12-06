@@ -1,0 +1,62 @@
+﻿@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<MudDialog>
+    <TitleContent>
+        Create
+    </TitleContent>
+    <DialogContent>
+        <MudSelect @bind-Value="financialModelType"
+                   Clearable="true"
+                   Label="Financial Model Type"
+                   Placeholder="Select Type"
+                   Required="true">
+            @foreach (FinancialModelType modelType in Enum.GetValues(typeof(FinancialModelType)))
+            {
+                <MudSelectItem T="FinancialModelType?"
+                               Value="@modelType">
+                    @modelType
+                </MudSelectItem>
+            }
+        </MudSelect>
+
+        @if (financialModelType != null)
+        {
+            switch (financialModelType)
+            {
+                case FinancialModelType.Debt:
+                    <FinancialManagementCalendarCreateDebtModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+
+                case FinancialModelType.Expense:
+                    <FinancialManagementCalendarCreateExpenseModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+
+                case FinancialModelType.Income:
+                    <FinancialManagementCalendarCreateIncomeModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+
+                case FinancialModelType.Saving:
+                    <FinancialManagementCalendarCreateSavingModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+
+                case FinancialModelType.Subscription:
+                    <FinancialManagementCalendarCreateSubscriptionModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+            }
+        }
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="OnCreate">
+            Create
+        </MudButton>
+        <MudButton OnClick="OnCancel">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>
