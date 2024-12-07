@@ -1,11 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 namespace SeahawkSaverFrontend.UI.Components.Layouts;
+using MudBlazor;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Logout;
+using SeahawkSaverFrontend.UI.Components.User.Manage;
 
 public partial class NavigationBar : ComponentBase, IDisposable
 {
 	private char userProfileCharacter;
+
+	[CascadingParameter]
+	public MudDialogInstance Dialog { get; set; } = null!;
 
 	protected override void OnInitialized()
 	{
@@ -45,9 +50,20 @@ public partial class NavigationBar : ComponentBase, IDisposable
 		NavigationManager.NavigateTo("/financial-report");
 	}
 
-	private void OnClick_Profile()
+	private async Task OnClick_Profile()
 	{
-		NavigationManager.NavigateTo("/profile");
+		var parameters = new DialogParameters
+		{
+			{ "AllowIsActiveModification", false }
+		};
+
+		var options = new DialogOptions
+		{
+			FullWidth = true,
+			MaxWidth = MaxWidth.Small
+		};
+
+		await DialogService.ShowAsync<ManageUserModelFormComponent>("Profile", parameters, options);
 	}
 
 	private void OnClick_Logout()

@@ -1,6 +1,7 @@
 ﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
 @using SeahawkSaverFrontend.Application.Abstractions.UseCases
 @inject NavigationManager NavigationManager
+@inject IDialogService DialogService
 @inject IAuthenticationCache AuthenticationCache
 @inject IUserCache UserCache
 @inject IUseCaseFactory UseCaseFactory
@@ -26,7 +27,7 @@
                         Resources
                     </MudButton>
 
-                    @if (!UserCache.User!.IsAdmin)
+                    @if (!UserCache.User.IsAdmin)
                     {
                         <MudButton Color="Color.Inherit"
                                    OnClick="OnClick_FinancialReport">

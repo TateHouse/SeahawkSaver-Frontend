@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
-
-namespace SeahawkSaverFrontend.UI.Components.User.Profile;
+﻿namespace SeahawkSaverFrontend.UI.Components.User.Manage;
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Update;
 using SeahawkSaverFrontend.Domain.Models.User;
@@ -9,6 +8,12 @@ public partial class ManageUserModelFormComponent : ComponentBase
 {
 	private MudForm form = null!;
 	private readonly UserModel userModel = new UserModel();
+
+	[CascadingParameter]
+	public MudDialogInstance Dialog { get; set; } = null!;
+
+	[Parameter]
+	public bool AllowIsActiveModification { get; set; } = false;
 
 	protected override void OnInitialized()
 	{
@@ -20,9 +25,10 @@ public partial class ManageUserModelFormComponent : ComponentBase
 		userModel.IsActive = UserCache.User.IsActive;
 	}
 
-	private async Task OnSave()
+	private async Task OnClick_Save()
 	{
 		await form.Validate();
+
 		if (!form.IsValid)
 		{
 			Snackbar.Add("Invalid form input.", Severity.Error);
@@ -40,7 +46,12 @@ public partial class ManageUserModelFormComponent : ComponentBase
 			return;
 		}
 
-		UserCache.Update(userModel);
 		Snackbar.Add("User update successful!", Severity.Success);
+		Dialog.Close();
+	}
+
+	private void OnClick_Cancel()
+	{
+		Dialog.Close();
 	}
 }

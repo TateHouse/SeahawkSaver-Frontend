@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using SeahawkSaverFrontend.Application.Abstractions.Caching
 @using SeahawkSaverFrontend.UI.Components.Financial.Calendar
+@using SeahawkSaverFrontend.UI.Components.User.Manage
 
 @inject NavigationManager NavigationManager
 @inject IAuthenticationCache AuthenticationCache
@@ -14,12 +15,9 @@
 }
 else
 {
-    @if (UserCache.User!.IsAdmin)
+    @if (UserCache.User.IsAdmin)
     {
-        <MudText Align="Align.Center"
-                 Typo="Typo.h1">
-            Welcome @UserCache.User.FirstName @UserCache.User.LastName!
-        </MudText>
+        <ManageUserModelsComponent/>
     }
     else
     {

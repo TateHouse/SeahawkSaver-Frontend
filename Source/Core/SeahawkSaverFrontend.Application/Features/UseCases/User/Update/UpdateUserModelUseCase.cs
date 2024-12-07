@@ -46,6 +46,8 @@ public sealed class UpdateUserModelUseCase : UseCase<UserModel, bool>
 			return false;
 		}
 
+		userCache.Update(input);
+
 		return true;
 	}
 
