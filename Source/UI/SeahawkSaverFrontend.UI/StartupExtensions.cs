@@ -1,6 +1,7 @@
 ﻿namespace SeahawkSaverFrontend.UI;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor;
 using MudBlazor.Services;
 using SeahawkSaverFrontend.Application;
 using SeahawkSaverFrontend.UI.Components.Financial;
@@ -28,7 +29,16 @@ public static class StartupExtensions
 			BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
 		});
 
-		builder.Services.AddMudServices();
+		builder.Services.AddMudServices(configuration =>
+		{
+			configuration.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
+			configuration.SnackbarConfiguration.PreventDuplicates = false;
+			configuration.SnackbarConfiguration.ShowCloseIcon = true;
+			configuration.SnackbarConfiguration.VisibleStateDuration = 2500;
+			configuration.SnackbarConfiguration.HideTransitionDuration = 125;
+			configuration.SnackbarConfiguration.ShowTransitionDuration = 125;
+			configuration.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+		});
 
 		builder.Services.RegisterApplicationServices();
 		builder.Services.RegisterCalendarUseCases();

@@ -35,7 +35,7 @@ public partial class LoginUserFormComponent : ComponentBase
 
 		if (!form.IsValid)
 		{
-			Snackbar.Add("Invalid login input, please try again.");
+			Snackbar.Add("Invalid login input, please try again.", Severity.Error);
 
 			return;
 		}
@@ -45,7 +45,7 @@ public partial class LoginUserFormComponent : ComponentBase
 
 		if (!response)
 		{
-			Snackbar.Add("Login failed, please try again.");
+			Snackbar.Add("Login failed, please try again.", Severity.Error);
 
 			return;
 		}

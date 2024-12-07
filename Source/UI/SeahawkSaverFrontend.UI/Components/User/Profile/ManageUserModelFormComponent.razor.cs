@@ -23,14 +23,9 @@ public partial class ManageUserModelFormComponent : ComponentBase
 	private async Task OnSave()
 	{
 		await form.Validate();
-		var snackbarOptions = (SnackbarOptions options) =>
-		{
-			options.DuplicatesBehavior = SnackbarDuplicatesBehavior.Allow;
-		};
-
 		if (!form.IsValid)
 		{
-			Snackbar.Add("Invalid form input.", Severity.Error, snackbarOptions);
+			Snackbar.Add("Invalid form input.", Severity.Error);
 
 			return;
 		}
@@ -40,12 +35,12 @@ public partial class ManageUserModelFormComponent : ComponentBase
 
 		if (!response)
 		{
-			Snackbar.Add("User update failed, please try again.", Severity.Error, snackbarOptions);
+			Snackbar.Add("User update failed, please try again.", Severity.Error);
 
 			return;
 		}
 
 		UserCache.Update(userModel);
-		Snackbar.Add("User update successful!", Severity.Success, snackbarOptions);
+		Snackbar.Add("User update successful!", Severity.Success);
 	}
 }
