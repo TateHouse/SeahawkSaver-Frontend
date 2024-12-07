@@ -10,7 +10,8 @@
                    Clearable="true"
                    Label="Financial Model Type"
                    Placeholder="Select Type"
-                   Required="true">
+                   Required="true"
+                   Variant="Variant.Outlined">
             @foreach (FinancialModelType modelType in Enum.GetValues(typeof(FinancialModelType)))
             {
                 <MudSelectItem T="FinancialModelType?"

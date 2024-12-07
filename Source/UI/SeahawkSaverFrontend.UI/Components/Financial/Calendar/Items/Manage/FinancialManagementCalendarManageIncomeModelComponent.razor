@@ -5,14 +5,15 @@
 @inject IUseCaseFactory UseCaseFactory
 @inject IFinancialModelCache<IncomeModel> IncomeModelCache
 
-<MudTextField Adornment="Adornment.Start"
-              AdornmentIcon="@Icons.Material.Filled.AttachMoney"
-              @bind-Value="IncomeModel.Amount"
-              Error="@propertyValidationStatuses[nameof(IncomeModel.Amount)]"
-              Label="Amount"
-              T="decimal"
-              Variant="Variant.Text"/>
+<MudNumericField Adornment="Adornment.Start"
+                 AdornmentIcon="@Icons.Material.Filled.AttachMoney"
+                 @bind-Value="IncomeModel.Amount"
+                 Error="@propertyValidationStatuses[nameof(IncomeModel.Amount)]"
+                 Label="Amount"
+                 T="decimal"
+                 Variant="Variant.Outlined"/>
 
 <MudDatePicker @bind-Date="IncomeModel.DateTime"
                Error="@propertyValidationStatuses[nameof(IncomeModel.DateTime)]"
-               Label="Date"/>
+               Label="Date"
+               Variant="Variant.Outlined"/>

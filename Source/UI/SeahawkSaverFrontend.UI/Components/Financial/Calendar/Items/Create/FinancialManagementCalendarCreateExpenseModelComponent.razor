@@ -5,10 +5,10 @@
 @inject IUseCaseFactory UseCaseFactory
 @inject IFinancialModelCache<ExpenseModel> ExpenseModelCache
 
-<MudTextField Adornment="Adornment.Start"
-              AdornmentIcon="@Icons.Material.Filled.AttachMoney"
-              @bind-Value="expenseModel.Amount"
-              Error="@propertyValidationStatuses[nameof(ExpenseModel.Amount)]"
-              Label="Amount"
-              T="decimal"
-              Variant="Variant.Text"/>
+<MudNumericField Adornment="Adornment.Start"
+                 AdornmentIcon="@Icons.Material.Filled.AttachMoney"
+                 @bind-Value="expenseModel.Amount"
+                 Error="@propertyValidationStatuses[nameof(ExpenseModel.Amount)]"
+                 Label="Amount"
+                 T="decimal"
+                 Variant="Variant.Outlined"/>
