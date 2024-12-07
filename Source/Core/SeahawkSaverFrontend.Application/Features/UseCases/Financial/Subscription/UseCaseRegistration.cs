@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription.Create;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription.Delete;
+using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription.Formatting;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription.List;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription.Update;
 using SeahawkSaverFrontend.Domain.Models.Financial;
@@ -23,6 +24,7 @@ internal static class UseCaseRegistration
 	{
 		services.AddTransient<CreateSubscriptionModelUseCase>();
 		services.AddTransient<DeleteSubscriptionModelUseCase>();
+		services.AddTransient<FormatSubscriptionModelsCSVUseCase>();
 		services.AddTransient<ListSubscriptionModelUseCase>();
 		services.AddTransient<UpdateSubscriptionModelUseCase>();
 	}

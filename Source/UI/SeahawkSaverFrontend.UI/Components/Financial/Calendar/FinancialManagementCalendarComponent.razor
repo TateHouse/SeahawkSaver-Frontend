@@ -5,6 +5,7 @@
 @inject FinancialManagementCalendarItemManager FinancialManagementCalendarItemManager
 @inject InMemoryFinancialModelCacheManager FinancialModelCacheManager
 
+
 <MudPaper Class="pa-10"
           Elevation="4"
           Style="height: 100%;">
@@ -37,6 +38,7 @@
         </CellTemplate>
         <ToolbarContent>
             <MudButton Color="Color.Primary"
+                       OnClick="OnClick_DownloadData"
                        Variant="Variant.Filled">
                 Download Data
             </MudButton>

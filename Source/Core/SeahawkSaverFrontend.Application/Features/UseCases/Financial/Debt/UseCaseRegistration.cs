@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Debt.Create;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Debt.Delete;
+using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Debt.Formatting;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Debt.List;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Debt.Update;
 using SeahawkSaverFrontend.Domain.Models.Financial;
@@ -23,6 +24,7 @@ internal static class UseCaseRegistration
 	{
 		services.AddTransient<CreateDebtModelUseCase>();
 		services.AddTransient<DeleteDebtModelUseCase>();
+		services.AddTransient<FormatDebtModelsCSVUseCase>();
 		services.AddTransient<ListDebtModelUseCase>();
 		services.AddTransient<UpdateDebtModelUseCase>();
 	}

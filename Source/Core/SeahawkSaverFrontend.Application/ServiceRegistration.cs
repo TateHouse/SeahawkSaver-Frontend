@@ -1,15 +1,22 @@
 ﻿namespace SeahawkSaverFrontend.Application;
 using Microsoft.Extensions.DependencyInjection;
 using SeahawkSaverFrontend.Application.Abstractions.Caching;
+using SeahawkSaverFrontend.Application.Abstractions.Formatting;
 using SeahawkSaverFrontend.Application.Abstractions.UseCases;
 using SeahawkSaverFrontend.Application.Features.Caching;
 using SeahawkSaverFrontend.Application.Features.Caching.Financial;
+using SeahawkSaverFrontend.Application.Features.Formatting.Financial;
 using SeahawkSaverFrontend.Application.Features.UseCases;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Debt;
+using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Debt.Formatting.DTOs;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Expense;
+using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Expense.Formatting.DTOs;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Income;
+using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Income.Formatting.DTOs;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Saving;
+using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Saving.Formatting.DTOs;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription;
+using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Subscription.Formatting.DTOs;
 using SeahawkSaverFrontend.Application.Features.UseCases.User;
 using SeahawkSaverFrontend.Application.Utilities;
 using SeahawkSaverFrontend.Domain.Models.Financial;
@@ -32,6 +39,7 @@ public static class ServiceRegistration
 		services.AddTransient<ApiHttpClient>();
 
 		RegisterCaches(services);
+		RegisterFormatters(services);
 		RegisterUseCases(services);
 
 		return services;
@@ -53,6 +61,21 @@ public static class ServiceRegistration
 		services.AddSingleton<IFinancialModelCache<SavingModel>, InMemorySavingModelCache>();
 		services.AddSingleton<IFinancialModelCache<SubscriptionModel>, InMemorySubscriptionModelCache>();
 		services.AddSingleton<InMemoryFinancialModelCacheManager>();
+	}
+
+	/**
+	 * <summary>
+	 * Registers the formatters.
+	 * </summary>
+	 * <param name="services">The service collection to use.</param>
+	 */
+	private static void RegisterFormatters(IServiceCollection services)
+	{
+		services.AddTransient<ICSVFormatter<DebtModel, DebtModelCSVRow>, DebtModelCSVFormatter>();
+		services.AddTransient<ICSVFormatter<ExpenseModel, ExpenseModelCSVRow>, ExpenseModelCSVFormatter>();
+		services.AddTransient<ICSVFormatter<IncomeModel, IncomeModelCSVRow>, IncomeModelCSVFormatter>();
+		services.AddTransient<ICSVFormatter<SavingModel, SavingModelCSVRow>, SavingModelCSVFormatter>();
+		services.AddTransient<ICSVFormatter<SubscriptionModel, SubscriptionModelCSVRow>, SubscriptionModelCSVFormatter>();
 	}
 
 	/**

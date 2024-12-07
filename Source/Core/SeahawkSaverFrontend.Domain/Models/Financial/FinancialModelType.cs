@@ -1,6 +1,4 @@
-﻿namespace SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items;
-using SeahawkSaverFrontend.Domain.Models.Financial;
-
+﻿namespace SeahawkSaverFrontend.Domain.Models.Financial;
 /**
  * <summary>
  * The <see cref="FinancialModel"/> type.

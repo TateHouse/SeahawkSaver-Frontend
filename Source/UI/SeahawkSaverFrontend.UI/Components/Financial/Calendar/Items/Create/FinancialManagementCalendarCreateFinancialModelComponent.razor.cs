@@ -2,6 +2,7 @@
 
 namespace SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Create;
 using MudBlazor;
+using SeahawkSaverFrontend.Domain.Models.Financial;
 
 public partial class FinancialManagementCalendarCreateFinancialModelComponent : ComponentBase
 {

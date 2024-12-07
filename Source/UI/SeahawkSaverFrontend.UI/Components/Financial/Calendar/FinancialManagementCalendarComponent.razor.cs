@@ -6,6 +6,7 @@ using Heron.MudTotalCalendar;
 using MudBlazor;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Create;
+using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Download;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Manage;
 
 public partial class FinancialManagementCalendarComponent : ComponentBase
@@ -59,6 +60,11 @@ public partial class FinancialManagementCalendarComponent : ComponentBase
 			FinancialManagementCalendarItemManager.ReloadFinancialModelCalendarItems();
 			StateHasChanged();
 		}
+	}
+
+	private async Task OnClick_DownloadData()
+	{
+		await DialogService.ShowAsync<FinancialModelCSVDownloadComponent>("Download Data");
 	}
 
 	private void OnDateRangeChanged(DateRange dateRange)

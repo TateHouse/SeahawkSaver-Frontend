@@ -1,0 +1,49 @@
+﻿@using SeahawkSaverFrontend.Domain.Models.Financial
+@inject IJSRuntime JSRuntime
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject FinancialModelCSVFormatterFacade CSVFormatterFacade
+
+<MudDialog>
+    <TitleContent>
+        Download Data
+    </TitleContent>
+    <DialogContent>
+        <MudStack Class="pa-4">
+            <MudSelect @bind-SelectedValues="selectedFinancialModelTypes"
+                       Clearable="true"
+                       Label="Financial Model Types"
+                       Placeholder="Select Financial Model Types"
+                       MultiSelection="true"
+                       MultiSelectionTextFunc="@(new Func<List<string?>?, string>(GetMultiSelectionText))">
+                @foreach (FinancialModelType modelType in Enum.GetValues(typeof(FinancialModelType)))
+                {
+                    <MudSelectItem T="string"
+                                   Value="@modelType.ToString()">
+                        @modelType
+                    </MudSelectItem>
+                }
+            </MudSelect>
+            <MudDatePicker @bind-Date="start"
+                           Clearable="true"
+                           Label="Start Date"
+                           Variant="Variant.Outlined"/>
+            <MudDatePicker @bind-Date="end"
+                           Clearable="true"
+                           Label="End Date"
+                           Variant="Variant.Outlined"/>
+            <MudText Align="Align.Center"
+                     Typo="Typo.body1">
+                The start and end dates are both optional and the data downloaded will reflect those choices.
+            </MudText>
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="OnDownloadAsync">
+            Download
+        </MudButton>
+        <MudButton OnClick="OnCancel">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>

@@ -1,7 +1,6 @@
 ﻿namespace SeahawkSaverFrontend.Application.Features.UseCases.User.Logout;
 using SeahawkSaverFrontend.Application.Abstractions.Caching;
 using SeahawkSaverFrontend.Application.Abstractions.UseCases;
-using SeahawkSaverFrontend.Domain.Models.User;
 
 /**
  * <summary>

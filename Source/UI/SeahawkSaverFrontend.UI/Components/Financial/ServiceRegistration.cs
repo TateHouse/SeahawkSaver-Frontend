@@ -2,6 +2,7 @@
 using SeahawkSaverFrontend.Domain.Models.Financial;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items;
+using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Download;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.UseCases;
 
 /**
@@ -24,6 +25,7 @@ public static class ServiceRegistration
 		services.AddTransient<IFinancialModelCalendarItemFactory<SavingModel>, FinancialModelCalendarItemFactory<SavingModel, CreateSavingModelCalendarItemsUseCase>>();
 		services.AddTransient<IFinancialModelCalendarItemFactory<SubscriptionModel>, FinancialModelCalendarItemFactory<SubscriptionModel, CreateSubscriptionModelCalendarItemsUseCase>>();
 		services.AddTransient<FinancialManagementCalendarItemManager>();
+		services.AddTransient<FinancialModelCSVFormatterFacade>();
 
 		return services;
 	}

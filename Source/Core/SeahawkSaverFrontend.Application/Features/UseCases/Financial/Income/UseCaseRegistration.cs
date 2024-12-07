@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Income.Create;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Income.Delete;
+using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Income.Formatting;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Income.List;
 using SeahawkSaverFrontend.Application.Features.UseCases.Financial.Income.Update;
 using SeahawkSaverFrontend.Domain.Models.Financial;
@@ -23,6 +24,7 @@ internal static class UseCaseRegistration
 	{
 		services.AddTransient<CreateIncomeModelUseCase>();
 		services.AddTransient<DeleteIncomeModelUseCase>();
+		services.AddTransient<FormatIncomeModelsCSVUseCase>();
 		services.AddTransient<ListIncomeModelUseCase>();
 		services.AddTransient<UpdateIncomeModelUseCase>();
 	}
