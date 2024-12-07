@@ -2,29 +2,53 @@
 @using SeahawkSaverFrontend.Application.Abstractions.UseCases
 @inject NavigationManager NavigationManager
 @inject IAuthenticationCache AuthenticationCache
+@inject IUserCache UserCache
 @inject IUseCaseFactory UseCaseFactory
 
 <MudAppBar Elevation="0">
-    <MudText Style="font-size: 2em; font-weight: bold"
-             Typo="Typo.body1">
-        Seahawk Saver
-    </MudText>
+    <MudToolBar Gutters="false"
+                Style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div Style="display: flex; align-items: center; gap: 1rem;">
+            <MudText Style="font-size: 2em; font-weight: bold"
+                     Typo="Typo.body1">
+                Seahawk Saver
+            </MudText>
 
-    @if (AuthenticationCache.IsAuthenticated())
-    {
-        <MudList T="string">
-            <MudButton Color="Color.Inherit"
-                       OnClick="OnClick_Home">
-                Home
-            </MudButton>
-            <MudButton Color="Color.Inherit"
-                       OnClick="OnClick_Resources">
-                Resources
-            </MudButton>
-            <MudButton Color="Color.Inherit"
-                       OnClick="OnClick_Logout">
-                Logout
-            </MudButton>
-        </MudList>
-    }
+            @if (AuthenticationCache.IsAuthenticated())
+            {
+                <MudList T="string">
+                    <MudButton Color="Color.Inherit"
+                               OnClick="OnClick_Home">
+                        Home
+                    </MudButton>
+                    <MudButton Color="Color.Inherit"
+                               OnClick="OnClick_Resources">
+                        Resources
+                    </MudButton>
+                </MudList>
+            }
+        </div>
+
+        @if (AuthenticationCache.IsAuthenticated())
+        {
+            <MudMenu>
+                <ActivatorContent>
+                    <MudAvatar Class="cursor-pointer mud-ripple"
+                               Color="Color.Secondary">
+                        @userProfileCharacter
+                    </MudAvatar>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem Class="cursor-pointer mud-ripple"
+                                 @onclick="OnClick_Profile">
+                        Profile
+                    </MudMenuItem>
+                    <MudMenuItem Class="cursor-pointer mud-ripple"
+                                 @onclick="OnClick_Logout">
+                        Logout
+                    </MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+        }
+    </MudToolBar>
 </MudAppBar>

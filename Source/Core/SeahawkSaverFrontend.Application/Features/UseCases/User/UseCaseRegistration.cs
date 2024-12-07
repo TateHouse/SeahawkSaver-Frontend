@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Login;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Logout;
+using SeahawkSaverFrontend.Application.Features.UseCases.User.Update;
 using SeahawkSaverFrontend.Domain.Models.User;
 
 /**
@@ -21,5 +22,6 @@ public static class UseCaseRegistration
 	{
 		services.AddTransient<LoginUserModelUseCase>();
 		services.AddTransient<LogoutUserModelUseCase>();
+		services.AddTransient<UpdateUserModelUseCase>();
 	}
 }

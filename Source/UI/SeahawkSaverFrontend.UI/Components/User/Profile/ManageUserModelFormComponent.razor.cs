@@ -1,0 +1,51 @@
+﻿using Microsoft.AspNetCore.Components;
+
+namespace SeahawkSaverFrontend.UI.Components.User.Profile;
+using MudBlazor;
+using SeahawkSaverFrontend.Application.Features.UseCases.User.Update;
+using SeahawkSaverFrontend.Domain.Models.User;
+
+public partial class ManageUserModelFormComponent : ComponentBase
+{
+	private MudForm form = null!;
+	private readonly UserModel userModel = new UserModel();
+
+	protected override void OnInitialized()
+	{
+		userModel.UserId = UserCache.User.UserId;
+		userModel.Email = UserCache.User.Email;
+		userModel.FirstName = UserCache.User.FirstName;
+		userModel.LastName = UserCache.User.LastName;
+		userModel.IsAdmin = UserCache.User.IsAdmin;
+		userModel.IsActive = UserCache.User.IsActive;
+	}
+
+	private async Task OnSave()
+	{
+		await form.Validate();
+		var snackbarOptions = (SnackbarOptions options) =>
+		{
+			options.DuplicatesBehavior = SnackbarDuplicatesBehavior.Allow;
+		};
+
+		if (!form.IsValid)
+		{
+			Snackbar.Add("Invalid form input.", Severity.Error, snackbarOptions);
+
+			return;
+		}
+
+		var useCase = UseCaseFactory.Create<UpdateUserModelUseCase>();
+		var response = await useCase.ExecuteAsync(userModel);
+
+		if (!response)
+		{
+			Snackbar.Add("User update failed, please try again.", Severity.Error, snackbarOptions);
+
+			return;
+		}
+
+		UserCache.Update(userModel);
+		Snackbar.Add("User update successful!", Severity.Success, snackbarOptions);
+	}
+}

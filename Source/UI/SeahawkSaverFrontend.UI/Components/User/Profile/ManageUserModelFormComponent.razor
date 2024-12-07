@@ -1,0 +1,44 @@
+﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
+@using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@inject ISnackbar Snackbar
+@inject IUserCache UserCache
+@inject IUseCaseFactory UseCaseFactory
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudPaper Elevation="0"
+              Outlined="false">
+        <MudForm @ref="form">
+            <MudTextField @bind-Value="userModel.FirstName"
+                          Class="px-10"
+                          InputType="InputType.Text"
+                          Label="First Name"
+                          Required="true"
+                          RequiredError="First name is required."
+                          T="string"
+                          Variant="Variant.Outlined"/>
+            <MudTextField @bind-Value="userModel.LastName"
+                          Class="px-10"
+                          InputType="InputType.Text"
+                          Label="Last Name"
+                          Required="true"
+                          RequiredError="Last name is required."
+                          T="string"
+                          Variant="Variant.Outlined"/>
+            <MudTextField @bind-Value="userModel.Email"
+                          Class="px-10"
+                          InputType="InputType.Email"
+                          Label="Email"
+                          Required="true"
+                          RequiredError="Email is required."
+                          T="string"
+                          Variant="Variant.Outlined"/>
+            <MudButton Class="mt-20 mb-5"
+                       Color="Color.Primary"
+                       FullWidth="true"
+                       OnClick="OnSave"
+                       Variant="Variant.Filled">
+                Save
+            </MudButton>
+        </MudForm>
+    </MudPaper>
+</MudContainer>

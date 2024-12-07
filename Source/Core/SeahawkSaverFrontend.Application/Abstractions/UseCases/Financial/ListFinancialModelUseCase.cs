@@ -53,7 +53,7 @@ public abstract class ListFinancialModelUseCase<TFinancialModel, TEndpointRespon
 		// TODO: Refactor the hardcoded URI into a configuration file.
 		var baseUri = new Uri("http://localhost:5103/api/v1/");
 		var endpointRelativePath = GetEndpointRelativePath();
-		var endpointUri = new Uri($"{endpointRelativePath}/{userCache.User?.UserId}", UriKind.Relative);
+		var endpointUri = new Uri($"{endpointRelativePath}/{userCache.User.UserId}", UriKind.Relative);
 		var uri = new Uri(baseUri, endpointUri);
 		var response = await httpClient.GetAsync(uri);
 

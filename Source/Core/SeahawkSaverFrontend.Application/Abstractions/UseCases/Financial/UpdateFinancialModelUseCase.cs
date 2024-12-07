@@ -61,7 +61,7 @@ public abstract class UpdateFinancialModelUseCase<TFinancialModel, TEndpointRequ
 		var baseUri = new Uri("http://localhost:5103/api/v1/");
 		var endpointRelativePath = GetEndpointRelativePath();
 		var endpointQueryParameters = GetEndpointQueryParameters(input);
-		var endpointUri = new Uri($"{endpointRelativePath}/{userCache.User?.UserId}?{endpointQueryParameters}", UriKind.Relative);
+		var endpointUri = new Uri($"{endpointRelativePath}/{userCache.User.UserId}?{endpointQueryParameters}", UriKind.Relative);
 		var uri = new Uri(baseUri, endpointUri);
 		var request = MapRequest(input);
 		var jsonContent = JsonContent.Create(request);

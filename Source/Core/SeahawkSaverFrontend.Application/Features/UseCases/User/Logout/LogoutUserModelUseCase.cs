@@ -31,8 +31,9 @@ public sealed class LogoutUserModelUseCase : UseCase<object?, bool>
 
 	public override Task<bool> ExecuteAsync(object? input)
 	{
+		// TODO: Refactor this into a "Clear" method like the user cache.
 		authenticationCache.Token = "";
-		userCache.User = new UserModel();
+		userCache.Clear();
 
 		return Task.FromResult(true);
 	}

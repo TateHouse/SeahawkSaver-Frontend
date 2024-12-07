@@ -9,21 +9,30 @@ using SeahawkSaverFrontend.Domain.Models.User;
  */
 public sealed class InMemoryUserCache : IUserCache
 {
-	private UserModel? user;
-
 	public event Action? OnChange;
+	public UserModel User { get; } = new UserModel();
 
-	public UserModel? User
+	public void Update(UserModel userModel)
 	{
-		get
-		{
-			return user;
-		}
+		User.UserId = userModel.UserId;
+		User.Email = userModel.Email;
+		User.FirstName = userModel.FirstName;
+		User.LastName = userModel.LastName;
+		User.IsAdmin = userModel.IsAdmin;
+		User.IsActive = userModel.IsActive;
 
-		set
-		{
-			user = value;
-			OnChange?.Invoke();
-		}
+		OnChange?.Invoke();
+	}
+
+	public void Clear()
+	{
+		User.UserId = Guid.Empty;
+		User.Email = string.Empty;
+		User.FirstName = string.Empty;
+		User.LastName = string.Empty;
+		User.IsAdmin = false;
+		User.IsActive = false;
+
+		OnChange?.Invoke();
 	}
 }

@@ -49,7 +49,7 @@ public abstract class DeleteFinancialModelUseCase<TFinancialModel> : UseCase<TFi
 		var baseUri = new Uri("http://localhost:5103/api/v1/");
 		var endpointRelativePath = GetEndpointRelativePath();
 		var endpointQueryParameters = GetEndpointQueryParameters(input);
-		var endpointUri = new Uri($"{endpointRelativePath}/{userCache.User?.UserId}?{endpointQueryParameters}", UriKind.Relative);
+		var endpointUri = new Uri($"{endpointRelativePath}/{userCache.User.UserId}?{endpointQueryParameters}", UriKind.Relative);
 		var uri = new Uri(baseUri, endpointUri);
 		var response = await httpClient.DeleteAsync(uri);
 

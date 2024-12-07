@@ -63,7 +63,9 @@ public sealed class LoginUserModelUseCase : UseCase<UserCredentialsModel, bool>
 			return false;
 		}
 
-		userCache.User = new UserModel
+		// TODO: Refactor this into an "Update" method like the user cache.
+		authenticationCache.Token = content.Token;
+		var userModel = new UserModel
 		{
 			UserId = content.User.UserId,
 			Email = content.User.Email,
@@ -73,7 +75,7 @@ public sealed class LoginUserModelUseCase : UseCase<UserCredentialsModel, bool>
 			IsActive = true
 		};
 
-		authenticationCache.Token = content.Token;
+		userCache.Update(userModel);
 
 		return true;
 	}
