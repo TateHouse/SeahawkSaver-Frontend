@@ -20,7 +20,7 @@ public partial class ManageUserModelsComponent : ComponentBase
 		StateHasChanged();
 	}
 
-	private async Task OnClick_Edit(UserModel userModel)
+	private async Task OnClick_EditAsync(UserModel userModel)
 	{
 		var parameters = new DialogParameters
 		{

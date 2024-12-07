@@ -54,10 +54,14 @@
         }
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="OnCreate">
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_CreateAsync"
+                   Variant="Variant.Filled">
             Create
         </MudButton>
-        <MudButton OnClick="OnCancel">
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Cancel"
+                   Variant="Variant.Filled">
             Cancel
         </MudButton>
     </DialogActions>

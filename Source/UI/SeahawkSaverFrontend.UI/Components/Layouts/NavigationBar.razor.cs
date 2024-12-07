@@ -50,7 +50,7 @@ public partial class NavigationBar : ComponentBase, IDisposable
 		NavigationManager.NavigateTo("/financial-report");
 	}
 
-	private async Task OnClick_Profile()
+	private async Task OnClick_ProfileAsync()
 	{
 		var parameters = new DialogParameters
 		{

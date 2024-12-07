@@ -10,39 +10,50 @@
         @switch (FinancialModelType)
         {
             case FinancialModelType.Debt:
-                <FinancialManagementCalendarManageDebtModelComponent DebtModel="(DebtModel)FinancialModel" @ref="financialModelComponent"/>
+                <FinancialManagementCalendarManageDebtModelComponent DebtModel="(DebtModel)FinancialModel"
+                                                                     @ref="financialModelComponent"/>
 
                 break;
 
             case FinancialModelType.Expense:
-                <FinancialManagementCalendarManageExpenseModelComponent ExpenseModel="(ExpenseModel)FinancialModel" @ref="financialModelComponent"/>
+                <FinancialManagementCalendarManageExpenseModelComponent ExpenseModel="(ExpenseModel)FinancialModel"
+                                                                        @ref="financialModelComponent"/>
 
                 break;
 
             case FinancialModelType.Income:
-                <FinancialManagementCalendarManageIncomeModelComponent IncomeModel="(IncomeModel)FinancialModel" @ref="financialModelComponent"/>
+                <FinancialManagementCalendarManageIncomeModelComponent IncomeModel="(IncomeModel)FinancialModel"
+                                                                       @ref="financialModelComponent"/>
 
                 break;
 
             case FinancialModelType.Saving:
-                <FinancialManagementCalendarManageSavingModelComponent SavingModel="(SavingModel)FinancialModel" @ref="financialModelComponent"/>
+                <FinancialManagementCalendarManageSavingModelComponent SavingModel="(SavingModel)FinancialModel"
+                                                                       @ref="financialModelComponent"/>
 
                 break;
 
             case FinancialModelType.Subscription:
-                <FinancialManagementCalendarManageSubscriptionModelComponent SubscriptionModel="(SubscriptionModel)FinancialModel" @ref="financialModelComponent"/>
+                <FinancialManagementCalendarManageSubscriptionModelComponent
+                    SubscriptionModel="(SubscriptionModel)FinancialModel" @ref="financialModelComponent"/>
 
                 break;
         }
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="OnUpdateAsync">
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_UpdateAsync"
+                   Variant="Variant.Filled">
             Update
         </MudButton>
-        <MudButton OnClick="OnDeleteAsync">
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_DeleteAsync"
+                   Variant="Variant.Filled">
             Delete
         </MudButton>
-        <MudButton OnClick="OnCancel">
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Cancel"
+                   Variant="Variant.Filled">
             Cancel
         </MudButton>
     </DialogActions>

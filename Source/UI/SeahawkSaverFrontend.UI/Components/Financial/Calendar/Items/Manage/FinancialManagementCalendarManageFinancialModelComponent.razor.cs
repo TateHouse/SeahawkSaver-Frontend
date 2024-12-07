@@ -17,7 +17,7 @@ public partial class FinancialManagementCalendarManageFinancialModelComponent : 
 	[CascadingParameter]
 	public MudDialogInstance Dialog { get; set; } = null!;
 
-	private async Task OnUpdateAsync()
+	private async Task OnClick_UpdateAsync()
 	{
 		var wasUpdated = await financialModelComponent.UpdateAsync();
 
@@ -27,7 +27,7 @@ public partial class FinancialManagementCalendarManageFinancialModelComponent : 
 		}
 	}
 
-	private async Task OnDeleteAsync()
+	private async Task OnClick_DeleteAsync()
 	{
 		var wasDeleted = await financialModelComponent.DeleteAsync();
 
@@ -37,7 +37,7 @@ public partial class FinancialManagementCalendarManageFinancialModelComponent : 
 		}
 	}
 
-	private void OnCancel()
+	private void OnClick_Cancel()
 	{
 		Dialog.Close();
 	}

@@ -15,7 +15,7 @@ public partial class FinancialManagementCalendarCreateFinancialModelComponent : 
 	[Parameter]
 	public DateTime DateTime { get; set; }
 
-	private async Task OnCreate()
+	private async Task OnClick_CreateAsync()
 	{
 		var wasCreated = await financialModelComponent.CreateAsync();
 
@@ -25,7 +25,7 @@ public partial class FinancialManagementCalendarCreateFinancialModelComponent : 
 		}
 	}
 
-	private void OnCancel()
+	private void OnClick_Cancel()
 	{
 		Dialog.Close();
 	}

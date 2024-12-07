@@ -15,7 +15,7 @@ public partial class FinancialModelCSVDownloadComponent : ComponentBase
 	[CascadingParameter]
 	public MudDialogInstance Dialog { get; set; } = null!;
 
-	private async Task OnDownloadAsync()
+	private async Task OnClick_DownloadAsync()
 	{
 		var dateRangeModel = new DateRangeModel
 		{
@@ -72,12 +72,12 @@ public partial class FinancialModelCSVDownloadComponent : ComponentBase
 		Dialog.Close(true);
 	}
 
-	private void OnCancel()
+	private void OnClick_Cancel()
 	{
 		Dialog.Close(false);
 	}
 
-	private string GetMultiSelectionText(List<string?>? selectedValues)
+	private static string GetMultiSelectionText(List<string?>? selectedValues)
 	{
 		return $"{selectedValues.Count} financial model{(selectedValues.Count > 1 ? "s have" : " has")} been selected.";
 	}

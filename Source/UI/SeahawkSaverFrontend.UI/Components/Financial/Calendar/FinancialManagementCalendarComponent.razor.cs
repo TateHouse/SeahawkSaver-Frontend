@@ -33,7 +33,13 @@ public partial class FinancialManagementCalendarComponent : ComponentBase
 			{ "DateTime", dateTime }
 		};
 
-		var dialog = await DialogService.ShowAsync<FinancialManagementCalendarCreateFinancialModelComponent>("Create", parameters);
+		var options = new DialogOptions
+		{
+			FullWidth = true,
+			MaxWidth = MaxWidth.Small
+		};
+
+		var dialog = await DialogService.ShowAsync<FinancialManagementCalendarCreateFinancialModelComponent>("Create", parameters, options);
 		var dialogResult = await dialog.Result;
 
 		if (!dialogResult.Canceled && dialogResult.Data is true)
@@ -52,7 +58,13 @@ public partial class FinancialManagementCalendarComponent : ComponentBase
 			{ "FinancialModel", financialModelCalendarItem.FinancialModel },
 		};
 
-		var dialog = await DialogService.ShowAsync<FinancialManagementCalendarManageFinancialModelComponent>("Manage", parameters);
+		var options = new DialogOptions
+		{
+			FullWidth = true,
+			MaxWidth = MaxWidth.Small
+		};
+
+		var dialog = await DialogService.ShowAsync<FinancialManagementCalendarManageFinancialModelComponent>("Manage", parameters, options);
 		var dialogResult = await dialog.Result;
 
 		if (!dialogResult.Canceled && dialogResult.Data is true)
@@ -62,7 +74,7 @@ public partial class FinancialManagementCalendarComponent : ComponentBase
 		}
 	}
 
-	private async Task OnClick_DownloadData()
+	private async Task OnClick_DownloadDataAsync()
 	{
 		await DialogService.ShowAsync<FinancialModelCSVDownloadComponent>("Download Data");
 	}

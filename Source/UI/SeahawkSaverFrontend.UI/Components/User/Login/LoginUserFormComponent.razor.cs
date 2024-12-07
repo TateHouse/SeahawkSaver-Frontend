@@ -29,7 +29,7 @@ public partial class LoginUserFormComponent : ComponentBase
 		}
 	}
 
-	private async Task LoginAsync()
+	private async Task OnClick_LoginAsync()
 	{
 		await form.Validate();
 

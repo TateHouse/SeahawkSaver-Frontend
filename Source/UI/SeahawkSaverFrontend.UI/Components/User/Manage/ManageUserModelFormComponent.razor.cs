@@ -17,7 +17,7 @@ public partial class ManageUserModelFormComponent : ComponentBase
 	[Parameter]
 	public bool AllowIsActiveModification { get; set; }
 
-	private async Task OnClick_Save()
+	private async Task OnClick_SaveAsync()
 	{
 		await form.Validate();
 

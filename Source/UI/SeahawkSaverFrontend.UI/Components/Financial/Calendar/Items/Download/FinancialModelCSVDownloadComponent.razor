@@ -39,10 +39,14 @@
         </MudStack>
     </DialogContent>
     <DialogActions>
-        <MudButton OnClick="OnDownloadAsync">
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_DownloadAsync"
+                   Variant="Variant.Filled">
             Download
         </MudButton>
-        <MudButton OnClick="OnCancel">
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Cancel"
+                   Variant="Variant.Filled">
             Cancel
         </MudButton>
     </DialogActions>
