@@ -7,23 +7,15 @@ using SeahawkSaverFrontend.Domain.Models.User;
 public partial class ManageUserModelFormComponent : ComponentBase
 {
 	private MudForm form = null!;
-	private readonly UserModel userModel = new UserModel();
 
 	[CascadingParameter]
 	public MudDialogInstance Dialog { get; set; } = null!;
 
 	[Parameter]
-	public bool AllowIsActiveModification { get; set; } = false;
+	public UserModel UserModel { get; set; } = null!;
 
-	protected override void OnInitialized()
-	{
-		userModel.UserId = UserCache.User.UserId;
-		userModel.Email = UserCache.User.Email;
-		userModel.FirstName = UserCache.User.FirstName;
-		userModel.LastName = UserCache.User.LastName;
-		userModel.IsAdmin = UserCache.User.IsAdmin;
-		userModel.IsActive = UserCache.User.IsActive;
-	}
+	[Parameter]
+	public bool AllowIsActiveModification { get; set; }
 
 	private async Task OnClick_Save()
 	{
@@ -37,7 +29,7 @@ public partial class ManageUserModelFormComponent : ComponentBase
 		}
 
 		var useCase = UseCaseFactory.Create<UpdateUserModelUseCase>();
-		var response = await useCase.ExecuteAsync(userModel);
+		var response = await useCase.ExecuteAsync(UserModel);
 
 		if (!response)
 		{
@@ -47,11 +39,11 @@ public partial class ManageUserModelFormComponent : ComponentBase
 		}
 
 		Snackbar.Add("User update successful!", Severity.Success);
-		Dialog.Close();
+		Dialog.Close(true);
 	}
 
 	private void OnClick_Cancel()
 	{
-		Dialog.Close();
+		Dialog.Close(false);
 	}
 }

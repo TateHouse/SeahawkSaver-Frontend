@@ -1,5 +1,6 @@
 ﻿namespace SeahawkSaverFrontend.Application.Features.UseCases.User;
 using Microsoft.Extensions.DependencyInjection;
+using SeahawkSaverFrontend.Application.Features.UseCases.User.List;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Login;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Logout;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Update;
@@ -20,6 +21,7 @@ public static class UseCaseRegistration
 	 */
 	internal static void RegisterUserUseCases(this IServiceCollection services)
 	{
+		services.AddTransient<ListUserModelUseCase>();
 		services.AddTransient<LoginUserModelUseCase>();
 		services.AddTransient<LogoutUserModelUseCase>();
 		services.AddTransient<UpdateUserModelUseCase>();

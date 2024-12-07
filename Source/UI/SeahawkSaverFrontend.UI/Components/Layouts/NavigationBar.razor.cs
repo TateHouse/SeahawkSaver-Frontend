@@ -54,7 +54,8 @@ public partial class NavigationBar : ComponentBase, IDisposable
 	{
 		var parameters = new DialogParameters
 		{
-			{ "AllowIsActiveModification", false }
+			{ "AllowIsActiveModification", false },
+			{ "UserModel", UserCache.User }
 		};
 
 		var options = new DialogOptions

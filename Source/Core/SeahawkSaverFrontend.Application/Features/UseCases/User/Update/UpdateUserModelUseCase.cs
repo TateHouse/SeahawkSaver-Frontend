@@ -33,7 +33,7 @@ public sealed class UpdateUserModelUseCase : UseCase<UserModel, bool>
 	{
 		var baseUri = new Uri("http://localhost:5103/api/v1/");
 		var endpointRelativePath = "user";
-		var endpointUri = new Uri($"{endpointRelativePath}/{userCache.User.UserId}", UriKind.Relative);
+		var endpointUri = new Uri($"{endpointRelativePath}/{input.UserId}", UriKind.Relative);
 		var uri = new Uri(baseUri, endpointUri);
 		var request = MapRequest(input);
 		var jsonContent = JsonContent.Create(request);
@@ -46,7 +46,10 @@ public sealed class UpdateUserModelUseCase : UseCase<UserModel, bool>
 			return false;
 		}
 
-		userCache.Update(input);
+		if (userCache.User.UserId == input.UserId)
+		{
+			userCache.Update(input);
+		}
 
 		return true;
 	}

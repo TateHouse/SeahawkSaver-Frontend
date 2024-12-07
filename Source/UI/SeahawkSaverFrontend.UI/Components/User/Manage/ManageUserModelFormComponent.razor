@@ -12,21 +12,21 @@
     <DialogContent>
         <MudForm @ref="form"
                  Style="">
-            <MudTextField @bind-Value="userModel.FirstName"
+            <MudTextField @bind-Value="UserModel.FirstName"
                           InputType="InputType.Text"
                           Label="First Name"
                           Required="true"
                           RequiredError="First name is required."
                           T="string"
                           Variant="Variant.Outlined"/>
-            <MudTextField @bind-Value="userModel.LastName"
+            <MudTextField @bind-Value="UserModel.LastName"
                           InputType="InputType.Text"
                           Label="Last Name"
                           Required="true"
                           RequiredError="Last name is required."
                           T="string"
                           Variant="Variant.Outlined"/>
-            <MudTextField @bind-Value="userModel.Email"
+            <MudTextField @bind-Value="UserModel.Email"
                           InputType="InputType.Email"
                           Label="Email"
                           Required="true"
@@ -36,7 +36,7 @@
 
             @if (UserCache.User.IsAdmin && AllowIsActiveModification)
             {
-                <MudCheckBox @bind-Value="userModel.IsActive"
+                <MudCheckBox @bind-Value="UserModel.IsActive"
                              Color="Color.Tertiary"
                              Label="Is Active"
                              UncheckedColor="Color.Secondary"/>
