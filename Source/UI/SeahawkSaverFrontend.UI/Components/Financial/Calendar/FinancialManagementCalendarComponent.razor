@@ -8,20 +8,16 @@
 <MudPaper Class="pa-10"
           Elevation="4"
           Style="height: 100%;">
-    <MudTotalCalendar @ref="calendar"
-                      CellClicked="OnCellClicked"
-                      DateRangeChanged="OnDateRangeChanged"
-                      ItemClicked="OnItemClicked"
-                      Items="FinancialManagementCalendarItemManager.CalendarItems"
-                      ShowDay="false"
-                      ShowDayTotal="false"
-                      ShowWeek="false"
-                      ShowWeekTotal="@totalCalculationVisibilityToggles['W']"
-                      ShowWorkWeek="false"
-                      ShowMonth="true"
-                      ShowMonthTotal="@totalCalculationVisibilityToggles['M']"
-                      Style="height: 100%;"
-                      Values="CalculateTotals()">
+    <MudCalendar @ref="calendar"
+                 CellClicked="OnCellClicked"
+                 DateRangeChanged="OnDateRangeChanged"
+                 ItemClicked="OnItemClicked"
+                 Items="FinancialManagementCalendarItemManager.CalendarItems"
+                 ShowDay="false"
+                 ShowWeek="false"
+                 ShowWorkWeek="false"
+                 ShowMonth="true"
+                 Style="height: 100%;">
         <CellTemplate>
             <div Style="display: flex; justify-content: center; align-items: center; ">
                 <div Class="rounded"
@@ -36,26 +32,13 @@
             </div>
         </CellTemplate>
         <ToolbarContent>
-            <MudButton Color="Color.Primary"
+            <MudButton Class="mr-4"
+                       Color="Color.Primary"
                        OnClick="OnClick_DownloadDataAsync"
                        Variant="Variant.Filled">
                 Download Data
             </MudButton>
-            <MudSwitch @bind-Value="totalCalculationVisibilityToggles['W']"
-                       Class="mx-2"
-                       Color="Color.Tertiary"
-                       UncheckedColor="Color.Secondary"
-                       T="bool">
-                Weekly Totals
-            </MudSwitch>
-            <MudSwitch @bind-Value="totalCalculationVisibilityToggles['M']"
-                       Class="mx-2"
-                       Color="Color.Tertiary"
-                       UncheckedColor="Color.Secondary"
-                       T="bool">
-                Monthly Total
-            </MudSwitch>
             <FinancialModelCalendarItemBackgroundColorLegendComponent/>
         </ToolbarContent>
-    </MudTotalCalendar>
+    </MudCalendar>
 </MudPaper>

@@ -2,7 +2,6 @@
 
 namespace SeahawkSaverFrontend.UI.Components.Financial.Calendar;
 using Heron.MudCalendar;
-using Heron.MudTotalCalendar;
 using MudBlazor;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Create;
@@ -11,7 +10,7 @@ using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items.Manage;
 
 public partial class FinancialManagementCalendarComponent : ComponentBase
 {
-	private MudTotalCalendar calendar = null!;
+	private MudCalendar calendar = null!;
 	private Dictionary<char, bool> totalCalculationVisibilityToggles = new Dictionary<char, bool>
 	{
 		{ 'W', true },
@@ -82,10 +81,5 @@ public partial class FinancialManagementCalendarComponent : ComponentBase
 	private void OnDateRangeChanged(DateRange dateRange)
 	{
 		FinancialManagementCalendarItemManager.ReloadFinancialModelCalendarItems();
-	}
-
-	private List<Value> CalculateTotals()
-	{
-		return new List<Value>();
 	}
 }
