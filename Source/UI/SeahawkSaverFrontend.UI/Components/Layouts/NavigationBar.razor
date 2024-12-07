@@ -25,6 +25,14 @@
                                OnClick="OnClick_Resources">
                         Resources
                     </MudButton>
+
+                    @if (!UserCache.User!.IsAdmin)
+                    {
+                        <MudButton Color="Color.Inherit"
+                                   OnClick="OnClick_FinancialReport">
+                            Financial Report
+                        </MudButton>
+                    }
                 </MudList>
             }
         </div>

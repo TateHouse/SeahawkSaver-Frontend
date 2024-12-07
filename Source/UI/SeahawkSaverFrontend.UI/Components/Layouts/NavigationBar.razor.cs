@@ -40,6 +40,11 @@ public partial class NavigationBar : ComponentBase, IDisposable
 		NavigationManager.NavigateTo("/resources");
 	}
 
+	private void OnClick_FinancialReport()
+	{
+		NavigationManager.NavigateTo("/financial-report");
+	}
+
 	private void OnClick_Profile()
 	{
 		NavigationManager.NavigateTo("/profile");

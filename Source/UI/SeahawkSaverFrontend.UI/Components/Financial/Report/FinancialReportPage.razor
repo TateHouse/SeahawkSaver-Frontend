@@ -1,0 +1,18 @@
+﻿@page "/financial-report"
+@using SeahawkSaverFrontend.Application.Abstractions.Caching
+@inject NavigationManager NavigationManager
+@inject IAuthenticationCache AuthenticationCache
+
+<PageTitle>Seahawk Saver | Home</PageTitle>
+
+@if (!AuthenticationCache.IsAuthenticated())
+{
+    NavigationManager.NavigateTo("/login");
+}
+else
+{
+    <MudPaper Class="pa-10"
+              Elevation="4"
+              Style="height: 100%;">
+    </MudPaper>
+}
