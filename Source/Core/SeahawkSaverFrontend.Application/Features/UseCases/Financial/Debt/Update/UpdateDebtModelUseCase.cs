@@ -18,9 +18,12 @@ public sealed class UpdateDebtModelUseCase : UpdateFinancialModelUseCase<DebtMod
 	 * </summary>
 	 * <param name="httpClient">The <see cref="ApiHttpClient"/> to use.</param>
 	 * <param name="userCache">The user cache.</param>
+	 * <param name="financialModelCache">The financial model cache.</param>
 	 */
-	public UpdateDebtModelUseCase(ApiHttpClient httpClient, IUserCache userCache)
-		: base(httpClient, userCache)
+	public UpdateDebtModelUseCase(ApiHttpClient httpClient,
+								  IUserCache userCache,
+								  IFinancialModelCache<DebtModel> financialModelCache)
+		: base(httpClient, userCache, financialModelCache)
 	{
 
 	}

@@ -50,11 +50,12 @@ public partial class FinancialManagementCalendarCreateIncomeModelComponent : Com
 
 		if (!wasCreated)
 		{
+			Snackbar.Add($"Failed to add an income on {incomeModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		IncomeModelCache.Add(incomeModel);
-		Snackbar.Add($"Added ${incomeModel.Amount} of income on {incomeModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
+		Snackbar.Add($"Added an income of ${incomeModel.Amount} on {incomeModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

@@ -50,11 +50,12 @@ public partial class FinancialManagementCalendarCreateExpenseModelComponent : Co
 
 		if (!wasCreated)
 		{
+			Snackbar.Add($"Failed to add an expense on {expenseModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		ExpenseModelCache.Add(expenseModel);
-		Snackbar.Add($"Added ${expenseModel.Amount} of expense on {expenseModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
+		Snackbar.Add($"Added an expense of ${expenseModel.Amount} on {expenseModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

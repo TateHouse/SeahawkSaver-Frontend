@@ -14,6 +14,7 @@ public abstract class DeleteFinancialModelUseCase<TFinancialModel> : UseCase<TFi
 {
 	private readonly ApiHttpClient httpClient;
 	private readonly IUserCache userCache;
+	private readonly IFinancialModelCache<TFinancialModel> financialModelCache;
 
 	/**
 	 * <summary>
@@ -21,11 +22,15 @@ public abstract class DeleteFinancialModelUseCase<TFinancialModel> : UseCase<TFi
 	 * </summary>
 	 * <param name="httpClient">The <see cref="ApiHttpClient"/> to use.</param>
 	 * <param name="userCache">The user cache.</param>
+	 * <param name="financialModelCache">The financial model cache.</param>
 	 */
-	protected DeleteFinancialModelUseCase(ApiHttpClient httpClient, IUserCache userCache)
+	protected DeleteFinancialModelUseCase(ApiHttpClient httpClient,
+										  IUserCache userCache,
+										  IFinancialModelCache<TFinancialModel> financialModelCache)
 	{
 		this.httpClient = httpClient;
 		this.userCache = userCache;
+		this.financialModelCache = financialModelCache;
 	}
 
 	/**
@@ -59,6 +64,8 @@ public abstract class DeleteFinancialModelUseCase<TFinancialModel> : UseCase<TFi
 
 			return false;
 		}
+
+		financialModelCache.Delete(input);
 
 		return true;
 	}

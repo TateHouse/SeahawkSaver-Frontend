@@ -58,10 +58,11 @@ public partial class FinancialManagementCalendarManageSavingModelComponent : Com
 
 		if (!wasUpdated)
 		{
+			Snackbar.Add($"Failed to update a saving on {SavingModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		SavingModelCache.Update(SavingModel);
 		Snackbar.Add($"Updated a saving on {SavingModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
@@ -74,10 +75,12 @@ public partial class FinancialManagementCalendarManageSavingModelComponent : Com
 
 		if (!wasDeleted)
 		{
+			Snackbar.Add($"Failed to delete a saving on {SavingModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		SavingModelCache.Delete(SavingModel);
+		Snackbar.Add($"Deleted a saving on {SavingModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

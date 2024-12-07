@@ -50,11 +50,12 @@ public partial class FinancialManagementCalendarCreateSubscriptionModelComponent
 
 		if (!wasCreated)
 		{
+			Snackbar.Add($"Failed to add a subscription on {subscriptionModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		SubscriptionModelCache.Add(subscriptionModel);
-		Snackbar.Add($"Added ${subscriptionModel.Amount} of subscription on {subscriptionModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
+		Snackbar.Add($"Added a subscription of ${subscriptionModel.Amount} on {subscriptionModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

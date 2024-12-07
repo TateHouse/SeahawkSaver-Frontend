@@ -50,11 +50,12 @@ public partial class FinancialManagementCalendarCreateDebtModelComponent : Compo
 
 		if (!wasCreated)
 		{
+			Snackbar.Add($"Failed to add a debt on {debtModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		DebtModelCache.Add(debtModel);
-		Snackbar.Add($"Added ${debtModel.Amount} of debt on {debtModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
+		Snackbar.Add($"Added a debt of ${debtModel.Amount} on {debtModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

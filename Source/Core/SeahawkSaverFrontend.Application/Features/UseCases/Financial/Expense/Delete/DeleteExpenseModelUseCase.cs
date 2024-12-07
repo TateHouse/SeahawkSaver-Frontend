@@ -17,9 +17,12 @@ public sealed class DeleteExpenseModelUseCase : DeleteFinancialModelUseCase<Expe
 	 * </summary>
 	 * <param name="httpClient">The <see cref="ApiHttpClient"/> to use.</param>
 	 * <param name="userCache">The user cache.</param>
+	 * <param name="financialModelCache">The financial model cache.</param>
 	 */
-	public DeleteExpenseModelUseCase(ApiHttpClient httpClient, IUserCache userCache)
-		: base(httpClient, userCache)
+	public DeleteExpenseModelUseCase(ApiHttpClient httpClient,
+									 IUserCache userCache,
+									 IFinancialModelCache<ExpenseModel> financialModelCache)
+		: base(httpClient, userCache, financialModelCache)
 	{
 
 	}

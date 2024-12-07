@@ -18,9 +18,12 @@ public sealed class CreateExpenseModelUseCase : CreateFinancialModelUseCase<Expe
 	 * </summary>
 	 * <param name="httpClient">The <see cref="ApiHttpClient"/> to use.</param>
 	 * <param name="userCache">The user cache.</param>
+	 * <param name="financialModelCache">The financial model cache.</param>
 	 */
-	public CreateExpenseModelUseCase(ApiHttpClient httpClient, IUserCache userCache)
-		: base(httpClient, userCache)
+	public CreateExpenseModelUseCase(ApiHttpClient httpClient,
+									 IUserCache userCache,
+									 IFinancialModelCache<ExpenseModel> financialModelCache)
+		: base(httpClient, userCache, financialModelCache)
 	{
 
 	}

@@ -50,11 +50,12 @@ public partial class FinancialManagementCalendarCreateSavingModelComponent : Com
 
 		if (!wasCreated)
 		{
+			Snackbar.Add($"Failed to add a saving on {savingModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		SavingModelCache.Add(savingModel);
-		Snackbar.Add($"Added ${savingModel.Amount} of saving on {savingModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
+		Snackbar.Add($"Added a saving of ${savingModel.Amount} on {savingModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

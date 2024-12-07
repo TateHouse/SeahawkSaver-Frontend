@@ -58,12 +58,11 @@ public partial class FinancialManagementCalendarManageDebtModelComponent : Compo
 
 		if (!wasUpdated)
 		{
+			Snackbar.Add($"Failed to update a debt on {DebtModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		// TODO: Move this inside the use case? If so, do this for all Create, Update, and Delete...
-
-		DebtModelCache.Update(DebtModel);
 		Snackbar.Add($"Updated a debt on {DebtModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
@@ -76,10 +75,12 @@ public partial class FinancialManagementCalendarManageDebtModelComponent : Compo
 
 		if (!wasDeleted)
 		{
+			Snackbar.Add($"Failed to delete a debt on {DebtModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		DebtModelCache.Delete(DebtModel);
+		Snackbar.Add($"Deleted a debt on {DebtModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

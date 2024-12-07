@@ -19,6 +19,7 @@ public abstract class CreateFinancialModelUseCase<TFinancialModel, TEndpointRequ
 {
 	private readonly ApiHttpClient httpClient;
 	private readonly IUserCache userCache;
+	private readonly IFinancialModelCache<TFinancialModel> financialModelCache;
 
 	/**
 	 * <summary>
@@ -27,11 +28,15 @@ public abstract class CreateFinancialModelUseCase<TFinancialModel, TEndpointRequ
 	 * </summary>
 	 * <param name="httpClient">The <see cref="ApiHttpClient"/> to use.</param>
 	 * <param name="userCache">The user cache.</param>
+	 * <param name="financialModelCache">The financial model cache.</param>
 	 */
-	protected CreateFinancialModelUseCase(ApiHttpClient httpClient, IUserCache userCache)
+	protected CreateFinancialModelUseCase(ApiHttpClient httpClient,
+										  IUserCache userCache,
+										  IFinancialModelCache<TFinancialModel> financialModelCache)
 	{
 		this.httpClient = httpClient;
 		this.userCache = userCache;
+		this.financialModelCache = financialModelCache;
 	}
 
 	/**
@@ -87,6 +92,7 @@ public abstract class CreateFinancialModelUseCase<TFinancialModel, TEndpointRequ
 		}
 
 		MapId(input, content);
+		financialModelCache.Add(input);
 
 		return true;
 	}

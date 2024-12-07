@@ -18,9 +18,12 @@ public sealed class UpdateSavingModelUseCase : UpdateFinancialModelUseCase<Savin
 	 * </summary>
 	 * <param name="httpClient">The <see cref="ApiHttpClient"/> to use.</param>
 	 * <param name="userCache">The user cache.</param>
+	 * <param name="financialModelCache">The financial model cache.</param>
 	 */
-	public UpdateSavingModelUseCase(ApiHttpClient httpClient, IUserCache userCache)
-		: base(httpClient, userCache)
+	public UpdateSavingModelUseCase(ApiHttpClient httpClient,
+									IUserCache userCache,
+									IFinancialModelCache<SavingModel> financialModelCache)
+		: base(httpClient, userCache, financialModelCache)
 	{
 
 	}

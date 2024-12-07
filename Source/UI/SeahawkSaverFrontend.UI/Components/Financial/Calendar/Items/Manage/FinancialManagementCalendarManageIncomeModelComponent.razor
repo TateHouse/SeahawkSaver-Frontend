@@ -1,9 +1,6 @@
-﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
-@using SeahawkSaverFrontend.Application.Abstractions.UseCases
-@using SeahawkSaverFrontend.Domain.Models.Financial
+﻿@using SeahawkSaverFrontend.Application.Abstractions.UseCases
 @inject ISnackbar Snackbar
 @inject IUseCaseFactory UseCaseFactory
-@inject IFinancialModelCache<IncomeModel> IncomeModelCache
 
 <MudNumericField Adornment="Adornment.Start"
                  AdornmentIcon="@Icons.Material.Filled.AttachMoney"

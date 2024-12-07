@@ -58,10 +58,11 @@ public partial class FinancialManagementCalendarManageIncomeModelComponent : Com
 
 		if (!wasUpdated)
 		{
+			Snackbar.Add($"Failed to update an income on {IncomeModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		IncomeModelCache.Update(IncomeModel);
 		Snackbar.Add($"Updated an income on {IncomeModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
@@ -74,10 +75,12 @@ public partial class FinancialManagementCalendarManageIncomeModelComponent : Com
 
 		if (!wasDeleted)
 		{
+			Snackbar.Add($"Failed to delete an income on {IncomeModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		IncomeModelCache.Delete(IncomeModel);
+		Snackbar.Add($"Deleted an income on {IncomeModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

@@ -58,10 +58,11 @@ public partial class FinancialManagementCalendarManageExpenseModelComponent : Co
 
 		if (!wasUpdated)
 		{
+			Snackbar.Add($"Failed to update an expense on {ExpenseModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		ExpenseModelCache.Update(ExpenseModel);
 		Snackbar.Add($"Updated an expense on {ExpenseModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
@@ -74,10 +75,12 @@ public partial class FinancialManagementCalendarManageExpenseModelComponent : Co
 
 		if (!wasDeleted)
 		{
+			Snackbar.Add($"Failed to delete an expense on {ExpenseModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		ExpenseModelCache.Delete(ExpenseModel);
+		Snackbar.Add($"Deleted an expense on {ExpenseModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}

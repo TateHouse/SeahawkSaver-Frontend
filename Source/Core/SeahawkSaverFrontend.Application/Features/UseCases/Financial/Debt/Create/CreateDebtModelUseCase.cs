@@ -18,9 +18,12 @@ public sealed class CreateDebtModelUseCase : CreateFinancialModelUseCase<DebtMod
 	 * </summary>
 	 * <param name="httpClient">The <see cref="ApiHttpClient"/> to use.</param>
 	 * <param name="userCache">The user cache.</param>
+	 * <param name="financialModelCache">The financial model cache.</param>
 	 */
-	public CreateDebtModelUseCase(ApiHttpClient httpClient, IUserCache userCache)
-		: base(httpClient, userCache)
+	public CreateDebtModelUseCase(ApiHttpClient httpClient,
+								  IUserCache userCache,
+								  IFinancialModelCache<DebtModel> financialModelCache)
+		: base(httpClient, userCache, financialModelCache)
 	{
 
 	}

@@ -58,10 +58,11 @@ public partial class FinancialManagementCalendarManageSubscriptionModelComponent
 
 		if (!wasUpdated)
 		{
+			Snackbar.Add($"Failed to update a subscription on {SubscriptionModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		SubscriptionModelCache.Update(SubscriptionModel);
 		Snackbar.Add($"Updated a subscription on {SubscriptionModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
@@ -74,10 +75,12 @@ public partial class FinancialManagementCalendarManageSubscriptionModelComponent
 
 		if (!wasDeleted)
 		{
+			Snackbar.Add($"Failed to delete a subscription on {SubscriptionModel.DateTime!.Value.ToShortDateString()}.", Severity.Error);
+
 			return false;
 		}
 
-		SubscriptionModelCache.Delete(SubscriptionModel);
+		Snackbar.Add($"Deleted a subscription on {SubscriptionModel.DateTime!.Value.ToShortDateString()}.", Severity.Success);
 
 		return true;
 	}
