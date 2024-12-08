@@ -1,11 +1,12 @@
 ﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
 @using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@using SeahawkSaverFrontend.UI.Components.Utilities
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 @inject IUserCache UserCache
 @inject IUseCaseFactory UseCaseFactory
 
-<MudDialog>
+<MudDialog TitleClass="mud-theme-secondary">
     <TitleContent>
         Manage Profile
     </TitleContent>
@@ -43,6 +44,7 @@
             }
 
         </MudForm>
+        <SectionDividerComponent/>
     </DialogContent>
     <DialogActions>
         <MudButton Color="Color.Primary"

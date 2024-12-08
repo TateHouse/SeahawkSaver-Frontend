@@ -1,8 +1,9 @@
 ﻿@using SeahawkSaverFrontend.Domain.Models.Financial
+@using SeahawkSaverFrontend.UI.Components.Utilities
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 
-<MudDialog>
+<MudDialog TitleClass="mud-theme-secondary">
     <TitleContent>
         Manage
     </TitleContent>
@@ -39,6 +40,8 @@
 
                 break;
         }
+
+        <SectionDividerComponent/>
     </DialogContent>
     <DialogActions>
         <MudButton Color="Color.Primary"

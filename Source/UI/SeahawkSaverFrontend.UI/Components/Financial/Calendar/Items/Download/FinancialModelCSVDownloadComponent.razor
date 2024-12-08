@@ -1,10 +1,11 @@
 ﻿@using SeahawkSaverFrontend.Domain.Models.Financial
+@using SeahawkSaverFrontend.UI.Components.Utilities
 @inject IJSRuntime JSRuntime
 @inject IDialogService DialogService
 @inject ISnackbar Snackbar
 @inject FinancialModelCSVFormatterFacade CSVFormatterFacade
 
-<MudDialog>
+<MudDialog TitleClass="mud-theme-secondary">
     <TitleContent>
         Download Data
     </TitleContent>
@@ -32,6 +33,7 @@
                            Clearable="true"
                            Label="End Date"
                            Variant="Variant.Outlined"/>
+            <SectionDividerComponent/>
             <MudText Align="Align.Center"
                      Typo="Typo.body1">
                 The start and end dates are both optional and the data downloaded will reflect those choices.
