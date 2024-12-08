@@ -21,13 +21,13 @@ public abstract class CalculateAverageFinancialModelPerMonthUseCase : UseCase<IE
 	public override Task<decimal> ExecuteAsync(IEnumerable<FinancialModelMonthTotal> input)
 	{
 		var financialModelMonthTotals = input.ToList();
-		var total = 0.0m;
 
 		if (financialModelMonthTotals.Count == 0)
 		{
-			return Task.FromResult(total);
+			return Task.FromResult(0.0m);
 		}
 
+		var total = 0.0m;
 		var monthCount = 0;
 
 		foreach (var financialModelMonthTotal in financialModelMonthTotals)
@@ -41,6 +41,11 @@ public abstract class CalculateAverageFinancialModelPerMonthUseCase : UseCase<IE
 
 			total += monthTotal;
 			++monthCount;
+		}
+
+		if (monthCount == 0)
+		{
+			return Task.FromResult(0.0m);
 		}
 
 		return Task.FromResult(total / monthCount);
