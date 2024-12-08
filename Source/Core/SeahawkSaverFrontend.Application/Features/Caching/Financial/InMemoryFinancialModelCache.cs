@@ -1,6 +1,7 @@
 ﻿namespace SeahawkSaverFrontend.Application.Features.Caching.Financial;
 using SeahawkSaverFrontend.Application.Abstractions.Caching;
 using SeahawkSaverFrontend.Domain.Models.Financial;
+using SeahawkSaverFrontend.Domain.Models.Utilities;
 
 /**
  * <summary>
@@ -47,6 +48,35 @@ public abstract class InMemoryFinancialModelCache<TFinancialModel> : IFinancialM
 	public void Delete(TFinancialModel financialModel)
 	{
 		models.Remove(financialModel);
+	}
+
+	/**
+	 * <summary>
+	 * Calculates the total of all the financial models.
+	 * </summary>
+	 * <returns>The total of all the financial models.</returns>
+	 */
+	protected abstract decimal CalculateTotal();
+
+	/**
+	 * <summary>
+	 * Calculates the total of all the financial models within the date range.
+	 * </summary>
+	 * <param name="dateRangeModel">The date range.</param>
+	 * <param name="modelCount">The number of models used in the calculation.</param>
+	 * <returns>The total of all the financial models within the date range.</returns>
+	 */
+	protected abstract decimal CalculateTotal(DateRangeModel dateRangeModel, out int modelCount);
+
+	public decimal GetTotal(DateRangeModel? dateRangeModel, out int modelCount)
+	{
+		if (dateRangeModel == null)
+		{
+			modelCount = models.Count;
+			return CalculateTotal();
+		}
+
+		return CalculateTotal(dateRangeModel, out modelCount);
 	}
 
 	public abstract Task LoadAsync();

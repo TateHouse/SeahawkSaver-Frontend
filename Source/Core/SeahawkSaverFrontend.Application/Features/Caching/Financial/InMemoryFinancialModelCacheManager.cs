@@ -17,7 +17,7 @@ public sealed class InMemoryFinancialModelCacheManager
 
 	/**
 	 * <summary>
-	 * Instantiates a new <see cref="InMemoryFinancialModelCacheManager"/>.
+	 * Instantiates a new <see cref="InMemoryFinancialModelCacheManager"/> instance.
 	 * </summary>
 	 * <param name="debtModelCache">The in-memory debt cache to use.</param>
 	 * <param name="expenseModelCache">The in-memory expense cache to use.</param>

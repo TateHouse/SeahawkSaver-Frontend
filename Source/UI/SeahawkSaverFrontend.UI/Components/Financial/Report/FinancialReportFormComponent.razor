@@ -1,0 +1,34 @@
+﻿@using SeahawkSaverFrontend.UI.Components.Utilities
+@inject IDialogService DialogService
+@inject FinancialReportManager FinancialReportManager
+
+<MudDialog TitleClass="mud-theme-secondary">
+    <TitleContent>
+        Totals Report
+    </TitleContent>
+    <DialogContent>
+        <MudStack Class="pa-4">
+            <MudDatePicker @bind-Date="start"
+                           Clearable="true"
+                           Label="Start Date"
+                           Variant="Variant.Outlined"/>
+            <MudDatePicker @bind-Date="end"
+                           Clearable="true"
+                           Label="End Date"
+                           Variant="Variant.Outlined"/>
+            <SectionDividerComponent/>
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Generate"
+                   Variant="Variant.Filled">
+            Generate
+        </MudButton>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Cancel"
+                   Variant="Variant.Filled">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>

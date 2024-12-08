@@ -3,4 +3,5 @@
 namespace SeahawkSaverFrontend.UI.Components.Financial.Report;
 public partial class FinancialReportPage : ComponentBase
 {
+
 }

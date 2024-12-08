@@ -1,10 +1,12 @@
 ﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
 @using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@using SeahawkSaverFrontend.UI.Components.Financial.Report
 @inject NavigationManager NavigationManager
 @inject IDialogService DialogService
 @inject IAuthenticationCache AuthenticationCache
 @inject IUserCache UserCache
 @inject IUseCaseFactory UseCaseFactory
+@inject FinancialReportManager FinancialReportManager
 
 <MudAppBar Elevation="0">
     <MudToolBar Gutters="false"
@@ -30,7 +32,7 @@
                     @if (!UserCache.User.IsAdmin)
                     {
                         <MudButton Color="Color.Inherit"
-                                   OnClick="OnClick_FinancialReport">
+                                   OnClick="OnClick_FinancialReportAsync">
                             Financial Report
                         </MudButton>
                     }

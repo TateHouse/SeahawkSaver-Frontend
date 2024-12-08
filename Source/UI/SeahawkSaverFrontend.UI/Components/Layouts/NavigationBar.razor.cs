@@ -3,6 +3,8 @@
 namespace SeahawkSaverFrontend.UI.Components.Layouts;
 using MudBlazor;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Logout;
+using SeahawkSaverFrontend.UI.Components.Financial.Report;
+using SeahawkSaverFrontend.UI.Components.Financial.Report.DTOs;
 using SeahawkSaverFrontend.UI.Components.User.Manage;
 
 public partial class NavigationBar : ComponentBase, IDisposable
@@ -45,9 +47,21 @@ public partial class NavigationBar : ComponentBase, IDisposable
 		NavigationManager.NavigateTo("/resources");
 	}
 
-	private void OnClick_FinancialReport()
+	private async Task OnClick_FinancialReportAsync()
 	{
-		NavigationManager.NavigateTo("/financial-report");
+		var options = new DialogOptions
+		{
+			FullWidth = true,
+			MaxWidth = MaxWidth.Small
+		};
+
+		var dialog = await DialogService.ShowAsync<FinancialReportFormComponent>("Generate Financial Report", options);
+		var dialogResult = await dialog.Result;
+
+		if (!dialogResult.Canceled && dialogResult.Data is true)
+		{
+			NavigationManager.NavigateTo("/financial-report");
+		}
 	}
 
 	private async Task OnClick_ProfileAsync()

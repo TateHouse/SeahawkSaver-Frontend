@@ -1,9 +1,12 @@
 ﻿@page "/financial-report"
 @using SeahawkSaverFrontend.Application.Abstractions.Caching
+@using SeahawkSaverFrontend.UI.Components.Utilities
+@inject IDialogService DialogService
 @inject NavigationManager NavigationManager
 @inject IAuthenticationCache AuthenticationCache
+@inject FinancialReportManager FinancialReportManager
 
-<PageTitle>Seahawk Saver | Home</PageTitle>
+<PageTitle>Seahawk Saver | Financial Report</PageTitle>
 
 @if (!AuthenticationCache.IsAuthenticated())
 {
@@ -11,8 +14,22 @@
 }
 else
 {
-    <MudPaper Class="pa-10"
-              Elevation="4"
-              Style="height: 100%;">
-    </MudPaper>
+    <MudContainer Class="pa-6"
+                  Gutters="false"
+                  MaxWidth="MaxWidth.Medium">
+        <MudPaper Class="pa-10"
+                  Elevation="4">
+            <SectionHeaderComponent Typo="Typo.h3">
+                Financial Report
+            </SectionHeaderComponent>
+
+            <MudCard Class="my-4"
+                     Elevation="0"
+                     Outlined="false">
+                <MudCardContent Class="pa-0">
+                    <FinancialReportTotalsTableComponent FinancialModelTotals="@FinancialReportManager.FinancialModelTotals"/>
+                </MudCardContent>
+            </MudCard>
+        </MudPaper>
+    </MudContainer>
 }

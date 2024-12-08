@@ -1,5 +1,6 @@
 ﻿namespace SeahawkSaverFrontend.Application.Abstractions.Caching;
 using SeahawkSaverFrontend.Domain.Models.Financial;
+using SeahawkSaverFrontend.Domain.Models.Utilities;
 
 /**
  * <summary>
@@ -41,6 +42,15 @@ public interface IFinancialModelCache<TFinancialModel>
 	 * <param name="financialModel">The model to delete.</param>
 	 */
 	public void Delete(TFinancialModel financialModel);
+
+	/**
+	 * <summary>
+	 * Calculates the total of all <see cref="TFinancialModel"/> in the cache within the specified date range.
+	 * </summary>
+	 * <param name="dateRangeModel">An optional date range. If null, all models in the cache will be used.</param>
+	 * <param name="modelCount">The number of models used in the calculation.</param>
+	 */
+	public decimal GetTotal(DateRangeModel? dateRangeModel, out int modelCount);
 
 	/**
 	 * <summary>
