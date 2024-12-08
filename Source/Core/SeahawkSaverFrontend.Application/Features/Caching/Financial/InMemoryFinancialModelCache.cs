@@ -64,19 +64,30 @@ public abstract class InMemoryFinancialModelCache<TFinancialModel> : IFinancialM
 	 * </summary>
 	 * <param name="dateRangeModel">The date range.</param>
 	 * <param name="modelCount">The number of models used in the calculation.</param>
+	 * <param name="smallestAmount">The smallest amount in a model.</param>
+	 * <param name="largestAmount">The largest amount in a model.</param>
 	 * <returns>The total of all the financial models within the date range.</returns>
 	 */
-	protected abstract decimal CalculateTotal(DateRangeModel dateRangeModel, out int modelCount);
+	protected abstract decimal CalculateTotal(DateRangeModel dateRangeModel,
+											  out int modelCount,
+											  out decimal smallestAmount,
+											  out decimal largestAmount);
 
-	public decimal GetTotal(DateRangeModel? dateRangeModel, out int modelCount)
+	public decimal GetTotal(DateRangeModel? dateRangeModel,
+							out int modelCount,
+							out decimal smallestAmount,
+							out decimal largestAmount)
 	{
-		if (dateRangeModel == null)
+		if (dateRangeModel != null)
 		{
-			modelCount = models.Count;
-			return CalculateTotal();
+			return CalculateTotal(dateRangeModel, out modelCount, out smallestAmount, out largestAmount);
 		}
 
-		return CalculateTotal(dateRangeModel, out modelCount);
+		modelCount = models.Count;
+		smallestAmount = 0;
+		largestAmount = 0;
+
+		return CalculateTotal();
 	}
 
 	public abstract Task LoadAsync();

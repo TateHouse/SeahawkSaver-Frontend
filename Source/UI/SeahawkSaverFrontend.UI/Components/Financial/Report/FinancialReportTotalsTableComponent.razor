@@ -9,7 +9,13 @@
             Count
         </MudTh>
         <MudTh Class="mud-theme-secondary">
-            Total
+            Total Amount
+        </MudTh>
+        <MudTh Class="mud-theme-secondary">
+            Smallest Amount
+        </MudTh>
+        <MudTh Class="mud-theme-secondary">
+            Largest Amount
         </MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -19,8 +25,14 @@
         <MudTd DataLabel="Count">
             @context.Count
         </MudTd>
-        <MudTd DataLabel="Total">
+        <MudTd DataLabel="Total Amount">
             $@context.Amount
+        </MudTd>
+        <MudTd DataLabel="Smallest Amount">
+            @context.SmallestAmount
+        </MudTd>
+        <MudTd DataLabel="Largest Amount">
+            @context.LargestAmount
         </MudTd>
     </RowTemplate>
 </MudTable>

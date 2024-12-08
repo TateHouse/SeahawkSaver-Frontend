@@ -36,10 +36,15 @@ public sealed class InMemoryExpenseModelCache : InMemoryFinancialModelCache<Expe
 		return models.Aggregate(0.0m, (accumulator, expense) => accumulator + expense.Amount);
 	}
 
-	protected override decimal CalculateTotal(DateRangeModel dateRangeModel, out int modelCount)
+	protected override decimal CalculateTotal(DateRangeModel dateRangeModel,
+											  out int modelCount,
+											  out decimal smallestAmount,
+											  out decimal largestAmount)
 	{
 		var total = 0.0m;
 		var count = 0;
+		smallestAmount = decimal.MaxValue;
+		largestAmount = decimal.MinValue;
 
 		foreach (var expense in models)
 		{
@@ -52,9 +57,17 @@ public sealed class InMemoryExpenseModelCache : InMemoryFinancialModelCache<Expe
 
 			total += expense.Amount;
 			++count;
+			MathUtilities.UpdateMinMax(expense.Amount, ref smallestAmount, ref largestAmount);
+		}
+
+		if (count == 0)
+		{
+			smallestAmount = 0.0m;
+			largestAmount = 0.0m;
 		}
 
 		modelCount = count;
+
 		return total;
 	}
 

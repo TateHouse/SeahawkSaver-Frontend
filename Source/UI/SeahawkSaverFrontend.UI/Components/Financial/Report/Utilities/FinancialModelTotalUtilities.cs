@@ -26,7 +26,12 @@ public static class FinancialModelTotalUtilities
 	{
 		return new FinancialModelTotal
 		{
-			Amount = financialModelCache.GetTotal(dateRangeModel, out var count),
+			Amount = financialModelCache.GetTotal(dateRangeModel,
+												  out var count,
+												  out var smallestAmount,
+												  out var largestAmount),
+			SmallestAmount = smallestAmount,
+			LargestAmount = largestAmount,
 			Count = count,
 			Type = financialModelType
 		};

@@ -49,8 +49,13 @@ public interface IFinancialModelCache<TFinancialModel>
 	 * </summary>
 	 * <param name="dateRangeModel">An optional date range. If null, all models in the cache will be used.</param>
 	 * <param name="modelCount">The number of models used in the calculation.</param>
+	 * <param name="smallestAmount">The smallest amount in a model.</param>
+	 * <param name="largestAmount">The largest amount in a model.</param>
 	 */
-	public decimal GetTotal(DateRangeModel? dateRangeModel, out int modelCount);
+	public decimal GetTotal(DateRangeModel? dateRangeModel,
+							out int modelCount,
+							out decimal smallestAmount,
+							out decimal largestAmount);
 
 	/**
 	 * <summary>
