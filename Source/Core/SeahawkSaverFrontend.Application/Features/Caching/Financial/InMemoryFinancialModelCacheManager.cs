@@ -9,6 +9,8 @@ using SeahawkSaverFrontend.Domain.Models.Financial;
  */
 public sealed class InMemoryFinancialModelCacheManager
 {
+	// TODO: Refactor this with an abstraction, most likely an interface.
+
 	public IFinancialModelCache<DebtModel> DebtModelCache { get; init; }
 	public IFinancialModelCache<ExpenseModel> ExpenseModelCache { get; init; }
 	public IFinancialModelCache<IncomeModel> IncomeModelCache { get; init; }

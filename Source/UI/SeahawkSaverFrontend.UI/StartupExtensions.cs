@@ -6,6 +6,7 @@ using MudBlazor.Services;
 using SeahawkSaverFrontend.Application;
 using SeahawkSaverFrontend.UI.Components.Financial;
 using SeahawkSaverFrontend.UI.Components.Financial.Calendar.UseCases;
+using SeahawkSaverFrontend.UI.Components.Financial.Report.UseCases;
 
 /**
  * <summary>
@@ -43,6 +44,7 @@ public static class StartupExtensions
 		builder.Services.RegisterApplicationServices();
 		builder.Services.RegisterCalendarUseCases();
 		builder.Services.RegisterFinancialComponentServices();
+		builder.Services.RegisterFinancialReportUseCases();
 
 		return builder;
 	}

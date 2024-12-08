@@ -20,7 +20,7 @@ public partial class FinancialReportFormComponent : ComponentBase
 			End = end ?? DateTime.MaxValue
 		};
 
-		FinancialReportManager.CalculateTotals(dateRangeModel);
+		await FinancialReportManager.GenerateAsync(dateRangeModel);
 		Dialog.Close(true);
 	}
 

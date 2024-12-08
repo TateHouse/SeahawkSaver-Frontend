@@ -1,8 +1,11 @@
 ﻿namespace SeahawkSaverFrontend.UI.Components.Financial.Report;
 using SeahawkSaverFrontend.Application.Abstractions.Caching;
+using SeahawkSaverFrontend.Application.Abstractions.UseCases;
 using SeahawkSaverFrontend.Domain.Models.Financial;
 using SeahawkSaverFrontend.Domain.Models.Utilities;
 using SeahawkSaverFrontend.UI.Components.Financial.Report.DTOs;
+using SeahawkSaverFrontend.UI.Components.Financial.Report.UseCases;
+using SeahawkSaverFrontend.UI.Components.Financial.Report.Utilities;
 
 /**
  * <summary>
@@ -11,6 +14,7 @@ using SeahawkSaverFrontend.UI.Components.Financial.Report.DTOs;
  */
 public sealed class FinancialReportManager
 {
+	private readonly IUseCaseFactory useCaseFactory;
 	private readonly IFinancialModelCache<DebtModel> debtModelCache;
 	private readonly IFinancialModelCache<ExpenseModel> expenseModelCache;
 	private readonly IFinancialModelCache<IncomeModel> incomeModelCache;
@@ -18,23 +22,27 @@ public sealed class FinancialReportManager
 	private readonly IFinancialModelCache<SubscriptionModel> subscriptionModelCache;
 
 	public IEnumerable<FinancialModelTotal> FinancialModelTotals { get; private set; }
+	public NetSavings NetSavings { get; private set; }
 
 	/**
 	 * <summary>
 	 * Instantiates a new <see cref="FinancialReportManager"/> instance.
 	 * </summary>
+	 * <param name="useCaseFactory">The use case factory to use.</param>
 	 * <param name="debtModelCache">The debt cache to use.</param>
 	 * <param name="expenseModelCache">The expense cache to use.</param>
 	 * <param name="incomeModelCache">The income cache to use.</param>
 	 * <param name="savingModelCache">The saving cache to use.</param>
 	 * <param name="subscriptionModelCache">The subscription cache to use.</param>
 	 */
-	public FinancialReportManager(IFinancialModelCache<DebtModel> debtModelCache,
+	public FinancialReportManager(IUseCaseFactory useCaseFactory,
+								  IFinancialModelCache<DebtModel> debtModelCache,
 								  IFinancialModelCache<ExpenseModel> expenseModelCache,
 								  IFinancialModelCache<IncomeModel> incomeModelCache,
 								  IFinancialModelCache<SavingModel> savingModelCache,
 								  IFinancialModelCache<SubscriptionModel> subscriptionModelCache)
 	{
+		this.useCaseFactory = useCaseFactory;
 		this.debtModelCache = debtModelCache;
 		this.expenseModelCache = expenseModelCache;
 		this.incomeModelCache = incomeModelCache;
@@ -44,41 +52,49 @@ public sealed class FinancialReportManager
 
 	/**
 	 * <summary>
-	 * Calculates the total for each <see cref="FinancialModel"/> within the specified date range and caches it in the
-	 * <see cref="FinancialModelTotals"/> property.
+	 * Asynchronously generates the financial report.
 	 * </summary>
 	 * <param name="dateRangeModel">An optional date range. If null, then all models in the cache will be used.</param>
+	 * <returns>A task that represents the asynchronous operation.</returns>
 	 */
-	public void CalculateTotals(DateRangeModel? dateRangeModel)
+	public async Task GenerateAsync(DateRangeModel? dateRangeModel)
 	{
-		FinancialModelTotals = new List<FinancialModelTotal>
-		{
-			GetTotal(dateRangeModel, debtModelCache, FinancialModelType.Debt),
-			GetTotal(dateRangeModel, expenseModelCache, FinancialModelType.Expense),
-			GetTotal(dateRangeModel, incomeModelCache, FinancialModelType.Income),
-			GetTotal(dateRangeModel, savingModelCache, FinancialModelType.Saving),
-			GetTotal(dateRangeModel, subscriptionModelCache, FinancialModelType.Subscription)
-		};
+		await CalculateTotals(dateRangeModel);
+		await CalculateNetSavings(dateRangeModel);
 	}
 
 	/**
 	 * <summary>
-	 * Gets the total for a specific <see cref="FinancialModelType"/> within the specified date range.
+	 * Asynchronously calculates and caches the total for each <see cref="FinancialModel"/> within the specified date range.
 	 * </summary>
 	 * <param name="dateRangeModel">An optional date range. If null, then all models in the cache will be used.</param>
-	 * <param name="financialModelCache">The model cache to use.</param>
-	 * <param name="financialModelType">The type of the financial model.</param>
+	 * <returns>A task that represents the asynchronous operation.</returns>
 	 */
-	private static FinancialModelTotal GetTotal<TFinancialModel>(DateRangeModel? dateRangeModel,
-																 IFinancialModelCache<TFinancialModel> financialModelCache,
-																 FinancialModelType financialModelType)
-		where TFinancialModel : FinancialModel
+	private Task CalculateTotals(DateRangeModel? dateRangeModel)
 	{
-		return new FinancialModelTotal
+		// TODO: Refactor this into a use case.
+		FinancialModelTotals = new List<FinancialModelTotal>
 		{
-			Amount = financialModelCache.GetTotal(dateRangeModel, out var count),
-			Count = count,
-			Type = financialModelType
+			FinancialModelTotalUtilities.GetTotal(dateRangeModel, debtModelCache, FinancialModelType.Debt),
+			FinancialModelTotalUtilities.GetTotal(dateRangeModel, expenseModelCache, FinancialModelType.Expense),
+			FinancialModelTotalUtilities.GetTotal(dateRangeModel, incomeModelCache, FinancialModelType.Income),
+			FinancialModelTotalUtilities.GetTotal(dateRangeModel, savingModelCache, FinancialModelType.Saving),
+			FinancialModelTotalUtilities.GetTotal(dateRangeModel, subscriptionModelCache, FinancialModelType.Subscription)
 		};
+
+		return Task.CompletedTask;
+	}
+
+	/**
+	 * <summary>
+	 * Asynchronously calculates and caches the net savings.
+	 * </summary>
+	 * <param name="dateRangeModel">An optional date range. If null, then all models in the cache will be used.</param>
+	 * <returns>A task that represents the asynchronous operation.</returns>
+	 */
+	private async Task CalculateNetSavings(DateRangeModel? dateRangeModel)
+	{
+		var useCase = useCaseFactory.Create<CalculateNetSavingsUseCase>();
+		NetSavings = await useCase.ExecuteAsync(dateRangeModel);
 	}
 }

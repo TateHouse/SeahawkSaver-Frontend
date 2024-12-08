@@ -30,6 +30,18 @@ else
                     <FinancialReportTotalsTableComponent FinancialModelTotals="@FinancialReportManager.FinancialModelTotals"/>
                 </MudCardContent>
             </MudCard>
+            <MudCard Class="my-4"
+                     Elevation="0"
+                     Outlined="false">
+                <MudCardContent Class="pa-0">
+                    <MudText>
+                        Net Savings: $@FinancialReportManager.NetSavings.Amount.ToString("F1")
+                    </MudText>
+                    <MudText>
+                        Savings Rate: %@FinancialReportManager.NetSavings.Percentage.ToString("F1")
+                    </MudText>
+                </MudCardContent>
+            </MudCard>
         </MudPaper>
     </MudContainer>
 }
