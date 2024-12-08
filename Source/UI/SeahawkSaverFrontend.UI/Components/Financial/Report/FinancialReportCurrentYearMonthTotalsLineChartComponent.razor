@@ -1,0 +1,15 @@
+﻿@inject IDialogService DialogService
+@inject FinancialReportManager FinancialReportManager
+
+<MudChart ChartOptions="@chartOptions"
+          ChartType="ChartType.Line"
+          ChartSeries="@chartSeries"
+          XAxisLabels="@xAxisLabels"
+          Width="100%"/>
+
+<style>
+    .mud-chart-line
+    {
+        overflow: visible;
+    }
+</style>

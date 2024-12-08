@@ -14,6 +14,7 @@ public static class UseCaseRegistration
 	 */
 	internal static void RegisterFinancialReportUseCases(this IServiceCollection services)
 	{
+		services.AddTransient<CalculateCurrentYearMonthlyTotalsUseCase>();
 		services.AddTransient<CalculateNetSavingsUseCase>();
 	}
 }

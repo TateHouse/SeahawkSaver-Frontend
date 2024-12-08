@@ -42,6 +42,18 @@ else
                     </MudText>
                 </MudCardContent>
             </MudCard>
+
+            <MudCard Class="my-4"
+                     Elevation="0"
+                     Outlined="false">
+                <MudCardContent Class="pa-0">
+                    <MudText Typo="Typo.h4">
+                        @GetCurrentYear() Monthly Totals
+                    </MudText>
+                    <FinancialReportCurrentYearMonthTotalsLineChartComponent FinancialModelMonthTotals="@FinancialReportManager.FinancialModelMonthTotals"/>
+                </MudCardContent>
+            </MudCard>
+
         </MudPaper>
     </MudContainer>
 }

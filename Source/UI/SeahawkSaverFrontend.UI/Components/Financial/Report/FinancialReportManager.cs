@@ -21,6 +21,7 @@ public sealed class FinancialReportManager
 	private readonly IFinancialModelCache<SavingModel> savingModelCache;
 	private readonly IFinancialModelCache<SubscriptionModel> subscriptionModelCache;
 
+	public IEnumerable<FinancialModelMonthTotal> FinancialModelMonthTotals { get; private set; }
 	public IEnumerable<FinancialModelTotal> FinancialModelTotals { get; private set; }
 	public NetSavings NetSavings { get; private set; }
 
@@ -57,17 +58,32 @@ public sealed class FinancialReportManager
 	 * <param name="dateRangeModel">An optional date range. If null, then all models in the cache will be used.</param>
 	 * <returns>A task that represents the asynchronous operation.</returns>
 	 */
-	public async Task GenerateAsync(DateRangeModel? dateRangeModel)
+	public async Task GenerateAsync(DateRangeModel dateRangeModel)
 	{
+		await CalculateMonthTotals();
 		await CalculateTotals(dateRangeModel);
 		await CalculateNetSavings(dateRangeModel);
 	}
 
 	/**
 	 * <summary>
-	 * Asynchronously calculates and caches the total for each <see cref="FinancialModel"/> within the specified date range.
+	 * Asynchronously calculates and caches the total for each <see cref="FinancialModel"/> for each month for the past
+	 * year.
 	 * </summary>
-	 * <param name="dateRangeModel">An optional date range. If null, then all models in the cache will be used.</param>
+	 * <returns>A task that represents the asynchronous operation.</returns>
+	 */
+	private async Task CalculateMonthTotals()
+	{
+		var useCase = useCaseFactory.Create<CalculateCurrentYearMonthlyTotalsUseCase>();
+		FinancialModelMonthTotals = await useCase.ExecuteAsync(null);
+	}
+
+	/**
+	 * <summary>
+	 * Asynchronously calculates and caches the total for each <see cref="FinancialModel"/> within the specified date
+	 * range.
+	 * </summary>
+	 * <param name="dateRangeModel">The date range.</param>
 	 * <returns>A task that represents the asynchronous operation.</returns>
 	 */
 	private Task CalculateTotals(DateRangeModel? dateRangeModel)
@@ -89,10 +105,10 @@ public sealed class FinancialReportManager
 	 * <summary>
 	 * Asynchronously calculates and caches the net savings.
 	 * </summary>
-	 * <param name="dateRangeModel">An optional date range. If null, then all models in the cache will be used.</param>
+	 * <param name="dateRangeModel">The date range.</param>
 	 * <returns>A task that represents the asynchronous operation.</returns>
 	 */
-	private async Task CalculateNetSavings(DateRangeModel? dateRangeModel)
+	private async Task CalculateNetSavings(DateRangeModel dateRangeModel)
 	{
 		var useCase = useCaseFactory.Create<CalculateNetSavingsUseCase>();
 		NetSavings = await useCase.ExecuteAsync(dateRangeModel);
