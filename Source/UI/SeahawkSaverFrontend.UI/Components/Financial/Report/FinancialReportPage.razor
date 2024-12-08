@@ -25,12 +25,12 @@ else
             </MudItem>
             <MudItem xs="12">
                 <MudPaper Elevation="4">
-                    <FinancialReportMiscStatisticsCarouselComponent/>
+                    <FinancialReportMiscStatisticsCarouselComponent CurrentYear="@GetCurrentYear()"/>
                 </MudPaper>
             </MudItem>
             <MudItem xs="12" sm="6">
                 <SectionHeaderComponent Typo="Typo.h4">
-                    Overall Totals
+                    @FinancialReportManager.FinancialReportDateRange.Start.ToString("MM/dd/yyyy") - @FinancialReportManager.FinancialReportDateRange.End.ToString("MM/dd/yyyy")
                 </SectionHeaderComponent>
                 <MudPaper Class="mt-4"
                           Elevation="4">
@@ -48,20 +48,20 @@ else
             </MudItem>
             <MudItem xs="12" sm="6">
                 <SectionHeaderComponent Typo="Typo.h4">
+                    @FinancialReportManager.FinancialReportDateRange.Start.ToString("MM/dd/yyyy") - @FinancialReportManager.FinancialReportDateRange.End.ToString("MM/dd/yyyy")
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
+                    <FinancialReportTotalsPieChartComponent/>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
                     @GetCurrentYear() Monthly Totals
                 </SectionHeaderComponent>
                 <MudPaper Class="mt-4"
                           Elevation="4">
                     <FinancialReportCurrentYearMonthTotalsLineChartComponent/>
-                </MudPaper>
-            </MudItem>
-            <MudItem xs="12" sm="6">
-                <SectionHeaderComponent Typo="Typo.h4">
-                    Overall Totals
-                </SectionHeaderComponent>
-                <MudPaper Class="mt-4"
-                          Elevation="4">
-                    <FinancialReportTotalsPieChartComponent/>
                 </MudPaper>
             </MudItem>
         </MudGrid>

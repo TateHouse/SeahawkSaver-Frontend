@@ -3,7 +3,7 @@
 namespace SeahawkSaverFrontend.UI.Components.Financial.Report;
 using SeahawkSaverFrontend.Domain.Models.Financial;
 
-public partial class FinancialReportAveragesTableComponent : ComponentBase
+public partial class FinancialReportAveragesTableComponent : ComponentBase, IDisposable
 {
 	private sealed record TableRow
 	{
@@ -15,6 +15,7 @@ public partial class FinancialReportAveragesTableComponent : ComponentBase
 
 	protected override void OnInitialized()
 	{
+		FinancialReportManager.OnStateChanged += StateHasChanged;
 		financialModelMonthlyAverages = new List<TableRow>
 		{
 			new TableRow
@@ -43,5 +44,10 @@ public partial class FinancialReportAveragesTableComponent : ComponentBase
 				Type = FinancialModelType.Subscription
 			}
 		};
+	}
+
+	public void Dispose()
+	{
+		FinancialReportManager.OnStateChanged -= StateHasChanged;
 	}
 }

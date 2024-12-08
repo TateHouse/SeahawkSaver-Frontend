@@ -4,7 +4,7 @@ namespace SeahawkSaverFrontend.UI.Components.Financial.Report;
 using MudBlazor;
 using SeahawkSaverFrontend.Domain.Models.Financial;
 
-public partial class FinancialReportCurrentYearMonthTotalsLineChartComponent : ComponentBase
+public partial class FinancialReportCurrentYearMonthTotalsLineChartComponent : ComponentBase, IDisposable
 {
 	private readonly Dictionary<FinancialModelType, List<double>> financialModelMonthlyTotals = new Dictionary<FinancialModelType, List<double>>()
 	{
@@ -52,6 +52,8 @@ public partial class FinancialReportCurrentYearMonthTotalsLineChartComponent : C
 
 	protected override void OnInitialized()
 	{
+		FinancialReportManager.OnStateChanged += StateHasChanged;
+
 		foreach (var financialModelMonthTotal in FinancialReportManager.FinancialModelCurrentYearMonthTotals)
 		{
 			financialModelMonthlyTotals[FinancialModelType.Debt][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.DebtModelTotal.Amount;
@@ -66,6 +68,11 @@ public partial class FinancialReportCurrentYearMonthTotalsLineChartComponent : C
 			var series = CreateChartSeries(pair.Key);
 			chartSeries.Add(series);
 		}
+	}
+
+	public void Dispose()
+	{
+		FinancialReportManager.OnStateChanged -= StateHasChanged;
 	}
 
 	private ChartSeries CreateChartSeries(FinancialModelType financialModelType)

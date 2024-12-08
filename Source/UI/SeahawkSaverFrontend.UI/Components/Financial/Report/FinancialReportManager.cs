@@ -22,6 +22,7 @@ public sealed class FinancialReportManager
 	private readonly IFinancialModelCache<SubscriptionModel> subscriptionModelCache;
 
 	public event Action? OnStateChanged;
+	public DateRangeModel FinancialReportDateRange { get; private set; }
 	public IEnumerable<FinancialModelTotal> FinancialModelOverallTotals { get; private set; }
 	public IEnumerable<FinancialModelMonthTotal> FinancialModelCurrentYearMonthTotals { get; private set; }
 	public AverageFinancialModelsPerMonth AverageFinancialModelsPerMonth { get; private set; }
@@ -73,6 +74,7 @@ public sealed class FinancialReportManager
 	 */
 	public async Task GenerateAsync(DateRangeModel dateRangeModel)
 	{
+		FinancialReportDateRange = dateRangeModel;
 		await CalculateOverallTotalsAsync(dateRangeModel);
 		await CalculateCurrentYearMonthTotalsAsync();
 		await GetCurrentYearMonthsByCashFlow(FinancialModelCurrentYearMonthTotals);

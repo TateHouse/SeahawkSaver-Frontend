@@ -3,12 +3,8 @@
 namespace SeahawkSaverFrontend.UI.Components.Financial.Report;
 using SeahawkSaverFrontend.Domain.Models.Financial;
 
-public partial class FinancialReportTotalsPieChartComponent : ComponentBase
+public partial class FinancialReportTotalsPieChartComponent : ComponentBase, IDisposable
 {
-	private readonly List<double> chartData = new List<double>
-	{
-		0.0, 0.0, 0.0, 0.0, 0.0
-	};
 
 	private readonly string[] chartLabels = new[]
 	{
@@ -21,6 +17,17 @@ public partial class FinancialReportTotalsPieChartComponent : ComponentBase
 
 	protected override void OnInitialized()
 	{
+		FinancialReportManager.OnStateChanged += StateHasChanged;
+
+	}
+
+	public double[] GetChartData()
+	{
+		var chartData = new List<double>()
+		{
+			0.0, 0.0, 0.0, 0.0, 0.0
+		};
+
 		foreach (var financialModelTotal in FinancialReportManager.FinancialModelOverallTotals)
 		{
 			var amount = (double)financialModelTotal.Amount;
@@ -53,5 +60,12 @@ public partial class FinancialReportTotalsPieChartComponent : ComponentBase
 					break;
 			}
 		}
+
+		return chartData.ToArray();
+	}
+
+	public void Dispose()
+	{
+		FinancialReportManager.OnStateChanged -= StateHasChanged;
 	}
 }
