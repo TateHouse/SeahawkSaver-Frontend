@@ -21,5 +21,8 @@ public static class UseCaseRegistration
 		services.AddTransient<CalculateAverageSubscriptionPerMonthUseCase>();
 		services.AddTransient<CalculateCurrentYearMonthlyTotalsUseCase>();
 		services.AddTransient<CalculateNetSavingsUseCase>();
+		services.AddTransient<FilterCurrentYearMonthsByBreakingEven>();
+		services.AddTransient<FilterCurrentYearMonthsByInTheBlackUseCase>();
+		services.AddTransient<FilterCurrentYearMonthsByInTheRedUseCase>();
 	}
 }
