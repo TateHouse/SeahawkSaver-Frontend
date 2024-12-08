@@ -15,55 +15,55 @@
 else
 {
     <MudPaper Class="pa-10"
-              Elevation="4"
+              Elevation="0"
               Style="height: 100%;">
-
-
-    </MudPaper>
-    <MudContainer Class="pa-6"
-                  Gutters="false"
-                  MaxWidth="MaxWidth.Medium">
-        <MudPaper Class="pa-10"
-                  Elevation="4">
-            <SectionHeaderComponent Typo="Typo.h3">
-                Financial Report
-            </SectionHeaderComponent>
-
-            <MudCard Class="my-4"
-                     Elevation="0"
-                     Outlined="false">
-                <MudCardContent Class="pa-0">
-                    <FinancialReportTotalsTableComponent/>
-                </MudCardContent>
-            </MudCard>
-            <MudCard Class="my-4"
-                     Elevation="0"
-                     Outlined="false">
-                <MudCardContent Class="pa-0">
-                    <MudText Typo="Typo.h4">
-                        Overall Totals
-                    </MudText>
-                    <FinancialReportTotalsPieChartComponent/>
-                </MudCardContent>
-            </MudCard>
-            <MudCard Class="my-4"
-                     Elevation="0"
-                     Outlined="false">
-                <MudCardContent Class="pa-0">
+        <MudGrid Class="pb-10">
+            <MudItem xs="12">
+                <SectionHeaderComponent Typo="Typo.h3">
+                    Financial Report
+                </SectionHeaderComponent>
+            </MudItem>
+            <MudItem xs="12">
+                <MudPaper Elevation="4">
                     <FinancialReportMiscStatisticsCarouselComponent/>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
+                    Overall Totals
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
+                    <FinancialReportTotalsTableComponent/>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
+                    @GetCurrentYear() Monthly Averages
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
                     <FinancialReportAveragesTableComponent/>
-                </MudCardContent>
-            </MudCard>
-            <MudCard Class="my-4"
-                     Elevation="0"
-                     Outlined="false">
-                <MudCardContent Class="pa-0">
-                    <MudText Typo="Typo.h4">
-                        @GetCurrentYear() Monthly Totals
-                    </MudText>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
+                    @GetCurrentYear() Monthly Totals
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
                     <FinancialReportCurrentYearMonthTotalsLineChartComponent/>
-                </MudCardContent>
-            </MudCard>
-        </MudPaper>
-    </MudContainer>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
+                    Overall Totals
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
+                    <FinancialReportTotalsPieChartComponent/>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
 }
