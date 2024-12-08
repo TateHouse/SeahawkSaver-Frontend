@@ -23,6 +23,7 @@ public sealed class FinancialReportManager
 
 	public IEnumerable<FinancialModelMonthTotal> FinancialModelMonthTotals { get; private set; }
 	public IEnumerable<FinancialModelTotal> FinancialModelTotals { get; private set; }
+	public AverageFinancialModelsPerMonth AverageFinancialModelsPerMonth { get; private set; }
 	public NetSavings NetSavings { get; private set; }
 
 	/**
@@ -37,6 +38,7 @@ public sealed class FinancialReportManager
 	 * <param name="subscriptionModelCache">The subscription cache to use.</param>
 	 */
 	public FinancialReportManager(IUseCaseFactory useCaseFactory,
+								  AverageFinancialModelsPerMonthBuilder averageFinancialModelsPerMonthBuilder,
 								  IFinancialModelCache<DebtModel> debtModelCache,
 								  IFinancialModelCache<ExpenseModel> expenseModelCache,
 								  IFinancialModelCache<IncomeModel> incomeModelCache,
@@ -62,6 +64,7 @@ public sealed class FinancialReportManager
 	{
 		await CalculateMonthTotals();
 		await CalculateTotals(dateRangeModel);
+		await CalculateAverageFinancialModelPerMonth();
 		await CalculateNetSavings(dateRangeModel);
 	}
 
@@ -103,6 +106,22 @@ public sealed class FinancialReportManager
 
 	/**
 	 * <summary>
+	 * Asynchronously calculates and caches the average monthly totals for the current year.
+	 * </summary>
+	 */
+	private async Task CalculateAverageFinancialModelPerMonth()
+	{
+		var builder = new AverageFinancialModelsPerMonthBuilder(useCaseFactory, FinancialModelMonthTotals);
+		AverageFinancialModelsPerMonth = builder.WithAverageDebt()
+											   .WithAverageExpense()
+											   .WithAverageIncome()
+											   .WithAverageSaving()
+											   .WithAverageSubscription()
+											   .Build();
+	}
+
+	/**
+	 * <summary>
 	 * Asynchronously calculates and caches the net savings.
 	 * </summary>
 	 * <param name="dateRangeModel">The date range.</param>
@@ -113,4 +132,5 @@ public sealed class FinancialReportManager
 		var useCase = useCaseFactory.Create<CalculateNetSavingsUseCase>();
 		NetSavings = await useCase.ExecuteAsync(dateRangeModel);
 	}
+
 }

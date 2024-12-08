@@ -71,7 +71,7 @@ public sealed class CalculateNetSavingsUseCase : UseCase<DateRangeModel, NetSavi
 		var totalIncome = financialModelTotals[FinancialModelType.Income].Amount;
 		var totalExpenses = financialModelTotals[FinancialModelType.Expense].Amount + financialModelTotals[FinancialModelType.Subscription].Amount;
 		var savings = totalIncome - totalExpenses;
-		var percentage = totalIncome > 0 ? (savings / totalIncome) * 100.0m : 0.0m;
+		var percentage = totalIncome > 0 ? (savings / totalIncome) : 0.0m;
 
 		return Task.FromResult(new NetSavings
 		{

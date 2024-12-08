@@ -14,6 +14,11 @@ public static class UseCaseRegistration
 	 */
 	internal static void RegisterFinancialReportUseCases(this IServiceCollection services)
 	{
+		services.AddTransient<CalculateAverageDebtPerMonthUseCase>();
+		services.AddTransient<CalculateAverageExpensePerMonthUseCase>();
+		services.AddTransient<CalculateAverageIncomePerMonthUseCase>();
+		services.AddTransient<CalculateAverageSavingPerMonthUseCase>();
+		services.AddTransient<CalculateAverageSubscriptionPerMonthUseCase>();
 		services.AddTransient<CalculateCurrentYearMonthlyTotalsUseCase>();
 		services.AddTransient<CalculateNetSavingsUseCase>();
 	}

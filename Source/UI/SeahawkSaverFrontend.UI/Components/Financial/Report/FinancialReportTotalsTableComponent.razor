@@ -26,13 +26,13 @@
             @context.Count
         </MudTd>
         <MudTd DataLabel="Total Amount">
-            $@context.Amount
+            @context.Amount.ToString("C")
         </MudTd>
         <MudTd DataLabel="Smallest Amount">
-            @context.SmallestAmount
+            @context.SmallestAmount.ToString("C")
         </MudTd>
         <MudTd DataLabel="Largest Amount">
-            @context.LargestAmount
+            @context.LargestAmount.ToString("C")
         </MudTd>
     </RowTemplate>
 </MudTable>

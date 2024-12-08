@@ -27,6 +27,7 @@ public static class ServiceRegistration
 		services.AddTransient<IFinancialModelCalendarItemFactory<SubscriptionModel>, FinancialModelCalendarItemFactory<SubscriptionModel, CreateSubscriptionModelCalendarItemsUseCase>>();
 		services.AddTransient<FinancialManagementCalendarItemManager>();
 		services.AddTransient<FinancialModelCSVFormatterFacade>();
+		services.AddTransient<AverageFinancialModelsPerMonthBuilder>();
 		services.AddSingleton<FinancialReportManager>();
 
 		return services;

@@ -35,10 +35,25 @@ else
                      Outlined="false">
                 <MudCardContent Class="pa-0">
                     <MudText>
-                        Net Savings: $@FinancialReportManager.NetSavings.Amount.ToString("F1")
+                        Net Savings: @FinancialReportManager.NetSavings.Amount.ToString("C")
                     </MudText>
                     <MudText>
-                        Savings Rate: %@FinancialReportManager.NetSavings.Percentage.ToString("F1")
+                        Savings Rate: @FinancialReportManager.NetSavings.Percentage.ToString("P")
+                    </MudText>
+                    <MudText>
+                        Average Debt: @FinancialReportManager.AverageFinancialModelsPerMonth.AverageDebtAmount.ToString("C")
+                    </MudText>
+                    <MudText>
+                        Average Expense: @FinancialReportManager.AverageFinancialModelsPerMonth.AverageExpenseAmount.ToString("C")
+                    </MudText>
+                    <MudText>
+                        Average Income: @FinancialReportManager.AverageFinancialModelsPerMonth.AverageIncomeAmount.ToString("C")
+                    </MudText>
+                    <MudText>
+                        Average Saving: @FinancialReportManager.AverageFinancialModelsPerMonth.AverageSavingAmount.ToString("C")
+                    </MudText>
+                    <MudText>
+                        Average Subscription: @FinancialReportManager.AverageFinancialModelsPerMonth.AverageSubscriptionAmount.ToString("C")
                     </MudText>
                 </MudCardContent>
             </MudCard>
