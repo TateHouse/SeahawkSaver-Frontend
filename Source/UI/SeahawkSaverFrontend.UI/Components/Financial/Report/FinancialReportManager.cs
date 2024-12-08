@@ -21,8 +21,8 @@ public sealed class FinancialReportManager
 	private readonly IFinancialModelCache<SavingModel> savingModelCache;
 	private readonly IFinancialModelCache<SubscriptionModel> subscriptionModelCache;
 
-	public IEnumerable<FinancialModelMonthTotal> FinancialModelMonthTotals { get; private set; }
-	public IEnumerable<FinancialModelTotal> FinancialModelTotals { get; private set; }
+	public IEnumerable<FinancialModelMonthTotal> FinancialModelCurrentYearMonthTotals { get; private set; }
+	public IEnumerable<FinancialModelTotal> FinancialModelOverallTotals { get; private set; }
 	public AverageFinancialModelsPerMonth AverageFinancialModelsPerMonth { get; private set; }
 	public NetSavings NetSavings { get; private set; }
 
@@ -62,10 +62,10 @@ public sealed class FinancialReportManager
 	 */
 	public async Task GenerateAsync(DateRangeModel dateRangeModel)
 	{
-		await CalculateMonthTotals();
-		await CalculateTotals(dateRangeModel);
-		await CalculateAverageFinancialModelPerMonth();
-		await CalculateNetSavings(dateRangeModel);
+		await CalculateCurrentYearMonthTotalsAsync();
+		await CalculateOverallTotalsAsync(dateRangeModel);
+		await CalculateAverageFinancialModelPerMonthAsync();
+		await CalculateNetSavingsAsync(dateRangeModel);
 	}
 
 	/**
@@ -75,10 +75,10 @@ public sealed class FinancialReportManager
 	 * </summary>
 	 * <returns>A task that represents the asynchronous operation.</returns>
 	 */
-	private async Task CalculateMonthTotals()
+	private async Task CalculateCurrentYearMonthTotalsAsync()
 	{
 		var useCase = useCaseFactory.Create<CalculateCurrentYearMonthlyTotalsUseCase>();
-		FinancialModelMonthTotals = await useCase.ExecuteAsync(null);
+		FinancialModelCurrentYearMonthTotals = await useCase.ExecuteAsync(null);
 	}
 
 	/**
@@ -89,10 +89,10 @@ public sealed class FinancialReportManager
 	 * <param name="dateRangeModel">The date range.</param>
 	 * <returns>A task that represents the asynchronous operation.</returns>
 	 */
-	private Task CalculateTotals(DateRangeModel? dateRangeModel)
+	private Task CalculateOverallTotalsAsync(DateRangeModel? dateRangeModel)
 	{
 		// TODO: Refactor this into a use case.
-		FinancialModelTotals = new List<FinancialModelTotal>
+		FinancialModelOverallTotals = new List<FinancialModelTotal>
 		{
 			FinancialModelTotalUtilities.GetTotal(dateRangeModel, debtModelCache, FinancialModelType.Debt),
 			FinancialModelTotalUtilities.GetTotal(dateRangeModel, expenseModelCache, FinancialModelType.Expense),
@@ -109,9 +109,9 @@ public sealed class FinancialReportManager
 	 * Asynchronously calculates and caches the average monthly totals for the current year.
 	 * </summary>
 	 */
-	private async Task CalculateAverageFinancialModelPerMonth()
+	private async Task CalculateAverageFinancialModelPerMonthAsync()
 	{
-		var builder = new AverageFinancialModelsPerMonthBuilder(useCaseFactory, FinancialModelMonthTotals);
+		var builder = new AverageFinancialModelsPerMonthBuilder(useCaseFactory, FinancialModelCurrentYearMonthTotals);
 		AverageFinancialModelsPerMonth = builder.WithAverageDebt()
 											   .WithAverageExpense()
 											   .WithAverageIncome()
@@ -127,7 +127,7 @@ public sealed class FinancialReportManager
 	 * <param name="dateRangeModel">The date range.</param>
 	 * <returns>A task that represents the asynchronous operation.</returns>
 	 */
-	private async Task CalculateNetSavings(DateRangeModel dateRangeModel)
+	private async Task CalculateNetSavingsAsync(DateRangeModel dateRangeModel)
 	{
 		var useCase = useCaseFactory.Create<CalculateNetSavingsUseCase>();
 		NetSavings = await useCase.ExecuteAsync(dateRangeModel);

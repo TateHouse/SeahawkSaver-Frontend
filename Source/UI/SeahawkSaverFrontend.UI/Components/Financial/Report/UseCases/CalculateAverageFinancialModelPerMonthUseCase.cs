@@ -13,6 +13,7 @@ public abstract class CalculateAverageFinancialModelPerMonthUseCase : UseCase<IE
 	 * <summary>
 	 * Gets the month's total amount.
 	 * </summary>
+	 * <param name="financialModelMonthTotal">The financial month total.</param>
 	 * <returns>The month's total amount.</returns>
 	 */
 	protected abstract decimal GetMonthTotalAmount(FinancialModelMonthTotal financialModelMonthTotal);

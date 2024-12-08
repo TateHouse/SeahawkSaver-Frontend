@@ -1,0 +1,7 @@
+﻿@inject FinancialReportManager FinancialReportManager
+
+<MudChart ChartType="ChartType.Pie"
+          Height="100%"
+          InputData="@chartData.ToArray()"
+          InputLabels="@chartLabels"
+          Width="100%"/>

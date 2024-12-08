@@ -3,11 +3,10 @@
 namespace SeahawkSaverFrontend.UI.Components.Financial.Report;
 using MudBlazor;
 using SeahawkSaverFrontend.Domain.Models.Financial;
-using SeahawkSaverFrontend.UI.Components.Financial.Report.DTOs;
 
 public partial class FinancialReportCurrentYearMonthTotalsLineChartComponent : ComponentBase
 {
-	private readonly Dictionary<FinancialModelType, List<double>> chartData = new Dictionary<FinancialModelType, List<double>>()
+	private readonly Dictionary<FinancialModelType, List<double>> financialModelMonthlyTotals = new Dictionary<FinancialModelType, List<double>>()
 	{
 		{
 			FinancialModelType.Debt, Enumerable.Repeat(0.0, 12).ToList()
@@ -51,21 +50,18 @@ public partial class FinancialReportCurrentYearMonthTotalsLineChartComponent : C
 		"Dec"
 	};
 
-	[Parameter]
-	public IEnumerable<FinancialModelMonthTotal> FinancialModelMonthTotals { get; set; }
-
-	protected override void OnParametersSet()
+	protected override void OnInitialized()
 	{
-		foreach (var financialModelMonthTotal in FinancialModelMonthTotals)
+		foreach (var financialModelMonthTotal in FinancialReportManager.FinancialModelCurrentYearMonthTotals)
 		{
-			chartData[FinancialModelType.Debt][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.DebtModelTotal.Amount;
-			chartData[FinancialModelType.Expense][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.ExpenseModelTotal.Amount;
-			chartData[FinancialModelType.Income][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.IncomeModelTotal.Amount;
-			chartData[FinancialModelType.Saving][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.SavingModelTotal.Amount;
-			chartData[FinancialModelType.Subscription][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.SubscriptionModelTotal.Amount;
+			financialModelMonthlyTotals[FinancialModelType.Debt][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.DebtModelTotal.Amount;
+			financialModelMonthlyTotals[FinancialModelType.Expense][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.ExpenseModelTotal.Amount;
+			financialModelMonthlyTotals[FinancialModelType.Income][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.IncomeModelTotal.Amount;
+			financialModelMonthlyTotals[FinancialModelType.Saving][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.SavingModelTotal.Amount;
+			financialModelMonthlyTotals[FinancialModelType.Subscription][financialModelMonthTotal.MonthIndex] = (double)financialModelMonthTotal.SubscriptionModelTotal.Amount;
 		}
 
-		foreach (var pair in chartData)
+		foreach (var pair in financialModelMonthlyTotals)
 		{
 			var series = CreateChartSeries(pair.Key);
 			chartSeries.Add(series);
@@ -86,7 +82,7 @@ public partial class FinancialReportCurrentYearMonthTotalsLineChartComponent : C
 
 		return new ChartSeries
 		{
-			Data = chartData[financialModelType].ToArray(),
+			Data = financialModelMonthlyTotals[financialModelType].ToArray(),
 			Name = name,
 			Visible = true
 		};
