@@ -50,15 +50,7 @@ else
                      Elevation="0"
                      Outlined="false">
                 <MudCardContent Class="pa-0">
-                    <MudText>
-                        Net Savings: @FinancialReportManager.NetSavings.Amount.ToString("C")
-                    </MudText>
-                    <MudText>
-                        Savings Rate: @FinancialReportManager.NetSavings.Percentage.ToString("P")
-                    </MudText>
-                    <MudText Typo="Typo.h4">
-                        @GetCurrentYear() Average Monthly Totals
-                    </MudText>
+                    <FinancialReportMiscStatisticsCarouselComponent/>
                     <FinancialReportAveragesTableComponent/>
                 </MudCardContent>
             </MudCard>

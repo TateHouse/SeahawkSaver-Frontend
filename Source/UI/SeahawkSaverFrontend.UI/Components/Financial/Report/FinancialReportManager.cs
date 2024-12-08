@@ -22,10 +22,11 @@ public sealed class FinancialReportManager
 	private readonly IFinancialModelCache<SubscriptionModel> subscriptionModelCache;
 
 	public event Action? OnStateChanged;
-	public IEnumerable<FinancialModelMonthTotal> FinancialModelCurrentYearMonthTotals { get; private set; }
 	public IEnumerable<FinancialModelTotal> FinancialModelOverallTotals { get; private set; }
+	public IEnumerable<FinancialModelMonthTotal> FinancialModelCurrentYearMonthTotals { get; private set; }
 	public AverageFinancialModelsPerMonth AverageFinancialModelsPerMonth { get; private set; }
 	public NetSavings NetSavings { get; private set; }
+	public CashFlowFilteredFinancialModelMonthTotals CashFlowFilteredFinancialModelMonthTotals { get; private set; }
 
 	/**
 	 * <summary>
@@ -39,7 +40,6 @@ public sealed class FinancialReportManager
 	 * <param name="subscriptionModelCache">The subscription cache to use.</param>
 	 */
 	public FinancialReportManager(IUseCaseFactory useCaseFactory,
-								  AverageFinancialModelsPerMonthBuilder averageFinancialModelsPerMonthBuilder,
 								  IFinancialModelCache<DebtModel> debtModelCache,
 								  IFinancialModelCache<ExpenseModel> expenseModelCache,
 								  IFinancialModelCache<IncomeModel> incomeModelCache,
@@ -73,23 +73,11 @@ public sealed class FinancialReportManager
 	 */
 	public async Task GenerateAsync(DateRangeModel dateRangeModel)
 	{
-		await CalculateCurrentYearMonthTotalsAsync();
 		await CalculateOverallTotalsAsync(dateRangeModel);
+		await CalculateCurrentYearMonthTotalsAsync();
+		await GetCurrentYearMonthsByCashFlow(FinancialModelCurrentYearMonthTotals);
 		await CalculateAverageFinancialModelPerMonthAsync();
 		await CalculateNetSavingsAsync(dateRangeModel);
-	}
-
-	/**
-	 * <summary>
-	 * Asynchronously calculates and caches the total for each <see cref="FinancialModel"/> for each month for the past
-	 * year.
-	 * </summary>
-	 * <returns>A task that represents the asynchronous operation.</returns>
-	 */
-	private async Task CalculateCurrentYearMonthTotalsAsync()
-	{
-		var useCase = useCaseFactory.Create<CalculateCurrentYearMonthlyTotalsUseCase>();
-		FinancialModelCurrentYearMonthTotals = await useCase.ExecuteAsync(null);
 	}
 
 	/**
@@ -113,6 +101,56 @@ public sealed class FinancialReportManager
 		};
 
 		return Task.CompletedTask;
+	}
+
+	/**
+	 * <summary>
+	 * Asynchronously calculates and caches the total for each <see cref="FinancialModel"/> for each month for the past
+	 * year.
+	 * </summary>
+	 * <returns>A task that represents the asynchronous operation.</returns>
+	 */
+	private async Task CalculateCurrentYearMonthTotalsAsync()
+	{
+		var useCase = useCaseFactory.Create<CalculateCurrentYearMonthlyTotalsUseCase>();
+		FinancialModelCurrentYearMonthTotals = await useCase.ExecuteAsync(null);
+	}
+
+	/**
+	 * <summary>
+	 * Asynchronously gets and caches the months in the current year for each type of cash flow.
+	 * </summary>
+	 * <param name="financialModelMonthTotals">The financial model month totals for the current year.</param>
+	 * <returns>A task that represents the asynchronous operation.</returns>
+	 */
+	private async Task GetCurrentYearMonthsByCashFlow(IEnumerable<FinancialModelMonthTotal> financialModelMonthTotals)
+	{
+		var modelMonthTotals = financialModelMonthTotals.ToList();
+		List<FinancialModelMonthTotal> monthsBreakingEven = null!;
+		List<FinancialModelMonthTotal> monthsInTheBlack = null!;
+		List<FinancialModelMonthTotal> monthsInTheRed = null!;
+
+		{
+			var useCase = useCaseFactory.Create<FilterCurrentYearMonthsByBreakingEven>();
+			monthsBreakingEven = (await useCase.ExecuteAsync(modelMonthTotals)).ToList();
+		}
+
+		{
+			var useCase = useCaseFactory.Create<FilterCurrentYearMonthsByInTheBlackUseCase>();
+			monthsInTheBlack = (await useCase.ExecuteAsync(modelMonthTotals)).ToList();
+		}
+
+		{
+			var useCase = useCaseFactory.Create<FilterCurrentYearMonthsByInTheRedUseCase>();
+			monthsInTheRed = (await useCase.ExecuteAsync(modelMonthTotals)).ToList();
+		}
+
+		CashFlowFilteredFinancialModelMonthTotals = new CashFlowFilteredFinancialModelMonthTotals
+		{
+			MonthsBreakingEvent = monthsBreakingEven,
+			MonthsInTheBlack = monthsInTheBlack,
+			MonthsInTheRed = monthsInTheRed
+		};
 	}
 
 	/**
