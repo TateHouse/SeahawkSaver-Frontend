@@ -21,6 +21,7 @@ public sealed class FinancialReportManager
 	private readonly IFinancialModelCache<SavingModel> savingModelCache;
 	private readonly IFinancialModelCache<SubscriptionModel> subscriptionModelCache;
 
+	public event Action? OnStateChanged;
 	public IEnumerable<FinancialModelMonthTotal> FinancialModelCurrentYearMonthTotals { get; private set; }
 	public IEnumerable<FinancialModelTotal> FinancialModelOverallTotals { get; private set; }
 	public AverageFinancialModelsPerMonth AverageFinancialModelsPerMonth { get; private set; }
@@ -51,6 +52,16 @@ public sealed class FinancialReportManager
 		this.incomeModelCache = incomeModelCache;
 		this.savingModelCache = savingModelCache;
 		this.subscriptionModelCache = subscriptionModelCache;
+	}
+
+	/**
+	 * <summary>
+	 * Notifies all subscribers of the <see cref="OnStateChanged"/> event.
+	 * </summary>
+	 */
+	public void NotifyStateChanged()
+	{
+		OnStateChanged?.Invoke();
 	}
 
 	/**
@@ -113,11 +124,11 @@ public sealed class FinancialReportManager
 	{
 		var builder = new AverageFinancialModelsPerMonthBuilder(useCaseFactory, FinancialModelCurrentYearMonthTotals);
 		AverageFinancialModelsPerMonth = builder.WithAverageDebt()
-											   .WithAverageExpense()
-											   .WithAverageIncome()
-											   .WithAverageSaving()
-											   .WithAverageSubscription()
-											   .Build();
+												.WithAverageExpense()
+												.WithAverageIncome()
+												.WithAverageSaving()
+												.WithAverageSubscription()
+												.Build();
 	}
 
 	/**

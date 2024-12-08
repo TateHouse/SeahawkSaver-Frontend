@@ -4,7 +4,6 @@ namespace SeahawkSaverFrontend.UI.Components.Layouts;
 using MudBlazor;
 using SeahawkSaverFrontend.Application.Features.UseCases.User.Logout;
 using SeahawkSaverFrontend.UI.Components.Financial.Report;
-using SeahawkSaverFrontend.UI.Components.Financial.Report.DTOs;
 using SeahawkSaverFrontend.UI.Components.User.Manage;
 
 public partial class NavigationBar : ComponentBase, IDisposable
@@ -61,6 +60,7 @@ public partial class NavigationBar : ComponentBase, IDisposable
 		if (!dialogResult.Canceled && dialogResult.Data is true)
 		{
 			NavigationManager.NavigateTo("/financial-report");
+			FinancialReportManager.NotifyStateChanged();
 		}
 	}
 
