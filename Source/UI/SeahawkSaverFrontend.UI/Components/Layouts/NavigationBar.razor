@@ -1,0 +1,65 @@
+﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
+@using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@using SeahawkSaverFrontend.UI.Components.Financial.Report
+@inject NavigationManager NavigationManager
+@inject IDialogService DialogService
+@inject IAuthenticationCache AuthenticationCache
+@inject IUserCache UserCache
+@inject IUseCaseFactory UseCaseFactory
+@inject FinancialReportManager FinancialReportManager
+
+<MudAppBar Elevation="0">
+    <MudToolBar Gutters="false"
+                Style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+        <div Style="display: flex; align-items: center; gap: 1rem;">
+            <MudText Style="font-size: 2em; font-weight: bold"
+                     Typo="Typo.body1">
+                Seahawk Saver
+            </MudText>
+
+            @if (AuthenticationCache.IsAuthenticated())
+            {
+                <MudList T="string">
+                    <MudButton Color="Color.Inherit"
+                               OnClick="OnClick_Home">
+                        Home
+                    </MudButton>
+                    <MudButton Color="Color.Inherit"
+                               OnClick="OnClick_Resources">
+                        Resources
+                    </MudButton>
+
+                    @if (!UserCache.User.IsAdmin)
+                    {
+                        <MudButton Color="Color.Inherit"
+                                   OnClick="OnClick_FinancialReportAsync">
+                            Financial Report
+                        </MudButton>
+                    }
+                </MudList>
+            }
+        </div>
+
+        @if (AuthenticationCache.IsAuthenticated())
+        {
+            <MudMenu>
+                <ActivatorContent>
+                    <MudAvatar Class="cursor-pointer mud-ripple"
+                               Color="Color.Secondary">
+                        @userProfileCharacter
+                    </MudAvatar>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudMenuItem Class="cursor-pointer mud-ripple"
+                                 @onclick="OnClick_ProfileAsync">
+                        Profile
+                    </MudMenuItem>
+                    <MudMenuItem Class="cursor-pointer mud-ripple"
+                                 @onclick="OnClick_Logout">
+                        Logout
+                    </MudMenuItem>
+                </ChildContent>
+            </MudMenu>
+        }
+    </MudToolBar>
+</MudAppBar>

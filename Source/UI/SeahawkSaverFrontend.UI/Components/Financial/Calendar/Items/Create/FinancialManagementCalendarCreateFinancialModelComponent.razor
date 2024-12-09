@@ -1,0 +1,71 @@
+﻿@using SeahawkSaverFrontend.Domain.Models.Financial
+@using SeahawkSaverFrontend.UI.Components.Utilities
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<MudDialog TitleClass="mud-theme-secondary">
+    <TitleContent>
+        Create
+    </TitleContent>
+    <DialogContent>
+        <MudSelect @bind-Value="financialModelType"
+                   Clearable="true"
+                   Label="Financial Model Type"
+                   Placeholder="Select Type"
+                   Required="true"
+                   Variant="Variant.Outlined">
+            @foreach (FinancialModelType modelType in Enum.GetValues(typeof(FinancialModelType)))
+            {
+                <MudSelectItem T="FinancialModelType?"
+                               Value="@modelType">
+                    @modelType
+                </MudSelectItem>
+            }
+        </MudSelect>
+
+        @if (financialModelType != null)
+        {
+            switch (financialModelType)
+            {
+                case FinancialModelType.Debt:
+                    <FinancialManagementCalendarCreateDebtModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+
+                case FinancialModelType.Expense:
+                    <FinancialManagementCalendarCreateExpenseModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+
+                case FinancialModelType.Income:
+                    <FinancialManagementCalendarCreateIncomeModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+
+                case FinancialModelType.Saving:
+                    <FinancialManagementCalendarCreateSavingModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+
+                case FinancialModelType.Subscription:
+                    <FinancialManagementCalendarCreateSubscriptionModelComponent DateTime="DateTime" @ref="financialModelComponent"/>
+
+                    break;
+            }
+        }
+
+        <SectionDividerComponent/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_CreateAsync"
+                   Variant="Variant.Filled">
+            Create
+        </MudButton>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Cancel"
+                   Variant="Variant.Filled">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>

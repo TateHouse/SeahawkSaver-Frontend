@@ -1,0 +1,69 @@
+﻿@page "/financial-report"
+@using SeahawkSaverFrontend.Application.Abstractions.Caching
+@using SeahawkSaverFrontend.UI.Components.Utilities
+@inject IDialogService DialogService
+@inject NavigationManager NavigationManager
+@inject IAuthenticationCache AuthenticationCache
+@inject FinancialReportManager FinancialReportManager
+
+<PageTitle>Seahawk Saver | Financial Report</PageTitle>
+
+@if (!AuthenticationCache.IsAuthenticated())
+{
+    NavigationManager.NavigateTo("/login");
+}
+else
+{
+    <MudPaper Class="pa-10"
+              Elevation="0"
+              Style="height: 100%;">
+        <MudGrid Class="pb-10">
+            <MudItem xs="12">
+                <SectionHeaderComponent Typo="Typo.h3">
+                    Financial Report
+                </SectionHeaderComponent>
+            </MudItem>
+            <MudItem xs="12">
+                <MudPaper Elevation="4">
+                    <FinancialReportMiscStatisticsCarouselComponent CurrentYear="@GetCurrentYear()"/>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
+                    @FinancialReportManager.FinancialReportDateRange.Start.ToString("MM/dd/yyyy") - @FinancialReportManager.FinancialReportDateRange.End.ToString("MM/dd/yyyy")
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
+                    <FinancialReportTotalsTableComponent/>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
+                    @GetCurrentYear() Monthly Averages
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
+                    <FinancialReportAveragesTableComponent/>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
+                    @FinancialReportManager.FinancialReportDateRange.Start.ToString("MM/dd/yyyy") - @FinancialReportManager.FinancialReportDateRange.End.ToString("MM/dd/yyyy")
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
+                    <FinancialReportTotalsPieChartComponent/>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <SectionHeaderComponent Typo="Typo.h4">
+                    @GetCurrentYear() Monthly Totals
+                </SectionHeaderComponent>
+                <MudPaper Class="mt-4"
+                          Elevation="4">
+                    <FinancialReportCurrentYearMonthTotalsLineChartComponent/>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudPaper>
+}

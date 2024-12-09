@@ -1,0 +1,36 @@
+﻿@using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@using SeahawkSaverFrontend.UI.Components.Utilities
+@inject IDialogService DialogService
+@inject IUseCaseFactory UseCaseFactory
+
+<MudContainer Class="pa-6"
+              MaxWidth="MaxWidth.Medium">
+    <SectionHeaderComponent Align="Align.Center"
+                            Typo="Typo.h3">
+        Users
+    </SectionHeaderComponent>
+    <MudPaper Class="my-4 pa-10"
+              Elevation="2"
+              Outlined="false">
+        <MudStack>
+            @foreach (var userModel in userModels)
+            {
+                <MudCard Outlined="true"
+                         Style="display: flex; flex-direction: row;">
+                    <MudCardContent>
+                        <MudText Typo="Typo.h6">
+                            @userModel.FirstName @userModel.LastName
+                        </MudText>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Color="Color.Primary"
+                                   OnClick="async () => await OnClick_EditAsync(userModel)"
+                                   Variant="Variant.Filled">
+                            Edit
+                        </MudButton>
+                    </MudCardActions>
+                </MudCard>
+            }
+        </MudStack>
+    </MudPaper>
+</MudContainer>

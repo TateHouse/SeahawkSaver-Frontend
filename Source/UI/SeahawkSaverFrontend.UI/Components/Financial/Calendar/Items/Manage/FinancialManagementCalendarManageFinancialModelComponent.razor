@@ -1,0 +1,63 @@
+﻿@using SeahawkSaverFrontend.Domain.Models.Financial
+@using SeahawkSaverFrontend.UI.Components.Utilities
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+
+<MudDialog TitleClass="mud-theme-secondary">
+    <TitleContent>
+        Manage
+    </TitleContent>
+    <DialogContent>
+        @switch (FinancialModelType)
+        {
+            case FinancialModelType.Debt:
+                <FinancialManagementCalendarManageDebtModelComponent DebtModel="(DebtModel)FinancialModel"
+                                                                     @ref="financialModelComponent"/>
+
+                break;
+
+            case FinancialModelType.Expense:
+                <FinancialManagementCalendarManageExpenseModelComponent ExpenseModel="(ExpenseModel)FinancialModel"
+                                                                        @ref="financialModelComponent"/>
+
+                break;
+
+            case FinancialModelType.Income:
+                <FinancialManagementCalendarManageIncomeModelComponent IncomeModel="(IncomeModel)FinancialModel"
+                                                                       @ref="financialModelComponent"/>
+
+                break;
+
+            case FinancialModelType.Saving:
+                <FinancialManagementCalendarManageSavingModelComponent SavingModel="(SavingModel)FinancialModel"
+                                                                       @ref="financialModelComponent"/>
+
+                break;
+
+            case FinancialModelType.Subscription:
+                <FinancialManagementCalendarManageSubscriptionModelComponent
+                    SubscriptionModel="(SubscriptionModel)FinancialModel" @ref="financialModelComponent"/>
+
+                break;
+        }
+
+        <SectionDividerComponent/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_UpdateAsync"
+                   Variant="Variant.Filled">
+            Update
+        </MudButton>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_DeleteAsync"
+                   Variant="Variant.Filled">
+            Delete
+        </MudButton>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Cancel"
+                   Variant="Variant.Filled">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>

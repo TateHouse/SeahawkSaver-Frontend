@@ -1,0 +1,20 @@
+﻿@inject FinancialReportManager FinancialReportManager
+
+<MudTable Items="@financialModelMonthlyAverages">
+    <HeaderContent>
+        <MudTh Class="mud-theme-secondary">
+            Type
+        </MudTh>
+        <MudTh Class="mud-theme-secondary">
+            Monthly Average
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Type">
+            @context.Type
+        </MudTd>
+        <MudTd DataLabel="Monthly Average">
+            @context.MonthlyAverage.ToString("C")
+        </MudTd>
+    </RowTemplate>
+</MudTable>

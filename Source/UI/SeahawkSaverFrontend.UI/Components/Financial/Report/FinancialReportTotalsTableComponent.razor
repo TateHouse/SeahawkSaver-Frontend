@@ -1,0 +1,38 @@
+﻿@inject FinancialReportManager FinancialReportManager
+
+<MudTable Items="@FinancialReportManager.FinancialModelOverallTotals">
+    <HeaderContent>
+        <MudTh Class="mud-theme-secondary">
+            Type
+        </MudTh>
+        <MudTh Class="mud-theme-secondary">
+            Count
+        </MudTh>
+        <MudTh Class="mud-theme-secondary">
+            Total Amount
+        </MudTh>
+        <MudTh Class="mud-theme-secondary">
+            Smallest Amount
+        </MudTh>
+        <MudTh Class="mud-theme-secondary">
+            Largest Amount
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Type">
+            @context.Type
+        </MudTd>
+        <MudTd DataLabel="Count">
+            @context.Count
+        </MudTd>
+        <MudTd DataLabel="Total Amount">
+            @context.Amount.ToString("C")
+        </MudTd>
+        <MudTd DataLabel="Smallest Amount">
+            @context.SmallestAmount.ToString("C")
+        </MudTd>
+        <MudTd DataLabel="Largest Amount">
+            @context.LargestAmount.ToString("C")
+        </MudTd>
+    </RowTemplate>
+</MudTable>

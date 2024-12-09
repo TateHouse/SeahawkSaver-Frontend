@@ -1,0 +1,16 @@
+﻿@using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@inject ISnackbar Snackbar
+@inject IUseCaseFactory UseCaseFactory
+
+<MudNumericField Adornment="Adornment.Start"
+                 AdornmentIcon="@Icons.Material.Filled.AttachMoney"
+                 @bind-Value="SavingModel.Amount"
+                 Error="@propertyValidationStatuses[nameof(SavingModel.Amount)]"
+                 Label="Amount"
+                 T="decimal"
+                 Variant="Variant.Outlined"/>
+
+<MudDatePicker @bind-Date="SavingModel.DateTime"
+               Error="@propertyValidationStatuses[nameof(SavingModel.DateTime)]"
+               Label="Date"
+               Variant="Variant.Outlined"/>

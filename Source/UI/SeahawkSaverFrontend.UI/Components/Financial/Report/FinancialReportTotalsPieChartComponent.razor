@@ -1,0 +1,9 @@
+﻿@inject FinancialReportManager FinancialReportManager
+
+<MudChart ChartType="ChartType.Pie"
+          Class="mx-auto my-auto pb-10"
+          InputData="@GetChartData()"
+          InputLabels="@chartLabels"
+          LegendPosition="Position.Left"
+          Style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;"
+          Width="42%"/>

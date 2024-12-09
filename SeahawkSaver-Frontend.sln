@@ -2,7 +2,15 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{A3747BCB-730A-4949-8A20-83156369DACE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeahawkSaverFrontend.UI", "Source\SeahawkSaverFrontend.UI\SeahawkSaverFrontend.UI.csproj", "{8645D800-B46D-43AD-8FB3-E505965A016E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeahawkSaverFrontend.UI", "Source\UI\SeahawkSaverFrontend.UI\SeahawkSaverFrontend.UI.csproj", "{08248423-8BDA-4ED1-9984-44D616A31A0D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{687042D3-852E-4B3C-8176-512DA45CB4B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{075CD56B-5AB1-4E1A-B165-CEDEB6913383}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeahawkSaverFrontend.Application", "Source\Core\SeahawkSaverFrontend.Application\SeahawkSaverFrontend.Application.csproj", "{976C6251-4CBD-4A0E-9C87-264E851649DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeahawkSaverFrontend.Domain", "Source\Core\SeahawkSaverFrontend.Domain\SeahawkSaverFrontend.Domain.csproj", "{21993384-754B-4D85-9C28-A20A6AC02A2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,12 +18,24 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{8645D800-B46D-43AD-8FB3-E505965A016E} = {A3747BCB-730A-4949-8A20-83156369DACE}
+		{687042D3-852E-4B3C-8176-512DA45CB4B2} = {A3747BCB-730A-4949-8A20-83156369DACE}
+		{08248423-8BDA-4ED1-9984-44D616A31A0D} = {687042D3-852E-4B3C-8176-512DA45CB4B2}
+		{075CD56B-5AB1-4E1A-B165-CEDEB6913383} = {A3747BCB-730A-4949-8A20-83156369DACE}
+		{976C6251-4CBD-4A0E-9C87-264E851649DB} = {075CD56B-5AB1-4E1A-B165-CEDEB6913383}
+		{21993384-754B-4D85-9C28-A20A6AC02A2E} = {075CD56B-5AB1-4E1A-B165-CEDEB6913383}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8645D800-B46D-43AD-8FB3-E505965A016E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8645D800-B46D-43AD-8FB3-E505965A016E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8645D800-B46D-43AD-8FB3-E505965A016E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8645D800-B46D-43AD-8FB3-E505965A016E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08248423-8BDA-4ED1-9984-44D616A31A0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08248423-8BDA-4ED1-9984-44D616A31A0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08248423-8BDA-4ED1-9984-44D616A31A0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08248423-8BDA-4ED1-9984-44D616A31A0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{976C6251-4CBD-4A0E-9C87-264E851649DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{976C6251-4CBD-4A0E-9C87-264E851649DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{976C6251-4CBD-4A0E-9C87-264E851649DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{976C6251-4CBD-4A0E-9C87-264E851649DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21993384-754B-4D85-9C28-A20A6AC02A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21993384-754B-4D85-9C28-A20A6AC02A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21993384-754B-4D85-9C28-A20A6AC02A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21993384-754B-4D85-9C28-A20A6AC02A2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

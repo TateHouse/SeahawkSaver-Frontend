@@ -1,0 +1,26 @@
+﻿@page "/"
+@using SeahawkSaverFrontend.Application.Abstractions.Caching
+@using SeahawkSaverFrontend.UI.Components.Financial.Calendar
+@using SeahawkSaverFrontend.UI.Components.User.Manage
+
+@inject NavigationManager NavigationManager
+@inject IAuthenticationCache AuthenticationCache
+@inject IUserCache UserCache
+
+<PageTitle>Seahawk Saver | Home</PageTitle>
+
+@if (!AuthenticationCache.IsAuthenticated())
+{
+    NavigationManager.NavigateTo("/login");
+}
+else
+{
+    @if (UserCache.User.IsAdmin)
+    {
+        <ManageUserModelsComponent/>
+    }
+    else
+    {
+        <FinancialManagementCalendarComponent/>
+    }
+}

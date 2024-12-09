@@ -1,0 +1,61 @@
+﻿@using SeahawkSaverFrontend.Application.Abstractions.Caching
+@using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@using SeahawkSaverFrontend.UI.Components.Utilities
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject IUserCache UserCache
+@inject IUseCaseFactory UseCaseFactory
+
+<MudDialog TitleClass="mud-theme-secondary">
+    <TitleContent>
+        Manage Profile
+    </TitleContent>
+    <DialogContent>
+        <MudForm @ref="form"
+                 Style="">
+            <MudTextField @bind-Value="UserModel.FirstName"
+                          InputType="InputType.Text"
+                          Label="First Name"
+                          Required="true"
+                          RequiredError="First name is required."
+                          T="string"
+                          Variant="Variant.Outlined"/>
+            <MudTextField @bind-Value="UserModel.LastName"
+                          InputType="InputType.Text"
+                          Label="Last Name"
+                          Required="true"
+                          RequiredError="Last name is required."
+                          T="string"
+                          Variant="Variant.Outlined"/>
+            <MudTextField @bind-Value="UserModel.Email"
+                          InputType="InputType.Email"
+                          Label="Email"
+                          Required="true"
+                          RequiredError="Email is required."
+                          T="string"
+                          Variant="Variant.Outlined"/>
+
+            @if (UserCache.User.IsAdmin && AllowIsActiveModification)
+            {
+                <MudCheckBox @bind-Value="UserModel.IsActive"
+                             Color="Color.Tertiary"
+                             Label="Is Active"
+                             UncheckedColor="Color.Secondary"/>
+            }
+
+        </MudForm>
+        <SectionDividerComponent/>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_SaveAsync"
+                   Variant="Variant.Filled">
+            Save
+        </MudButton>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Cancel"
+                   Variant="Variant.Filled">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>

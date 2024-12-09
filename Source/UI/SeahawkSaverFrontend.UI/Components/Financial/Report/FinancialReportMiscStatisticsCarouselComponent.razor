@@ -1,0 +1,27 @@
+﻿@inject FinancialReportManager FinancialReportManager
+
+<MudCarousel AutoCycle="true"
+             AutoCycleTime="TimeSpan.FromSeconds(5)"
+             Class="mud-width-full my-4 pa-16"
+             ShowBullets="false"
+             Style=""
+             TData="object">
+    <FinancialReportMiscStatisticsCarouselItemComponent Color="Color.Secondary">
+        @FinancialReportManager.NetSavings.Amount.ToString("C") in Net Savings for @FinancialReportManager.FinancialReportDateRange.Start.ToString("MM/dd/yyyy") - @FinancialReportManager.FinancialReportDateRange.End.ToString("MM/dd/yyyy")
+    </FinancialReportMiscStatisticsCarouselItemComponent>
+    <FinancialReportMiscStatisticsCarouselItemComponent Color="Color.Tertiary">
+        @FinancialReportManager.NetSavings.Percentage.ToString("P1") Savings Rate for @FinancialReportManager.FinancialReportDateRange.Start.ToString("MM/dd/yyyy") - @FinancialReportManager.FinancialReportDateRange.End.ToString("MM/dd/yyyy")
+    </FinancialReportMiscStatisticsCarouselItemComponent>
+    <FinancialReportMiscStatisticsCarouselItemComponent Color="Color.Primary">
+        @FinancialReportManager.FinancialModelOverallTotals.Sum(total => total.Count) Financial Entries for @FinancialReportManager.FinancialReportDateRange.Start.ToString("MM/dd/yyyy") - @FinancialReportManager.FinancialReportDateRange.End.ToString("MM/dd/yyyy")
+    </FinancialReportMiscStatisticsCarouselItemComponent>
+    <FinancialReportMiscStatisticsCarouselItemComponent Color="Color.Secondary">
+        @FinancialReportManager.CashFlowFilteredFinancialModelMonthTotals.MonthsBreakingEvent.Count @GetMonthText(FinancialReportManager.CashFlowFilteredFinancialModelMonthTotals.MonthsBreakingEvent.Count, true) Breaking Even in @CurrentYear
+    </FinancialReportMiscStatisticsCarouselItemComponent>
+    <FinancialReportMiscStatisticsCarouselItemComponent Color="Color.Success">
+        @FinancialReportManager.CashFlowFilteredFinancialModelMonthTotals.MonthsInTheBlack.Count @GetMonthText(FinancialReportManager.CashFlowFilteredFinancialModelMonthTotals.MonthsInTheBlack.Count, true) in the Black in @CurrentYear
+    </FinancialReportMiscStatisticsCarouselItemComponent>
+    <FinancialReportMiscStatisticsCarouselItemComponent Color="Color.Error">
+        @FinancialReportManager.CashFlowFilteredFinancialModelMonthTotals.MonthsInTheRed.Count @GetMonthText(FinancialReportManager.CashFlowFilteredFinancialModelMonthTotals.MonthsInTheRed.Count, true) in the Red in @CurrentYear
+    </FinancialReportMiscStatisticsCarouselItemComponent>
+</MudCarousel>

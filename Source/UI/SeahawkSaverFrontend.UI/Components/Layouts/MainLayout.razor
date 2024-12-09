@@ -1,0 +1,13 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="mudTheme"/>
+<MudPopoverProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+<MudLayout>
+    <NavigationBar/>
+    <MudMainContent Style="height: 100vh;">
+        @Body
+    </MudMainContent>
+</MudLayout>

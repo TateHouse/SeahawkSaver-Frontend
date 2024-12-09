@@ -1,0 +1,55 @@
+﻿@using SeahawkSaverFrontend.Domain.Models.Financial
+@using SeahawkSaverFrontend.UI.Components.Utilities
+@inject IJSRuntime JSRuntime
+@inject IDialogService DialogService
+@inject ISnackbar Snackbar
+@inject FinancialModelCSVFormatterFacade CSVFormatterFacade
+
+<MudDialog TitleClass="mud-theme-secondary">
+    <TitleContent>
+        Download Data
+    </TitleContent>
+    <DialogContent>
+        <MudStack Class="pa-4">
+            <MudSelect @bind-SelectedValues="selectedFinancialModelTypes"
+                       Clearable="true"
+                       Label="Financial Model Types"
+                       Placeholder="Select Financial Model Types"
+                       MultiSelection="true"
+                       MultiSelectionTextFunc="@(new Func<List<string?>?, string>(GetMultiSelectionText))">
+                @foreach (FinancialModelType modelType in Enum.GetValues(typeof(FinancialModelType)))
+                {
+                    <MudSelectItem T="string"
+                                   Value="@modelType.ToString()">
+                        @modelType
+                    </MudSelectItem>
+                }
+            </MudSelect>
+            <MudDatePicker @bind-Date="start"
+                           Clearable="true"
+                           Label="Start Date"
+                           Variant="Variant.Outlined"/>
+            <MudDatePicker @bind-Date="end"
+                           Clearable="true"
+                           Label="End Date"
+                           Variant="Variant.Outlined"/>
+            <SectionDividerComponent/>
+            <MudText Align="Align.Center"
+                     Typo="Typo.body1">
+                The start and end dates are both optional and the data downloaded will reflect those choices.
+            </MudText>
+        </MudStack>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_DownloadAsync"
+                   Variant="Variant.Filled">
+            Download
+        </MudButton>
+        <MudButton Color="Color.Primary"
+                   OnClick="OnClick_Cancel"
+                   Variant="Variant.Filled">
+            Cancel
+        </MudButton>
+    </DialogActions>
+</MudDialog>

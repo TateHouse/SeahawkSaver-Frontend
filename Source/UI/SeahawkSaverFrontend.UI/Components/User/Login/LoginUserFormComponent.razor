@@ -1,0 +1,45 @@
+﻿@using SeahawkSaverFrontend.Application.Abstractions.UseCases
+@inject NavigationManager NavigationManager
+@inject ISnackbar Snackbar
+@inject IUseCaseFactory UseCaseFactory
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudPaper Elevation="0"
+              Outlined="false">
+        <MudForm @ref="form">
+            <MudTextField @bind-Value="userCredentialsModel.Email"
+                          Class="px-10"
+                          InputType="InputType.Email"
+                          Label="Email"
+                          Required="true"
+                          RequiredError="Email is required."
+                          T="string"
+                          Variant="Variant.Outlined"/>
+            <MudTextField Adornment="Adornment.End"
+                          AdornmentIcon="@passwordInputIcon"
+                          Class="px-10"
+                          OnAdornmentClick="TogglePasswordVisibility"
+                          @bind-Value="userCredentialsModel.Password"
+                          InputType="@passwordInputType"
+                          Label="Password"
+                          Required="true"
+                          RequiredError="Password is required."
+                          T="string"
+                          Variant="Variant.Outlined"/>
+            <MudButton Class="mt-20 mb-5"
+                       Color="Color.Primary"
+                       FullWidth="true"
+                       OnClick="async () => await OnClick_LoginAsync()"
+                       Variant="Variant.Filled">
+                Login
+            </MudButton>
+            <MudLink Class="mb-5 mx-auto"
+                     Color="Color.Dark"
+                     Href="/reset-password"
+                     Typo="Typo.body2"
+                     Underline="Underline.Always">
+                Forgot Password?
+            </MudLink>
+        </MudForm>
+    </MudPaper>
+</MudContainer>

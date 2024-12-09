@@ -1,0 +1,44 @@
+﻿@using SeahawkSaverFrontend.Application.Features.Caching.Financial
+@using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Items
+@using SeahawkSaverFrontend.UI.Components.Financial.Calendar.Legend
+@inject IDialogService DialogService
+@inject FinancialManagementCalendarItemManager FinancialManagementCalendarItemManager
+@inject InMemoryFinancialModelCacheManager FinancialModelCacheManager
+
+<MudPaper Class="pa-10"
+          Elevation="0"
+          Style="height: 100%;">
+    <MudCalendar @ref="calendar"
+                 CellClicked="OnCellClicked"
+                 DateRangeChanged="OnDateRangeChanged"
+                 ItemClicked="OnItemClicked"
+                 Items="FinancialManagementCalendarItemManager.CalendarItems"
+                 ShowDay="false"
+                 ShowWeek="false"
+                 ShowWorkWeek="false"
+                 ShowMonth="true"
+                 Style="height: 100%;">
+        <CellTemplate>
+            <div Style="display: flex; justify-content: center; align-items: center; ">
+                <div Class="rounded"
+                     Style="margin: 5px 0; padding: 5px; width: 90%; height: 100%; background-color: @(((FinancialModelCalendarItem)context).HexColor)">
+                    <MudText Align="Align.Center"
+                             Style="font-weight: bold;"
+                             Typo="Typo.body1">
+                        @context.Text
+                    </MudText>
+
+                </div>
+            </div>
+        </CellTemplate>
+        <ToolbarContent>
+            <MudButton Class="mr-4"
+                       Color="Color.Primary"
+                       OnClick="OnClick_DownloadDataAsync"
+                       Variant="Variant.Filled">
+                Download Data
+            </MudButton>
+            <FinancialModelCalendarItemBackgroundColorLegendComponent/>
+        </ToolbarContent>
+    </MudCalendar>
+</MudPaper>
